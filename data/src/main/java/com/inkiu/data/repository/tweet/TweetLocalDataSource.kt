@@ -10,7 +10,7 @@ class TweetLocalDataSource {
 
     fun updateTweets(tweets: List<TweetData>): Completable {
         return Completable.fromCallable {
-            tweets.forEach { cache[it.id.toLong()] = it }
+            tweets.forEach { cache[it.id] = it }
         }
     }
 

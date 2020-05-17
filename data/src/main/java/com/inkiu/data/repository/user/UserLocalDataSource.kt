@@ -11,7 +11,7 @@ class UserLocalDataSource {
 
     fun updateUsers(users: List<UserData>): Completable {
         return Completable.fromCallable {
-            users.forEach { cache[it.id.toLong()] = it }
+            users.forEach { cache[it.id] = it }
         }
     }
 

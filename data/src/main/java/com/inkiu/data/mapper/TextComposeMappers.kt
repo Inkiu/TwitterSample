@@ -22,7 +22,7 @@ class UserMentionDataToEntityMapper : Mapper<UserMention, UserMentionEntity> {
 
     override fun map(src: UserMention): UserMentionEntity {
         return UserMentionEntity(
-            id = src.id.toLong(),
+            id = src.id,
             name = src.name,
             screenName = src.screenName,
             textIndices = src.indices.subList(0, 2)

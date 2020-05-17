@@ -5,7 +5,7 @@ import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
 data class Media(
-    @Json(name = "id_str") val id: String = "",
+    @Json(name = "id") val id: Long = 0L,
     // ???
     @Json(name = "indices") val indices: List<Long> = emptyList(),
     // media url

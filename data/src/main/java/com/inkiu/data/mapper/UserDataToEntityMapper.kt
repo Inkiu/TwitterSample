@@ -9,7 +9,7 @@ class UserDataToEntityMapper(
 
     override fun map(src: UserData): DetailUserEntity {
         return DetailUserEntity(
-            id = src.id.toLong(),
+            id = src.id,
             name = src.name,
             displayName = src.screenName,
             profileImageUrl = src.profileImageUrl,

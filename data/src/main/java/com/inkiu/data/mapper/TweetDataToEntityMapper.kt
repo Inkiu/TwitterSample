@@ -17,13 +17,14 @@ class TweetDataToEntityMapper(
 ) : Mapper<TweetData, TweetEntity> {
 
     override fun map(src: TweetData): TweetEntity {
-        val isReTweetContained = src.reTweet.id == ""
+        val isReTweetContained = src.reTweet.id == 0L
         return if (isReTweetContained) createReTweet(src) else createSimpleTweet(src)
     }
 
     private fun createSimpleTweet(src: TweetData): SimpleTweetEntity {
         return SimpleTweetEntity(
-            userIndex = src.user.id.toLong(),
+            id = src.id,
+            userIndex = src.user.id,
             content = src.text,
             createdDate = dateMapper.map(src.created),
             place = src.place.fullName, // TODO - 언어
@@ -39,7 +40,8 @@ class TweetDataToEntityMapper(
 
     private fun createReTweet(src: TweetData): ReTweetEntity {
         return ReTweetEntity(
-            userIndex = src.user.id.toLong(),
+            id = src.id,
+            userIndex = src.user.id,
             content = src.text,
             createdDate = dateMapper.map(src.created),
             place = src.place.fullName, // TODO - 언어

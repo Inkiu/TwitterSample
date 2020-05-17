@@ -1,5 +1,6 @@
 package com.inkiu.data.mapper
 
+import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -9,6 +10,10 @@ class UTCStringToDateMapper : Mapper<String, Date> {
     private val formatter = SimpleDateFormat("EEE MMM dd HH:mm:ss Z yyyy", Locale.US)
 
     override fun map(src: String): Date {
-        return formatter.parse(src) ?: Date(0L)
+        return try {
+            formatter.parse(src) ?: Date()
+        } catch (e: ParseException) {
+            Date()
+        }
     }
 }

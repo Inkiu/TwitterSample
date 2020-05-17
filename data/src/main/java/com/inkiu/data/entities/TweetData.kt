@@ -9,7 +9,7 @@ import com.squareup.moshi.JsonClass
 @JsonClass(generateAdapter = true)
 data class TweetData(
     @Json(name = "created_at") val created: String = "",
-    @Json(name = "id_str") val id: String = "",
+    @Json(name = "id") val id: Long = 0L,
 
     @Json(name = "text") val text: String = "",
     @Json(name = "display_text_range") val displayTextRange: List<Int> = emptyList(),

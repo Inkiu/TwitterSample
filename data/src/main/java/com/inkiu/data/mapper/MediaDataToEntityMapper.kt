@@ -7,7 +7,7 @@ class MediaDataToEntityMapper : Mapper<Media, MediaEntity> {
 
     override fun map(src: Media): MediaEntity {
         return MediaEntity(
-            id = src.id.toLong(),
+            id = src.id,
             mediaUrl = src.url,
             type = getType(src.type)
         )
