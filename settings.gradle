@@ -1,2 +1,3 @@
 rootProject.name='TwitterSample'
-include ':app'
+include ':app', ':data'
+include ':domain'
