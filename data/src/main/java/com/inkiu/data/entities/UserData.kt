@@ -15,10 +15,10 @@ data class UserData(
 
     @Json(name = "description") val description: String = "",
     @Json(name = "verified") val verified: Boolean = false,
-    @Json(name = "followers_count") val followerCount: Long = 0L,
-    @Json(name = "friends_count") val friendCount: Long = 0L,
-    @Json(name = "favourites_count") val favoriteCount: Long = 0L,
-    @Json(name = "statuses_count") val statusCount: Long = 0L,
+    @Json(name = "followers_count") val followerCount: Int = 0,
+    @Json(name = "friends_count") val friendCount: Int = 0,
+    @Json(name = "favourites_count") val favoriteCount: Int = 0,
+    @Json(name = "statuses_count") val statusCount: Int = 0,
     @Json(name = "created_at") val createTime: String = "",
 
     @Json(name = "profile_banner_url") val profileBannerUrl: String = "",

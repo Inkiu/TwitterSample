@@ -27,13 +27,13 @@ data class UserMention(
     @Json(name = "name") val name: String = "",
     @Json(name = "screen_name") val screenName: String = "",
     @Json(name = "id_str") val id: String = "",
-    @Json(name = "indices") val indices: List<Long> = emptyList()
+    @Json(name = "indices") val indices: List<Int> = emptyList()
 )
 
 @JsonClass(generateAdapter = true)
 data class Symbol(
     @Json(name = "text") val text: String = "",
-    @Json(name = "indices") val indices: List<Long> = emptyList()
+    @Json(name = "indices") val indices: List<Int> = emptyList()
 )
 
 @JsonClass(generateAdapter = true)
