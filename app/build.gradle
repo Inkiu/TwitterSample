@@ -2,6 +2,9 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
+def twitterProperties = new Properties()
+twitterProperties.load(new FileInputStream(rootProject.file("twitter.properties")))
+
 android {
     compileSdkVersion 29
     buildToolsVersion "29.0.3"
@@ -12,6 +15,9 @@ android {
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"
+
+        buildConfigField("String", "CONSUMER_KEY", twitterProperties['CONSUMER_KEY'])
+        buildConfigField("String", "CONSUMER_SECRET", twitterProperties['CONSUMER_SECRET'])
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
