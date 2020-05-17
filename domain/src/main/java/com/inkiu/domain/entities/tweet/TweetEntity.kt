@@ -3,7 +3,7 @@ package com.inkiu.domain.entities.tweet
 import java.util.*
 
 sealed class TweetEntity(
-    open val userIndex: Int,
+    open val userIndex: Long,
     open val content: String,
     open val createdDate: Date,
     open val place: String,
@@ -17,7 +17,7 @@ sealed class TweetEntity(
 )
 
 data class SimpleTweetEntity(
-    override val userIndex: Int,
+    override val userIndex: Long,
     override val content: String,
     override val createdDate: Date,
     override val place: String,
@@ -41,7 +41,7 @@ data class SimpleTweetEntity(
 )
 
 data class ReTweetEntity(
-    override val userIndex: Int,
+    override val userIndex: Long,
     override val content: String,
     override val createdDate: Date,
     override val place: String,
