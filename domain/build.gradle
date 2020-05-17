@@ -3,7 +3,19 @@ apply plugin: 'kotlin'
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+
+    // Kotlin
+    implementation rootProject.ext.kotlin_base
+
+    // Rx
+    implementation rootProject.ext.rx_java
+    implementation rootProject.ext.rx_kotlin
+    implementation rootProject.ext.rx_android
+
+    // Tests
+    testImplementation rootProject.ext.junit
+    testImplementation rootProject.ext.mockito
+    testImplementation rootProject.ext.hamcrest
 }
 
 sourceCompatibility = "7"
