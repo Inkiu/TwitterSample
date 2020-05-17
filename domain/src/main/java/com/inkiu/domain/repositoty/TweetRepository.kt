@@ -7,8 +7,8 @@ interface TweetRepository {
 
     fun getTweet(id: Long): Single<TweetEntity>
 
-    fun getHomeTweets(): Single<List<TweetEntity>>
+    fun getHomeTweets(startIndex: Long, count: Int): Single<List<TweetEntity>>
 
-    fun getUserTweets(userIndex: Long): Single<List<TweetEntity>>
+    fun getUserTweets(userIndex: Long, startIndex: Long, count: Int): Single<List<TweetEntity>>
 
 }
