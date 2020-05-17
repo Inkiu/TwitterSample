@@ -42,8 +42,9 @@ class TestTwitterApi(
                 )
             ).fromJson(json) ?: emptyList()
 
-            val start = Random.nextInt(dataList.count() - count)
-            dataList.subList(start, count)
+            val range = dataList.count() - count
+            val start = if (range == 0) 0 else Random.nextInt(0, dataList.count() - count)
+            dataList.subList(start, start + count)
         }
     }
 
