@@ -5,7 +5,7 @@ sealed class TextComposeEntity(
     open val textIndices: List<Int>
 )
 
-data class Symbol(
+data class SymbolEntity(
     override val text: String,
     override val textIndices: List<Int>
 ) : TextComposeEntity(text, textIndices)
