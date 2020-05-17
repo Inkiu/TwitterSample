@@ -27,3 +27,4 @@ proguard/
 
 # private info
 twitter.properties
+**/test_data*

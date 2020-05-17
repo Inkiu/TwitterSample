@@ -60,7 +60,7 @@ class TwitterApiImpl(
 
     override fun getHomeTweets(
         count: Int,
-        fromTweetIndex: Long = -1L
+        fromTweetIndex: Long
     ): Single<List<TweetData>> {
         return api.getHomeTweets(
             count,
@@ -71,7 +71,7 @@ class TwitterApiImpl(
     override fun getUserTweets(
         userIndex: Long,
         count: Int,
-        fromTweetIndex: Long = -1L
+        fromTweetIndex: Long
     ): Single<List<TweetData>> {
         return api.getUserTweets(
             userIndex,
