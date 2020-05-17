@@ -21,7 +21,12 @@ data class TweetData(
 
     @Json(name = "quoted_status") val _reTweet: TweetData? = null,
 
-    @Json(name = "place") val _place: Place? = null
+    @Json(name = "place") val _place: Place? = null,
+
+    @Json(name = "retweet_count") val reTweetCount: Int = 0,
+    @Json(name = "favorite_count") val favoriteCount: Int = 0,
+    @Json(name = "favorited") val favorited: Boolean = false,
+    @Json(name = "retweeted") val reTweeted: Boolean = false
 ) {
     val place: Place
         get() = _place ?: Place()
