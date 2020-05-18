@@ -8,6 +8,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.inkiu.twittersample.R
 import com.inkiu.twittersample.ui.base.BaseActivity
 import com.inkiu.twittersample.ui.base.BaseViewModel
+import com.inkiu.twittersample.ui.home.HomeActivity
 import com.twitter.sdk.android.core.Callback
 import com.twitter.sdk.android.core.Result
 import com.twitter.sdk.android.core.TwitterException
@@ -51,10 +52,21 @@ class LoginActivity : BaseActivity() {
     private fun observe() {
         viewModel.viewStateData.observe(this, Observer {
             when (it.loginState) {
-                LoginState.LOGIN_SUCCESS -> toast("success")
+                LoginState.LOGIN_SUCCESS -> navigateHomeActivity()
                 LoginState.LOGIN_FAILED -> toast("failed")
             }
         })
+    }
+
+    private fun navigateHomeActivity() {
+        // TODO - finish? or flag and transition
+//        startActivity(
+//            HomeActivity.newIntent(this).apply {
+//                flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+//            }
+//        )
+        startActivity(HomeActivity.newIntent(this))
+        finish()
     }
 
     private fun loginTwitter() {
