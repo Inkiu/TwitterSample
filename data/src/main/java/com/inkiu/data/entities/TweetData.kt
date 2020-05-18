@@ -2,7 +2,7 @@ package com.inkiu.data.entities
 
 import com.inkiu.data.entities.entities.TweetEntities
 import com.inkiu.data.entities.entities.TweetExtendedEntities
-import com.inkiu.data.entities.entities.common.Place
+import com.inkiu.data.entities.entities.common.PlaceData
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 
@@ -21,15 +21,15 @@ data class TweetData(
 
     @Json(name = "quoted_status") val _reTweet: TweetData? = null,
 
-    @Json(name = "place") val _place: Place? = null,
+    @Json(name = "place") val _place: PlaceData? = null,
 
     @Json(name = "retweet_count") val reTweetCount: Int = 0,
     @Json(name = "favorite_count") val favoriteCount: Int = 0,
     @Json(name = "favorited") val favorited: Boolean = false,
     @Json(name = "retweeted") val reTweeted: Boolean = false
 ) {
-    val place: Place
-        get() = _place ?: Place()
+    val place: PlaceData
+        get() = _place ?: PlaceData()
 
     val reTweet: TweetData
         get() = _reTweet ?: TweetData()

@@ -4,7 +4,7 @@ import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
-data class Media(
+data class MediaData(
     @Json(name = "id") val id: Long = 0L,
     // ???
     @Json(name = "indices") val indices: List<Long> = emptyList(),
@@ -13,5 +13,5 @@ data class Media(
     // media type - animated_gif, photo, video
     @Json(name = "type") val type: String = "",
     // media size
-    @Json(name = "sizes") val sizes: Sizes = Sizes()
+    @Json(name = "sizes") val sizes: SizesData = SizesData()
 )

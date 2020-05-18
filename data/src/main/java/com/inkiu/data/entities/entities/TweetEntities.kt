@@ -1,6 +1,6 @@
 package com.inkiu.data.entities.entities
 
-import com.inkiu.data.entities.entities.common.Media
+import com.inkiu.data.entities.entities.common.MediaData
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 
@@ -13,7 +13,7 @@ data class TweetEntities(
 
 @JsonClass(generateAdapter = true)
 data class TweetExtendedEntities(
-    @Json(name = "media") val medias: List<Media> = emptyList()
+    @Json(name = "media") val medias: List<MediaData> = emptyList()
 )
 
 @JsonClass(generateAdapter = true)

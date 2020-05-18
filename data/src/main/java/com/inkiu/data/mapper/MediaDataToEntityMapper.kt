@@ -1,15 +1,15 @@
 package com.inkiu.data.mapper
 
-import com.inkiu.data.entities.entities.common.Media
+import com.inkiu.data.entities.entities.common.MediaData
 import com.inkiu.domain.entities.tweet.MediaEntity
 import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
 class MediaDataToEntityMapper @Inject constructor()
-    : Mapper<Media, MediaEntity> {
+    : Mapper<MediaData, MediaEntity> {
 
-    override fun map(src: Media): MediaEntity {
+    override fun map(src: MediaData): MediaEntity {
         return MediaEntity(
             id = src.id,
             mediaUrl = src.url,

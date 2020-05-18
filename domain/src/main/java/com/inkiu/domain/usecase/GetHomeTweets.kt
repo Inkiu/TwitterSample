@@ -1,19 +1,19 @@
 package com.inkiu.domain.usecase
 
-import com.inkiu.domain.entities.TweetModel
+import com.inkiu.domain.entities.UserAndTweetEntity
 import com.inkiu.domain.repositoty.TweetRepository
 import com.inkiu.domain.repositoty.UserRepository
 
 class GetHomeTweets(
     private val userRepository: UserRepository,
     private val tweetRepository: TweetRepository
-) : SingleUseCase<GetHomeTweets.Param, List<TweetModel>> {
+) : SingleUseCase<GetHomeTweets.Param, List<UserAndTweetEntity>> {
 
-    override suspend fun execute(param: Param): List<TweetModel> {
+    override suspend fun execute(param: Param): List<UserAndTweetEntity> {
         val homeTweets = tweetRepository.getHomeTweets(param.startIndex, param.count)
         val users = userRepository.getUsers(homeTweets.map { it.userIndex })
         return homeTweets.zip(users).map {
-            TweetModel(it.first, it.second)
+            UserAndTweetEntity(it.first, it.second)
         }
     }
 
