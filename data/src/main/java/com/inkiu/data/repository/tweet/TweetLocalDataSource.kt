@@ -1,8 +1,11 @@
 package com.inkiu.data.repository.tweet
 
 import com.inkiu.data.entities.TweetData
+import javax.inject.Inject
+import javax.inject.Singleton
 
-class TweetLocalDataSource {
+@Singleton
+class TweetLocalDataSource @Inject constructor() {
     private val cache = mutableMapOf<Long, TweetData>()
 
     fun updateTweets(tweets: List<TweetData>) {

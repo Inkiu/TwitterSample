@@ -2,8 +2,11 @@ package com.inkiu.data.repository.tweet
 
 import com.inkiu.data.api.TwitterApi
 import com.inkiu.data.entities.TweetData
+import javax.inject.Inject
+import javax.inject.Singleton
 
-class TweetRemoteDataSource(
+@Singleton
+class TweetRemoteDataSource @Inject constructor(
     private val twitterApi: TwitterApi
 ) {
 

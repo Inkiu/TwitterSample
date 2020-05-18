@@ -2,8 +2,11 @@ package com.inkiu.data.mapper
 
 import com.inkiu.data.entities.UserData
 import com.inkiu.domain.entities.user.DetailUserEntity
+import javax.inject.Inject
+import javax.inject.Singleton
 
-class UserDataToEntityMapper(
+@Singleton
+class UserDataToEntityMapper @Inject constructor (
     private val dateMapper: UTCStringToDateMapper
 ) : Mapper<UserData, DetailUserEntity> {
 

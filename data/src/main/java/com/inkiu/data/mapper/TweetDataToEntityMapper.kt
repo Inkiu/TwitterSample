@@ -7,8 +7,11 @@ import com.inkiu.domain.entities.tweet.ReTweetEntity
 import com.inkiu.domain.entities.tweet.SimpleTweetEntity
 import com.inkiu.domain.entities.tweet.TextComposeEntity
 import com.inkiu.domain.entities.tweet.TweetEntity
+import javax.inject.Inject
+import javax.inject.Singleton
 
-class TweetDataToEntityMapper(
+@Singleton
+class TweetDataToEntityMapper @Inject constructor (
     private val dateMapper: UTCStringToDateMapper,
     private val mediaMapper: MediaDataToEntityMapper,
     private val hashTagMapper: HashTagDataToEntityMapper,

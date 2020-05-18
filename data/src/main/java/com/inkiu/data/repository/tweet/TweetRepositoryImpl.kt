@@ -5,8 +5,11 @@ import com.inkiu.data.mapper.TweetDataToEntityMapper
 import com.inkiu.data.repository.user.UserLocalDataSource
 import com.inkiu.domain.entities.tweet.TweetEntity
 import com.inkiu.domain.repositoty.TweetRepository
+import javax.inject.Inject
+import javax.inject.Singleton
 
-class TweetRepositoryImpl(
+@Singleton
+class TweetRepositoryImpl @Inject constructor(
     private val tweetLocalDataSource: TweetLocalDataSource,
     private val tweetRemoteDataSource: TweetRemoteDataSource,
     private val userLocalDataSource: UserLocalDataSource,
