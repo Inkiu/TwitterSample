@@ -2,14 +2,13 @@ package com.inkiu.domain.repositoty
 
 import com.inkiu.domain.entities.user.DetailUserEntity
 import com.inkiu.domain.entities.user.UserEntity
-import io.reactivex.Single
 
 interface UserRepository {
 
-    fun getUser(id: Long): Single<UserEntity>
+    suspend fun getUser(id: Long): UserEntity
 
-    fun getUsers(id: List<Long>): Single<List<UserEntity>>
+    suspend fun getUsers(id: List<Long>): List<UserEntity>
 
-    fun getDetailUser(id: Long): Single<DetailUserEntity>
+    suspend fun getDetailUser(id: Long): DetailUserEntity
 
 }

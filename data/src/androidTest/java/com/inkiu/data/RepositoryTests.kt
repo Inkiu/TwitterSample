@@ -1,7 +1,6 @@
 package com.inkiu.data
 
-import android.util.Log
-import androidx.test.ext.junit.runners.AndroidJUnit4
+import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner
 import androidx.test.platform.app.InstrumentationRegistry
 import com.inkiu.data.api.TestTwitterApi
 import com.inkiu.data.mapper.*
@@ -10,15 +9,18 @@ import com.inkiu.data.repository.tweet.TweetRemoteDataSource
 import com.inkiu.data.repository.tweet.TweetRepositoryImpl
 import com.inkiu.data.repository.user.UserLocalDataSource
 import com.inkiu.data.repository.user.UserRepositoryImpl
-import org.junit.Assert
+import kotlinx.coroutines.runBlocking
+import org.junit.Assert.*
 import org.junit.Before
+import org.junit.FixMethodOrder
 import org.junit.Test
 import org.junit.runner.RunWith
+import org.junit.runners.MethodSorters
 
-
-@RunWith(AndroidJUnit4::class)
+@RunWith(AndroidJUnit4ClassRunner::class)
 @Suppress("SpellCheckingInspection")
-class UserRepositoryTest {
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
+class RepositoryTests {
 
     private lateinit var tweetRemoteDataSource: TweetRemoteDataSource
     private lateinit var tweetLocalDataSource: TweetLocalDataSource
@@ -31,8 +33,8 @@ class UserRepositoryTest {
 
     @Before
     fun before() {
-        // Context of the app under test.
         val appContext = InstrumentationRegistry.getInstrumentation().targetContext
+        // Note - TestTwitterApi의 최대 카운트는 100
         tweetRemoteDataSource = TweetRemoteDataSource(TestTwitterApi(appContext))
         tweetLocalDataSource = TweetLocalDataSource()
         userLocalDataSource = UserLocalDataSource()
@@ -63,21 +65,35 @@ class UserRepositoryTest {
         )
     }
 
-    @Test
-    fun `TweetRepository에서_Tweet을_로딩한_후_user를_찾았을_시_리턴하는지`() {
-        // max is 100
-        var userIndices: List<Long> = emptyList()
-        tweetRepositoryImpl.getHomeTweets(-1L, 100)
-            .flatMap {
-                userIndices = it.map { it.userIndex }.distinct()
-                userRepositoryImpl.getUsers(userIndices)
-            }
-            .blockingGet()
-            .also {
-                Assert.assertTrue(it.size == userIndices.size)
-                it.forEach {
-                    Assert.assertTrue(it.id > 0L)
-                }
-            }
+    @Test // TweetRepository가_homeTweets을_요청했을_시_count에_맞게_리턴한다
+    fun test01() = runBlocking {
+        val homeTweets50 = tweetRepositoryImpl.getHomeTweets(-1L, 50)
+        assertEquals(homeTweets50.size, 50)
+        homeTweets50.forEach { assertTrue(it.id > 0L) }
+
+        val homeTweets100 = tweetRepositoryImpl.getHomeTweets(-1L, 100)
+        assertEquals(homeTweets100.size, 100)
+        homeTweets100.forEach { assertTrue(it.id > 0L) }
+    }
+
+    @Test // TweetRepository가_userTweets을_요청했을_시_count에_맞게_리턴한다
+    fun test02() = runBlocking {
+        val userTweets50 = tweetRepositoryImpl.getUserTweets(0L, -1L, 50)
+        assertEquals(userTweets50.size, 50)
+        userTweets50.forEach { assertTrue(it.id > 0L) }
+
+        val userTweets100 = tweetRepositoryImpl.getUserTweets(0L, -1L, 100)
+        assertEquals(userTweets100.size, 100)
+        userTweets100.forEach { assertTrue(it.id > 0L) }
+    }
+
+    @Test // TweetRepository에서_Tweet을_로딩한_후_user를_찾았을_시_리턴한다
+    fun test03() = runBlocking {
+        val tweets = tweetRepositoryImpl.getHomeTweets(-1L, 100)
+        val userIndices = tweets.map { it.userIndex }.distinct()
+        val users = userRepositoryImpl.getUsers(userIndices)
+
+        assertTrue(users.size == userIndices.size)
+        users.forEach { assertTrue(it.id > 0L) }
     }
 }

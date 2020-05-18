@@ -8,18 +8,18 @@ import retrofit2.http.Query
 interface TweetRetrofitApi {
 
     @GET("statuses/home_timeline.json")
-    fun getHomeTweets(
+    suspend fun getHomeTweets(
         @Query("count") count: Int,
         @Query("since_id") fromIndex: Long?,
         @Query("tweet_mode") mode: String = "extended"
-    ): Single<List<TweetData>>
+    ): List<TweetData>
 
     @GET("statuses/user_timeline.json")
-    fun getUserTweets(
+    suspend fun getUserTweets(
         @Query("user_id") userIndex: Long,
         @Query("count") count: Int,
         @Query("since_id") fromIndex: Long? = null,
         @Query("tweet_mode") mode: String = "extended"
-    ): Single<List<TweetData>>
+    ): List<TweetData>
 
 }

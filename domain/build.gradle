@@ -6,16 +6,14 @@ dependencies {
 
     // Kotlin
     implementation rootProject.ext.kotlin_base
-
-    // Rx
-    implementation rootProject.ext.rx_java
-    implementation rootProject.ext.rx_kotlin
-    implementation rootProject.ext.rx_android
+    implementation rootProject.ext.kotlin_coroutine
+    implementation rootProject.ext.kotlin_coroutine_android
 
     // Tests
     testImplementation rootProject.ext.junit
     testImplementation rootProject.ext.mockito
     testImplementation rootProject.ext.hamcrest
+    testImplementation rootProject.ext.coroutine_test
 }
 
 sourceCompatibility = "7"

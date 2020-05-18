@@ -2,13 +2,12 @@ package com.inkiu.data.api
 
 import com.inkiu.data.api.interceptors.RemainCallLoggingInterceptor
 import com.inkiu.data.entities.TweetData
+import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
-import io.reactivex.Single
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
-import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.moshi.MoshiConverterFactory
 import se.akerfeldt.okhttp.signpost.OkHttpOAuthConsumer
 import se.akerfeldt.okhttp.signpost.SigningInterceptor
@@ -52,27 +51,27 @@ class TwitterApiImpl(
             .baseUrl(baseUrl)
             .client(httpClient)
             .addConverterFactory(MoshiConverterFactory.create(moshi))
-            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+            .addCallAdapterFactory(CoroutineCallAdapterFactory())
             .build()
 
         api = retrofit.create(TweetRetrofitApi::class.java)
     }
 
-    override fun getHomeTweets(
+    override suspend fun getHomeTweets(
         count: Int,
         fromTweetIndex: Long
-    ): Single<List<TweetData>> {
+    ): List<TweetData> {
         return api.getHomeTweets(
             count,
             if (fromTweetIndex == -1L) null else fromTweetIndex
         )
     }
 
-    override fun getUserTweets(
+    override suspend fun getUserTweets(
         userIndex: Long,
         count: Int,
         fromTweetIndex: Long
-    ): Single<List<TweetData>> {
+    ): List<TweetData> {
         return api.getUserTweets(
             userIndex,
             count,

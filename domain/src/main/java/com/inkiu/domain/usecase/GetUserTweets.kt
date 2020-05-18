@@ -3,21 +3,18 @@ package com.inkiu.domain.usecase
 import com.inkiu.domain.entities.TweetModel
 import com.inkiu.domain.repositoty.TweetRepository
 import com.inkiu.domain.repositoty.UserRepository
-import io.reactivex.Single
 
 class GetUserTweets(
     private val userRepository: UserRepository,
     private val tweetRepository: TweetRepository
 ) : SingleUseCase<GetUserTweets.Param, List<TweetModel>> {
 
-    override fun execute(param: Param): Single<List<TweetModel>> {
-        return tweetRepository.getUserTweets(param.userIndex, param.startIndex, param.count)
-            .flatMap { tweetEntities ->
-                userRepository.getUser(param.userIndex)
-                    .map { userEntity ->
-                        tweetEntities.map { TweetModel(it, userEntity) }
-                    }
-            }
+    override suspend fun execute(param: Param): List<TweetModel> {
+        val userTweets = tweetRepository.getUserTweets(param.userIndex, param.startIndex, param.count)
+        val user = userRepository.getUser(param.userIndex)
+        return userTweets.map {
+            TweetModel(it, user)
+        }
     }
 
     data class Param(
