@@ -5,7 +5,6 @@ import com.inkiu.data.mapper.UserDataToEntityMapper
 import com.inkiu.domain.entities.user.DetailUserEntity
 import com.inkiu.domain.entities.user.UserEntity
 import com.inkiu.domain.repositoty.UserRepository
-import io.reactivex.Single
 
 class UserRepositoryImpl(
     private val userDataToEntityMapper: UserDataToEntityMapper,

@@ -5,7 +5,6 @@ import com.inkiu.data.entities.TweetData
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.Types
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
-import io.reactivex.Single
 import kotlin.random.Random
 
 class TestTwitterApi(

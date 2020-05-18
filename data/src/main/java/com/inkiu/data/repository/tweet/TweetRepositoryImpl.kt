@@ -5,8 +5,6 @@ import com.inkiu.data.mapper.TweetDataToEntityMapper
 import com.inkiu.data.repository.user.UserLocalDataSource
 import com.inkiu.domain.entities.tweet.TweetEntity
 import com.inkiu.domain.repositoty.TweetRepository
-import io.reactivex.Maybe
-import io.reactivex.Single
 
 class TweetRepositoryImpl(
     private val tweetLocalDataSource: TweetLocalDataSource,

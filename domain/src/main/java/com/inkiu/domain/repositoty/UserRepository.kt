@@ -2,7 +2,6 @@ package com.inkiu.domain.repositoty
 
 import com.inkiu.domain.entities.user.DetailUserEntity
 import com.inkiu.domain.entities.user.UserEntity
-import io.reactivex.Single
 
 interface UserRepository {
 

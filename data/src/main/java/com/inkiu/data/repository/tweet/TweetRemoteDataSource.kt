@@ -2,7 +2,6 @@ package com.inkiu.data.repository.tweet
 
 import com.inkiu.data.api.TwitterApi
 import com.inkiu.data.entities.TweetData
-import io.reactivex.Single
 
 class TweetRemoteDataSource(
     private val twitterApi: TwitterApi

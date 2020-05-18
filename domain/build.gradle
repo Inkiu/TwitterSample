@@ -9,11 +9,6 @@ dependencies {
     implementation rootProject.ext.kotlin_coroutine
     implementation rootProject.ext.kotlin_coroutine_android
 
-    // Rx
-    implementation rootProject.ext.rx_java
-    implementation rootProject.ext.rx_kotlin
-    implementation rootProject.ext.rx_android
-
     // Tests
     testImplementation rootProject.ext.junit
     testImplementation rootProject.ext.mockito

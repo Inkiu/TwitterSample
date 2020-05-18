@@ -1,7 +1,6 @@
 package com.inkiu.domain.repositoty
 
 import com.inkiu.domain.entities.tweet.TweetEntity
-import io.reactivex.Single
 
 interface TweetRepository {
 

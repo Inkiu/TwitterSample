@@ -3,7 +3,6 @@ package com.inkiu.domain.usecase
 import com.inkiu.domain.entities.TweetModel
 import com.inkiu.domain.repositoty.TweetRepository
 import com.inkiu.domain.repositoty.UserRepository
-import io.reactivex.Single
 
 class GetUserTweets(
     private val userRepository: UserRepository,
