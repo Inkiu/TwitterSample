@@ -3,19 +3,14 @@ package com.inkiu.twittersample.ui.home
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.MenuItem
-import androidx.appcompat.app.AppCompatActivity
-import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.inkiu.twittersample.R
-import com.inkiu.twittersample.ui.base.BaseActivity
-import com.inkiu.twittersample.ui.base.BaseViewModel
-import com.inkiu.twittersample.ui.base.EmptyViewModel
+import dagger.android.support.DaggerAppCompatActivity
 import kotlinx.android.synthetic.main.activity_home.*
 
 class HomeActivity :
-    AppCompatActivity(),
+    DaggerAppCompatActivity(),
     BottomNavigationView.OnNavigationItemSelectedListener {
 
     companion object {
