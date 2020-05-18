@@ -9,21 +9,17 @@ import java.nio.file.attribute.UserDefinedFileAttributeView
 class UserLocalDataSource {
     private val cache = mutableMapOf<Long, UserData>()
 
-    fun updateUsers(users: List<UserData>): Completable {
-        return Completable.fromCallable {
-            users.forEach { cache[it.id] = it }
-        }
+    fun updateUsers(users: List<UserData>) {
+        users.forEach { cache[it.id] = it }
     }
 
-    fun getUser(index: Long): Maybe<UserData> {
-        return Maybe.fromCallable { cache[index] }
+    fun getUser(index: Long): UserData {
+        return cache[index] ?: UserData()
     }
 
-    fun getUsers(indices: List<Long>): Single<List<UserData>> {
-        return Single.fromCallable {
-            indices.map { userIndex ->
-                cache[userIndex] ?: UserData()
-            }
+    fun getUsers(indices: List<Long>): List<UserData> {
+        return indices.map { userIndex ->
+            cache[userIndex] ?: UserData()
         }
     }
 }

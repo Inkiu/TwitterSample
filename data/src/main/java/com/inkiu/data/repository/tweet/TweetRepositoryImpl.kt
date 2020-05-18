@@ -15,47 +15,27 @@ class TweetRepositoryImpl(
     private val tweetDataToEntityMapper: TweetDataToEntityMapper
 ) : TweetRepository {
 
-    override fun getTweet(id: Long): Single<TweetEntity> {
-        return tweetLocalDataSource.getTweet(id)
-            .flatMap {
-                userLocalDataSource.updateUsers(listOf(it.user))
-                    .andThen(Maybe.just(it))
-            }
-            .switchIfEmpty(Single.just(TweetData()))
-            .map { tweetDataToEntityMapper(it) }
+    override suspend fun getTweet(id: Long): TweetEntity {
+        val tweet = tweetLocalDataSource.getTweet(id)
+        return tweetDataToEntityMapper(tweet)
     }
 
-    override fun getHomeTweets(startIndex: Long, count: Int): Single<List<TweetEntity>> {
-        return tweetRemoteDataSource.getHomeTweets(startIndex, count)
-            .flatMap {
-                tweetLocalDataSource.updateTweets(it)
-                    .andThen(Single.just(it))
-            }
-            .flatMap {
-                userLocalDataSource.updateUsers(it.map { it.user })
-                    .andThen(Single.just(it))
-            }
-            .map { list ->
-                list.map { tweetDataToEntityMapper(it) }
-            }
+    override suspend fun getHomeTweets(startIndex: Long, count: Int): List<TweetEntity> {
+        val tweets = tweetRemoteDataSource.getHomeTweets(startIndex, count)
+        tweetLocalDataSource.updateTweets(tweets)
+        userLocalDataSource.updateUsers(tweets.map { it.user })
+        return tweets.map { tweetDataToEntityMapper(it) }
     }
 
-    override fun getUserTweets(
+    override suspend fun getUserTweets(
         userIndex: Long,
         startIndex: Long,
         count: Int
-    ): Single<List<TweetEntity>> {
-        return tweetRemoteDataSource.getUserTweets(userIndex, startIndex, count)
-            .doOnSuccess {
-                tweetLocalDataSource.updateTweets(it)
-            }
-            .flatMap {
-                userLocalDataSource.updateUsers(it.map { it.user })
-                    .andThen(Single.just(it))
-            }
-            .map { list ->
-                list.map { tweetDataToEntityMapper(it) }
-            }
+    ): List<TweetEntity> {
+        val tweets = tweetRemoteDataSource.getUserTweets(userIndex, startIndex, count)
+        tweetLocalDataSource.updateTweets(tweets)
+        userLocalDataSource.updateUsers(tweets.map { it.user })
+        return tweets.map { tweetDataToEntityMapper(it) }
     }
 
 }

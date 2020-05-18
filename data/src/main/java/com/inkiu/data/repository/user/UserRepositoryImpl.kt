@@ -12,22 +12,17 @@ class UserRepositoryImpl(
     private val localDataSource: UserLocalDataSource
 ) : UserRepository {
 
-    override fun getUser(id: Long): Single<UserEntity> {
+    override suspend fun getUser(id: Long): UserEntity {
         return getDetailUser(id)
-            .cast(UserEntity::class.java)
     }
 
-    override fun getUsers(id: List<Long>): Single<List<UserEntity>> {
+    override suspend fun getUsers(id: List<Long>): List<UserEntity> {
         return localDataSource.getUsers(id)
-            .map { list ->
-                list.map { userDataToEntityMapper(it) }
-            }
+            .map { userDataToEntityMapper(it) }
     }
 
-    override fun getDetailUser(id: Long): Single<DetailUserEntity> {
-        return localDataSource.getUser(id)
-            .switchIfEmpty(Single.just(UserData()))
-            .map { userDataToEntityMapper(it) }
+    override suspend fun getDetailUser(id: Long): DetailUserEntity {
+        return userDataToEntityMapper(localDataSource.getUser(id))
     }
 
 }

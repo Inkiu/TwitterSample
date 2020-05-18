@@ -5,15 +5,15 @@ import io.reactivex.Single
 
 interface TwitterApi {
 
-    fun getHomeTweets(
+    suspend fun getHomeTweets(
         count: Int,
         fromTweetIndex: Long = -1L
-    ): Single<List<TweetData>>
+    ): List<TweetData>
 
-    fun getUserTweets(
+    suspend fun getUserTweets(
         userIndex: Long,
         count: Int,
         fromTweetIndex: Long = -1L
-    ): Single<List<TweetData>>
+    ): List<TweetData>
 
 }

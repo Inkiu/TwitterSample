@@ -60,21 +60,21 @@ class TwitterApiImpl(
         api = retrofit.create(TweetRetrofitApi::class.java)
     }
 
-    override fun getHomeTweets(
+    override suspend fun getHomeTweets(
         count: Int,
         fromTweetIndex: Long
-    ): Single<List<TweetData>> {
+    ): List<TweetData> {
         return api.getHomeTweets(
             count,
             if (fromTweetIndex == -1L) null else fromTweetIndex
         )
     }
 
-    override fun getUserTweets(
+    override suspend fun getUserTweets(
         userIndex: Long,
         count: Int,
         fromTweetIndex: Long
-    ): Single<List<TweetData>> {
+    ): List<TweetData> {
         return api.getUserTweets(
             userIndex,
             count,

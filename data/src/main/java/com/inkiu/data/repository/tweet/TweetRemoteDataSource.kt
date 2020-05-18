@@ -9,7 +9,7 @@ class TweetRemoteDataSource(
 ) {
 
     // Note - startIndex 가 -1 이라면 처음부터 enum ??
-    fun getHomeTweets(startIndex: Long, count: Int): Single<List<TweetData>> {
+    suspend fun getHomeTweets(startIndex: Long, count: Int): List<TweetData> {
         return twitterApi.getHomeTweets(
             count = count,
             fromTweetIndex = startIndex
@@ -17,7 +17,7 @@ class TweetRemoteDataSource(
     }
 
     // Note - startIndex 가 -1 이라면 처음부터
-    fun getUserTweets(userIndex: Long, startIndex: Long, count: Int): Single<List<TweetData>> {
+    suspend fun getUserTweets(userIndex: Long, startIndex: Long, count: Int): List<TweetData> {
         return twitterApi.getUserTweets(userIndex, count, startIndex)
     }
 }
