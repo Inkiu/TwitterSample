@@ -27,5 +27,5 @@ proguard/
 
 # private info
 twitter.properties
-**/google_services.json
+**/google-services.json
 **/test_data*
