@@ -18,7 +18,7 @@ class TwitterApiImpl(
     userToken: String,
     userTokenSecret: String,
     baseUrl: String,
-    private val logger: (msg: String) -> Unit
+    private val logger: ApiLogger
 ) : TwitterApi {
 
     private val moshi: Moshi = Moshi.Builder()
@@ -35,11 +35,11 @@ class TwitterApiImpl(
         // note - httpLogger 업데이트 하면서 { } 초기화 되지 않
         val httpLoggingInterceptor = HttpLoggingInterceptor(object : HttpLoggingInterceptor.Logger {
             override fun log(message: String) {
-                logger(message)
+                logger.log(message)
             }
         }).apply { level = HttpLoggingInterceptor.Level.BASIC }
 
-        val remainCallLoggingInterceptor = RemainCallLoggingInterceptor(logger)
+        val remainCallLoggingInterceptor = RemainCallLoggingInterceptor(logger::log)
 
         val httpClient = OkHttpClient.Builder()
             .addInterceptor(signingInterceptor)

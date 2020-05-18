@@ -1,7 +1,6 @@
 package com.inkiu.data.api
 
 import com.inkiu.data.entities.TweetData
-import io.reactivex.Single
 import retrofit2.http.GET
 import retrofit2.http.Query
 

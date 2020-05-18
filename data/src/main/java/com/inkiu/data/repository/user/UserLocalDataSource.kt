@@ -1,9 +1,11 @@
 package com.inkiu.data.repository.user
 
 import com.inkiu.data.entities.UserData
-import java.nio.file.attribute.UserDefinedFileAttributeView
+import javax.inject.Inject
+import javax.inject.Singleton
 
-class UserLocalDataSource {
+@Singleton
+class UserLocalDataSource @Inject constructor() {
     private val cache = mutableMapOf<Long, UserData>()
 
     fun updateUsers(users: List<UserData>) {

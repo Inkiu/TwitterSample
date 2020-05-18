@@ -6,8 +6,11 @@ import com.inkiu.data.entities.entities.UserMention
 import com.inkiu.domain.entities.tweet.HashTagEntity
 import com.inkiu.domain.entities.tweet.SymbolEntity
 import com.inkiu.domain.entities.tweet.UserMentionEntity
+import javax.inject.Inject
+import javax.inject.Singleton
 
-class HashTagDataToEntityMapper : Mapper<HashTag, HashTagEntity> {
+@Singleton
+class HashTagDataToEntityMapper @Inject constructor()  : Mapper<HashTag, HashTagEntity> {
 
     override fun map(src: HashTag): HashTagEntity {
         return HashTagEntity(
@@ -18,7 +21,8 @@ class HashTagDataToEntityMapper : Mapper<HashTag, HashTagEntity> {
 
 }
 
-class UserMentionDataToEntityMapper : Mapper<UserMention, UserMentionEntity> {
+@Singleton
+class UserMentionDataToEntityMapper @Inject constructor()  : Mapper<UserMention, UserMentionEntity> {
 
     override fun map(src: UserMention): UserMentionEntity {
         return UserMentionEntity(
@@ -31,7 +35,8 @@ class UserMentionDataToEntityMapper : Mapper<UserMention, UserMentionEntity> {
 
 }
 
-class SymbolDataToEntityMapper : Mapper<Symbol, SymbolEntity> {
+@Singleton
+class SymbolDataToEntityMapper @Inject constructor() : Mapper<Symbol, SymbolEntity> {
 
     override fun map(src: Symbol): SymbolEntity {
         return SymbolEntity(

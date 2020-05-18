@@ -5,8 +5,11 @@ import com.inkiu.data.mapper.UserDataToEntityMapper
 import com.inkiu.domain.entities.user.DetailUserEntity
 import com.inkiu.domain.entities.user.UserEntity
 import com.inkiu.domain.repositoty.UserRepository
+import javax.inject.Inject
+import javax.inject.Singleton
 
-class UserRepositoryImpl(
+@Singleton
+class UserRepositoryImpl @Inject constructor(
     private val userDataToEntityMapper: UserDataToEntityMapper,
     private val localDataSource: UserLocalDataSource
 ) : UserRepository {
