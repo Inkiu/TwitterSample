@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.inkiu.twittersample.R
 import com.inkiu.twittersample.ui.base.BaseActivity
 import com.inkiu.twittersample.ui.base.BaseViewModel
+import com.inkiu.twittersample.ui.home.HomeActivity
 import com.inkiu.twittersample.ui.login.LoginActivity
 import javax.inject.Inject
 
@@ -30,13 +31,17 @@ class SplashActivity : BaseActivity() {
              when (it.loginState) {
                  LoginState.CHECKING -> toast("wait")
                  LoginState.LOGGED_OUT -> navigateLoginActivity()
-                 LoginState.LOGGED_IN -> toast("go to home")
+                 LoginState.LOGGED_IN -> navigateHomeActivity()
              }
          })
     }
 
     private fun navigateLoginActivity() {
         startActivity(LoginActivity.newIntent(this))
+    }
+
+    private fun navigateHomeActivity() {
+        startActivity(HomeActivity.newIntent(this))
     }
 
 }
