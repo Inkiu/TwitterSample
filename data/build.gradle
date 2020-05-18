@@ -52,6 +52,14 @@ dependencies {
     kapt "com.squareup.moshi:moshi-kotlin-codegen:$moshiVersion"
     implementation 'com.squareup.retrofit2:converter-moshi:2.4.0'
 
+    // Dagger
+    implementation rootProject.ext.dagger
+    kapt rootProject.ext.dagger_compiler
+    implementation rootProject.ext.dagger_android
+    kapt rootProject.ext.dagger_android_processor
+    implementation rootProject.ext.dagger_android_support
+    kapt rootProject.ext.dagger_android_support
+
     // Tests
     testImplementation rootProject.ext.junit
     testImplementation rootProject.ext.mockito
