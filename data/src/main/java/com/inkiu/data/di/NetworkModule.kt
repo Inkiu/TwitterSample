@@ -1,6 +1,7 @@
 package com.inkiu.data.di
 
 import com.inkiu.data.api.ApiLogger
+import com.inkiu.data.api.TokenProvider
 import com.inkiu.data.api.TwitterApi
 import com.inkiu.data.api.TwitterApiImpl
 import dagger.Module
@@ -16,15 +17,13 @@ class NetworkModule {
     fun provideTwitterApi(
         @Named("consumerKey") consumerKey: String,
         @Named("consumerSecret") consumerSecret: String,
-        @Named("userToken") userToken: String,
-        @Named("userTokenSecret") userTokenSecret: String,
         @Named("baseUrl") baseUrl: String,
+        tokenProvider: TokenProvider,
         logger: ApiLogger
     ) : TwitterApi = TwitterApiImpl(
         consumerKey,
         consumerSecret,
-        userToken,
-        userTokenSecret,
+        tokenProvider,
         baseUrl,
         logger
     )

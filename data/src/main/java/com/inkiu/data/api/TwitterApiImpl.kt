@@ -15,8 +15,7 @@ import se.akerfeldt.okhttp.signpost.SigningInterceptor
 class TwitterApiImpl(
     consumerKey: String,
     consumerSecret: String,
-    userToken: String,
-    userTokenSecret: String,
+    tokenProvider: TokenProvider,
     baseUrl: String,
     private val logger: ApiLogger
 ) : TwitterApi {
@@ -29,7 +28,7 @@ class TwitterApiImpl(
 
     init {
         val signingInterceptor = OkHttpOAuthConsumer(consumerKey, consumerSecret)
-            .apply { setTokenWithSecret(userToken, userTokenSecret) }
+            .apply { setTokenWithSecret(tokenProvider.token, tokenProvider.tokenSecret) }
             .let { SigningInterceptor(it) }
 
         // note - httpLogger 업데이트 하면서 { } 초기화 되지 않
