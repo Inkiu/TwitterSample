@@ -9,4 +9,6 @@ abstract class BaseViewModel : ViewModel(), CoroutineScope {
 
     override val coroutineContext: CoroutineContext
         get() = viewModelScope.coroutineContext
+
+    open fun onAttached() {}
 }

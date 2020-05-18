@@ -1,18 +1,13 @@
 package com.inkiu.twittersample.ui.splash
 
 data class SplashViewState(
-    private var _isLoading: Boolean = false,
-    private var _isLoggedIn: Boolean = false
+    private var _loginState: LoginState = LoginState.CHECKING
 ) {
-    val isLoading: Boolean get() =  _isLoading
-    val isLoggedIn: Boolean get() = _isLoggedIn
+    val loginState: LoginState get() = _loginState
 
-    fun updateLoading(on: Boolean) = this.apply {
-        _isLoading = on
+    fun updateLoginState(state: LoginState) = this.apply {
+        _loginState = state
     }
-
-    fun updateLoggedIn(on: Boolean) = this.apply {
-        _isLoggedIn = on
-    }
-
 }
+
+enum class LoginState { CHECKING, LOGGED_IN, LOGGED_OUT }

@@ -8,6 +8,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.inkiu.twittersample.R
 import com.inkiu.twittersample.ui.base.BaseActivity
+import com.inkiu.twittersample.ui.base.BaseViewModel
 import com.twitter.sdk.android.core.*
 import com.twitter.sdk.android.core.identity.TwitterAuthClient
 import kotlinx.android.synthetic.main.activity_splash.*
@@ -23,10 +24,25 @@ class SplashActivity : BaseActivity() {
 
     private lateinit var twitterAuthClient: TwitterAuthClient
 
+    override fun getViewModel(): BaseViewModel = viewModel
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
+        observe()
+    }
 
+    private fun observe() {
+         viewModel.viewStateData.observe(this, Observer {
+             when (it.loginState) {
+                 LoginState.CHECKING -> toast("wait")
+                 LoginState.LOGGED_OUT -> toast("login required")
+                 LoginState.LOGGED_IN -> toast("go to home")
+             }
+         })
+    }
+
+    private fun testLogin() {
         val authConfig = TwitterAuthConfig(
             "lN87u8bySqvkb4WPB1d21ekpW",
             "PhCpSmuyLeXxZgeVpbO34SQOrV2MH8fuUlDvV0KwZ5Tvxgr2ir"
@@ -55,8 +71,8 @@ class SplashActivity : BaseActivity() {
         }
 
         viewModel.viewStateData.observe(this, Observer {
-            toast(it.isLoggedIn.toString())
-            Log.d("test", "${it.isLoggedIn}")
+            toast(it.loginState.toString())
+            Log.d("test", "${it.loginState}")
         })
     }
 

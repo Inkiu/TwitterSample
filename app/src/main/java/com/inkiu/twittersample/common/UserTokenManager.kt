@@ -12,6 +12,11 @@ class UserTokenManager @Inject constructor() {
     var token: String = ""
     var tokenSecret: String = ""
 
+    suspend fun isLoggedIn(): Boolean = withContext(Dispatchers.IO) {
+        delay(1000L)
+        token != "" && tokenSecret != ""
+    }
+
     suspend fun updateToken(
         token: String,
         secret: String
