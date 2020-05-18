@@ -5,6 +5,7 @@ import com.inkiu.data.mapper.TweetDataToEntityMapper
 import com.inkiu.data.repository.user.UserLocalDataSource
 import com.inkiu.domain.entities.tweet.TweetEntity
 import com.inkiu.domain.repositoty.TweetRepository
+import io.reactivex.Maybe
 import io.reactivex.Single
 
 class TweetRepositoryImpl(
@@ -16,18 +17,23 @@ class TweetRepositoryImpl(
 
     override fun getTweet(id: Long): Single<TweetEntity> {
         return tweetLocalDataSource.getTweet(id)
-            .doOnSuccess { userLocalDataSource.updateUsers(listOf(it.user)) } // TODO - 필요한가
+            .flatMap {
+                userLocalDataSource.updateUsers(listOf(it.user))
+                    .andThen(Maybe.just(it))
+            }
             .switchIfEmpty(Single.just(TweetData()))
             .map { tweetDataToEntityMapper(it) }
     }
 
     override fun getHomeTweets(startIndex: Long, count: Int): Single<List<TweetEntity>> {
         return tweetRemoteDataSource.getHomeTweets(startIndex, count)
-            .doOnSuccess {
+            .flatMap {
                 tweetLocalDataSource.updateTweets(it)
+                    .andThen(Single.just(it))
             }
-            .doOnSuccess { tweets ->
-                userLocalDataSource.updateUsers(tweets.map { it.user })
+            .flatMap {
+                userLocalDataSource.updateUsers(it.map { it.user })
+                    .andThen(Single.just(it))
             }
             .map { list ->
                 list.map { tweetDataToEntityMapper(it) }
@@ -43,8 +49,9 @@ class TweetRepositoryImpl(
             .doOnSuccess {
                 tweetLocalDataSource.updateTweets(it)
             }
-            .doOnSuccess { tweets ->
-                userLocalDataSource.updateUsers(tweets.map { it.user })
+            .flatMap {
+                userLocalDataSource.updateUsers(it.map { it.user })
+                    .andThen(Single.just(it))
             }
             .map { list ->
                 list.map { tweetDataToEntityMapper(it) }
