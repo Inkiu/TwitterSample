@@ -2,6 +2,7 @@ package com.inkiu.data.api
 
 import com.inkiu.data.api.interceptors.RemainCallLoggingInterceptor
 import com.inkiu.data.entities.TweetData
+import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import io.reactivex.Single
@@ -52,6 +53,7 @@ class TwitterApiImpl(
             .baseUrl(baseUrl)
             .client(httpClient)
             .addConverterFactory(MoshiConverterFactory.create(moshi))
+            .addCallAdapterFactory(CoroutineCallAdapterFactory())
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .build()
 
