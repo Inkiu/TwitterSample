@@ -5,10 +5,10 @@ import io.reactivex.Single
 
 interface TweetRepository {
 
-    fun getTweet(id: Long): Single<TweetEntity>
+    suspend fun getTweet(id: Long): TweetEntity
 
-    fun getHomeTweets(startIndex: Long, count: Int): Single<List<TweetEntity>>
+    suspend fun getHomeTweets(startIndex: Long, count: Int): List<TweetEntity>
 
-    fun getUserTweets(userIndex: Long, startIndex: Long, count: Int): Single<List<TweetEntity>>
+    suspend fun getUserTweets(userIndex: Long, startIndex: Long, count: Int): List<TweetEntity>
 
 }

@@ -10,14 +10,12 @@ class GetHomeTweets(
     private val tweetRepository: TweetRepository
 ) : SingleUseCase<GetHomeTweets.Param, List<TweetModel>> {
 
-    override fun execute(param: Param): Single<List<TweetModel>> {
-        return tweetRepository.getHomeTweets(param.startIndex, param.count)
-            .flatMap { tweetEntities ->
-                userRepository.getUsers(tweetEntities.map { it.userIndex })
-                    .map { users ->
-                        tweetEntities.zip(users).map { TweetModel(it.first, it.second) }
-                    }
-            }
+    override suspend fun execute(param: Param): List<TweetModel> {
+        val homeTweets = tweetRepository.getHomeTweets(param.startIndex, param.count)
+        val users = userRepository.getUsers(homeTweets.map { it.userIndex })
+        return homeTweets.zip(users).map {
+            TweetModel(it.first, it.second)
+        }
     }
 
     data class Param(
