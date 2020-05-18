@@ -3,11 +3,12 @@ package com.inkiu.twittersample.ui.common
 import android.content.Context
 import android.util.Log
 import com.inkiu.data.api.ApiLogger
+import javax.inject.Inject
 import javax.inject.Named
 import javax.inject.Singleton
 
 @Singleton
-class ApiLoggerImpl(
+class ApiLoggerImpl @Inject constructor(
     @Named("ApplicationContext") private val context : Context
 ) : ApiLogger {
 

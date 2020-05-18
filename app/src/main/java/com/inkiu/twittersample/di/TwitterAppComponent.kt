@@ -16,6 +16,7 @@ import javax.inject.Singleton
     modules = [
         AndroidSupportInjectionModule::class,
         ActivityBindingModule::class,
+        AppModule::class,
         DataModule::class
     ]
 )
@@ -33,7 +34,7 @@ interface AppComponent : AndroidInjector<TwitterApp> {
         fun consumerSecret(@Named("consumerSecret") secret: String): Builder
 
         @BindsInstance
-        fun baseUrl(@Named("consumerSecret") secret: String): Builder
+        fun baseUrl(@Named("baseUrl") secret: String): Builder
 
         fun build(): AppComponent
     }
