@@ -10,8 +10,11 @@ import com.inkiu.domain.entities.tweet.HashTagEntity
 import com.inkiu.domain.entities.tweet.SymbolEntity
 import com.inkiu.domain.entities.tweet.TextComposeEntity
 import com.inkiu.domain.entities.tweet.UserMentionEntity
+import javax.inject.Inject
+import javax.inject.Singleton
 
-class TextComposeToSpannableMapper : Mapper<Pair<String, List<TextComposeEntity>>, Spannable> {
+@Singleton
+class TextComposeToSpannableMapper @Inject constructor() : Mapper<Pair<String, List<TextComposeEntity>>, Spannable> {
 
     override fun map(src: Pair<String, List<TextComposeEntity>>): Spannable {
         val spannableString = SpannableString(src.first)

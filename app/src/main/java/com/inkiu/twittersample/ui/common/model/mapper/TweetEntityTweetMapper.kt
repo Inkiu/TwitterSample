@@ -4,8 +4,11 @@ import com.inkiu.data.mapper.Mapper
 import com.inkiu.domain.entities.tweet.ReTweetEntity
 import com.inkiu.domain.entities.tweet.TweetEntity
 import com.inkiu.twittersample.ui.common.model.Tweet
+import javax.inject.Inject
+import javax.inject.Singleton
 
-class TweetEntityTweetMapper(
+@Singleton
+class TweetEntityTweetMapper @Inject constructor(
     private val userEntityUserMapper: UserEntityUserMapper,
     private val tweetEntityQuotedMapper: TweetEntityQuotedMapper,
     private val textComposeToSpannableMapper: TextComposeToSpannableMapper,

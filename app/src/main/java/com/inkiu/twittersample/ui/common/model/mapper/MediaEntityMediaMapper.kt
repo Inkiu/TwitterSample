@@ -4,8 +4,11 @@ import com.inkiu.data.mapper.Mapper
 import com.inkiu.domain.entities.tweet.MediaEntity
 import com.inkiu.twittersample.ui.common.model.*
 import java.lang.IllegalArgumentException
+import javax.inject.Inject
+import javax.inject.Singleton
 
-class MediaEntityMediaMapper : Mapper<List<MediaEntity>, Media> {
+@Singleton
+class MediaEntityMediaMapper @Inject constructor() : Mapper<List<MediaEntity>, Media> {
 
     override fun map(src: List<MediaEntity>): Media {
         if (src.isEmpty()) throw IllegalArgumentException("MediaEntity 하나 이상이어야 함.")
