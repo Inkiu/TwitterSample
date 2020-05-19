@@ -2,7 +2,7 @@ package com.inkiu.twittersample.ui.common.model
 
 import java.util.*
 
-data class QuotedTweet(
+data class Quoted(
     val id: Long,
     val user: User,
     val content: String,
