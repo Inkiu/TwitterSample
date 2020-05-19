@@ -26,6 +26,7 @@
         app:layout_constraintTop_toTopOf="@id/profileImage">
 
         <include
+            android:id="@+id/tweetProfileContainer"
             layout="@layout/item_list_tweet_profile"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
@@ -50,6 +51,7 @@
             android:layout_marginTop="10dp" />
 
         <include
+            android:id="@+id/tweetCountContainer"
             layout="@layout/item_list_tweet_counts"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
