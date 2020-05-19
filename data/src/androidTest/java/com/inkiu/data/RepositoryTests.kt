@@ -40,8 +40,14 @@ class RepositoryTests {
         userLocalDataSource = UserLocalDataSource()
 
         val dateMapper = UTCStringToDateMapper()
+
+        userMapper = UserDataToEntityMapper(
+            dateMapper
+        )
+
         tweetMapper = TweetDataToEntityMapper(
             dateMapper,
+            userMapper,
             MediaDataToEntityMapper(),
             HashTagDataToEntityMapper(),
             UserMentionDataToEntityMapper(),
@@ -55,9 +61,6 @@ class RepositoryTests {
             tweetMapper
         )
 
-        userMapper = UserDataToEntityMapper(
-            dateMapper
-        )
 
         userRepositoryImpl = UserRepositoryImpl(
             userMapper,
@@ -90,7 +93,7 @@ class RepositoryTests {
     @Test // TweetRepository에서_Tweet을_로딩한_후_user를_찾았을_시_리턴한다
     fun test03() = runBlocking {
         val tweets = tweetRepositoryImpl.getHomeTweets(-1L, 100)
-        val userIndices = tweets.map { it.userIndex }.distinct()
+        val userIndices = tweets.map { it.userEntity.id }.distinct()
         val users = userRepositoryImpl.getUsers(userIndices)
 
         assertTrue(users.size == userIndices.size)
