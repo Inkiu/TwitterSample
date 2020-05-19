@@ -21,7 +21,7 @@ class TweetDataToEntityMapper @Inject constructor (
 ) : Mapper<TweetData, TweetEntity> {
 
     override fun map(src: TweetData): TweetEntity {
-        val isReTweetContained = src.reTweet.id == 0L
+        val isReTweetContained = src.reTweet.id > 0L
         return if (isReTweetContained) createReTweet(src) else createSimpleTweet(src)
     }
 
