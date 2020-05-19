@@ -1,4 +1,4 @@
-package com.inkiu.twittersample.ui.common
+package com.inkiu.twittersample.common
 
 import android.content.Context
 import android.util.Log
