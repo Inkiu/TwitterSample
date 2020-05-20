@@ -38,7 +38,7 @@ class HomeTweetsViewModel(
     private fun createPagedList(dataSource: HomeTweetDataSource): PagedList<Tweet> {
         val config = PagedList.Config.Builder()
             .setEnablePlaceholders(false)
-            .setInitialLoadSizeHint(100)
+            .setInitialLoadSizeHint(25)
             .setPageSize(100)
             .setPrefetchDistance(10)
             .build()
