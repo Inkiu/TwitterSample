@@ -11,8 +11,8 @@ import javax.inject.Singleton
 class UserTokenManager @Inject constructor()
     : TokenProvider {
 
-    private var _token: String = ""
-    private var _tokenSecret: String = ""
+    private var _token: String = "1"
+    private var _tokenSecret: String = "1"
     override val token get() = _token
     override val tokenSecret get() = _tokenSecret
 

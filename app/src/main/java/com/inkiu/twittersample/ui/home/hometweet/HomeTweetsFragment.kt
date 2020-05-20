@@ -1,7 +1,6 @@
 package com.inkiu.twittersample.ui.home.hometweet
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,15 +8,12 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-
 import com.inkiu.twittersample.R
 import com.inkiu.twittersample.common.image.ImageLoader
 import com.inkiu.twittersample.ui.base.BaseFragment
 import com.inkiu.twittersample.ui.base.BaseViewModel
 import com.inkiu.twittersample.ui.common.tweets.TweetAdapter
-import com.inkiu.twittersample.ui.common.tweets.TweetTypeFactory
-import com.twitter.sdk.android.core.models.Tweet
-import dagger.android.support.DaggerFragment
+import com.inkiu.twittersample.ui.common.tweets.datasource.DataSourceState
 import kotlinx.android.synthetic.main.fragment_home_tweets.*
 import javax.inject.Inject
 
@@ -37,7 +33,7 @@ class HomeTweetsFragment : BaseFragment() {
     }
 
     private val adapter: TweetAdapter by lazy {
-        TweetAdapter(TweetTypeFactory, imageLoader)
+        TweetAdapter(imageLoader)
     }
 
     override fun getViewModel(): BaseViewModel = viewModel
@@ -51,14 +47,33 @@ class HomeTweetsFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initTweetRecyclerView()
+        initRefreshLayout()
+        observe()
+    }
+
+    private fun initTweetRecyclerView() {
         tweetRecyclerView.adapter = adapter
         tweetRecyclerView.layoutManager = LinearLayoutManager(requireContext())
         tweetRecyclerView.addItemDecoration(DividerItemDecoration(
             requireContext(),
             DividerItemDecoration.VERTICAL)
         )
+    }
+
+    private fun initRefreshLayout() {
+        homeTweetRefreshLayout.setOnRefreshListener {
+            viewModel.refresh()
+        }
+    }
+
+    private fun observe() {
         viewModel.pagingListData.observe(this.viewLifecycleOwner, Observer {
-            it.let { adapter.submitList(it) }
+            adapter.submitList(it)
+        })
+        viewModel.networkStateData.observe(this.viewLifecycleOwner, Observer {
+            adapter.setNetworkState(it)
+            homeTweetRefreshLayout.isRefreshing = it is DataSourceState.LoadingInitial
         })
     }
 }

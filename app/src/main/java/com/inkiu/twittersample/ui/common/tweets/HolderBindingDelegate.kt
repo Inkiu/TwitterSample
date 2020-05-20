@@ -1,4 +1,4 @@
-package com.inkiu.twittersample.ui.common.tweets.holders
+package com.inkiu.twittersample.ui.common.tweets
 
 import android.view.View
 import com.inkiu.twittersample.common.image.ImageLoader

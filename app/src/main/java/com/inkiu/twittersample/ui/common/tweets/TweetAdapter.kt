@@ -8,32 +8,57 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.inkiu.twittersample.common.image.ImageLoader
 import com.inkiu.twittersample.ui.common.model.Tweet
+import com.inkiu.twittersample.ui.common.tweets.datasource.DataSourceState
+import kotlinx.android.synthetic.main.item_network_state.view.*
 
 
 // TODO - click listener
 class TweetAdapter(
-    private val typeFactory: TweetTypeFactory,
     private val imageLoader: ImageLoader
-) : PagedListAdapter<Tweet, TweetViewHolder<Tweet>>(
+) : PagedListAdapter<Tweet, RecyclerView.ViewHolder>(
     TweetDiffCallback
 ) {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TweetViewHolder<Tweet> {
-        return typeFactory.holder(
-            viewType,
-            parent
-        )
+    private var networkState: DataSourceState = DataSourceState.Init
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+        return TweetListTypeFactory.holder(viewType, parent)
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        (holder as? TweetViewHolder<Tweet>)?.let { tweetHolder ->
+            getItem(position)?.let { tweetHolder.bind(it, imageLoader) }
+        } ?: (holder as? NetworkStateItemViewHolder)?.bind(networkState)
     }
 
     override fun getItemViewType(position: Int): Int {
-        return typeFactory.type(
-            getItem(position)
-        )
+        return if (hasExtraRow() && position == itemCount - 1)
+            TweetListTypeFactory.getLoadingType()
+        else TweetListTypeFactory.type(getItem(position))
     }
 
-    override fun onBindViewHolder(holder: TweetViewHolder<Tweet>, position: Int) {
-        getItem(position)?.let { holder.bind(it, imageLoader) }
+    override fun getItemCount(): Int {
+        return super.getItemCount() + if (hasExtraRow()) 1 else 0
     }
+
+    fun setNetworkState(newNetworkState: DataSourceState) {
+        val previousState = this.networkState
+        val hadExtraRow = hasExtraRow()
+        this.networkState = newNetworkState
+        val hasExtraRow = hasExtraRow()
+        if (hadExtraRow != hasExtraRow) {
+            if (hadExtraRow) {
+                notifyItemRemoved(super.getItemCount())
+            } else {
+                notifyItemInserted(super.getItemCount())
+            }
+        } else if (hasExtraRow && previousState != newNetworkState) {
+            notifyItemChanged(itemCount - 1)
+        }
+    }
+
+    private fun hasExtraRow() = networkState != DataSourceState.Success
 }
 
 object TweetDiffCallback : DiffUtil.ItemCallback<Tweet>() {

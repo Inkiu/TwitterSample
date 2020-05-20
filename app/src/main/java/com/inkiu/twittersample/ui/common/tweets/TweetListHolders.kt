@@ -1,15 +1,41 @@
-package com.inkiu.twittersample.ui.common.tweets.holders
+package com.inkiu.twittersample.ui.common.tweets
 
-import android.util.Log
 import android.view.View
+import androidx.recyclerview.widget.RecyclerView
 import com.inkiu.twittersample.R
 import com.inkiu.twittersample.common.image.ImageLoader
-import com.inkiu.twittersample.ui.common.model.*
-import com.inkiu.twittersample.ui.common.tweets.TweetViewHolder
+import com.inkiu.twittersample.ui.common.model.Tweet
+import com.inkiu.twittersample.ui.common.tweets.datasource.DataSourceState
 import kotlinx.android.synthetic.main.item_list_tweet.view.*
 import kotlinx.android.synthetic.main.item_list_tweet_counts.view.*
-import kotlinx.android.synthetic.main.item_list_tweet_media.view.*
 import kotlinx.android.synthetic.main.item_list_tweet_profile.view.*
+import kotlinx.android.synthetic.main.item_network_state.view.*
+
+class NetworkStateItemViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+    fun bind(state: DataSourceState?) {
+        when (state) {
+            is DataSourceState.Loading -> setLoading()
+            is DataSourceState.Failure -> setError(state.throwable)
+            else -> setComplete()
+        }
+    }
+
+    private fun setError(e: Throwable?) = with(itemView) {
+        progress_bar.visibility = View.GONE
+        error_msg.visibility = View.VISIBLE
+        error_msg.text = e?.message ?: "UnknownError"
+    }
+
+    private fun setLoading() = with(itemView) {
+        progress_bar.visibility = View.VISIBLE
+        error_msg.visibility = View.GONE
+    }
+
+    private fun setComplete() = with(itemView) {
+        progress_bar.visibility = View.GONE
+        error_msg.visibility = View.GONE
+    }
+}
 
 open class PlainTweetHolder(
     view: View
@@ -83,6 +109,3 @@ class QuotedTweetHolder(view: View) : PlainTweetHolder(view) {
 
     }
 }
-
-
-// TODO - delegate

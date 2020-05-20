@@ -25,7 +25,7 @@ class HomeTweetDataSource(
     ) {
         val initialKey= params.requestedInitialKey ?: 0L
         scope.launch {
-            state.value = DataSourceState.InitialLoading
+            state.value = DataSourceState.LoadingInitial
         }
         load(initialKey, params.requestedLoadSize, callback)
     }
@@ -33,17 +33,13 @@ class HomeTweetDataSource(
     override fun loadAfter(params: LoadParams<Long>, callback: LoadCallback<Tweet>) {
         val key = params.key
         scope.launch {
-            state.value = DataSourceState.InitialLoading
+            state.value = DataSourceState.Loading
         }
         load(key, params.requestedLoadSize, callback)
     }
 
     override fun loadBefore(params: LoadParams<Long>, callback: LoadCallback<Tweet>) {
         // no implementation
-        scope.launch {
-            state.value = DataSourceState.InitialLoading
-        }
-        callback.onResult(emptyList())
     }
 
     private fun load(startId: Long, size: Int, callback: LoadCallback<Tweet>) {
