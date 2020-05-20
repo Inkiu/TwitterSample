@@ -1,8 +1,8 @@
-package com.inkiu.twittersample.ui.common.adapter.holders
+package com.inkiu.twittersample.ui.common.tweets.holders
 
 import android.view.View
 import com.inkiu.twittersample.R
-import com.inkiu.twittersample.ui.common.adapter.TweetViewHolder
+import com.inkiu.twittersample.ui.common.tweets.TweetViewHolder
 import com.inkiu.twittersample.ui.common.model.Tweet
 import kotlinx.android.synthetic.main.item_list_tweet.view.*
 import kotlinx.android.synthetic.main.item_list_tweet_counts.view.*

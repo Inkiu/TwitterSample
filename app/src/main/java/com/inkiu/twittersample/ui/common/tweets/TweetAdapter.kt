@@ -1,4 +1,4 @@
-package com.inkiu.twittersample.ui.common.adapter
+package com.inkiu.twittersample.ui.common.tweets
 
 import android.view.LayoutInflater
 import android.view.View
@@ -12,15 +12,22 @@ import com.inkiu.twittersample.ui.common.model.Tweet
 // TODO - click listener
 class TweetAdapter(
     private val typeFactory: TweetTypeFactory
-) : PagedListAdapter<Tweet, TweetViewHolder<Tweet>>(TweetDiffCallback) {
+) : PagedListAdapter<Tweet, TweetViewHolder<Tweet>>(
+    TweetDiffCallback
+) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TweetViewHolder<Tweet> {
         val view = LayoutInflater.from(parent.context).inflate(viewType, parent, false)
-        return typeFactory.holder(viewType, parent)
+        return TweetTypeFactory.holder(
+            viewType,
+            parent
+        )
     }
 
     override fun getItemViewType(position: Int): Int {
-        return typeFactory.type(getItem(position))
+        return TweetTypeFactory.type(
+            getItem(position)
+        )
     }
 
     override fun onBindViewHolder(holder: TweetViewHolder<Tweet>, position: Int) {

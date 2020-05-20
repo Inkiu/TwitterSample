@@ -1,12 +1,11 @@
-package com.inkiu.twittersample.ui.common.adapter
+package com.inkiu.twittersample.ui.common.tweets
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import com.inkiu.twittersample.R
-import com.inkiu.twittersample.ui.common.adapter.holders.MediaTweetHolder
-import com.inkiu.twittersample.ui.common.adapter.holders.PlainTweetHolder
-import com.inkiu.twittersample.ui.common.adapter.holders.QuotedTweetHolder
+import com.inkiu.twittersample.ui.common.tweets.holders.MediaTweetHolder
+import com.inkiu.twittersample.ui.common.tweets.holders.PlainTweetHolder
+import com.inkiu.twittersample.ui.common.tweets.holders.QuotedTweetHolder
 import com.inkiu.twittersample.ui.common.model.Tweet
 
 object TweetTypeFactory {
