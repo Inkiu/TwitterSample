@@ -7,8 +7,11 @@ import com.inkiu.twittersample.common.image.ImageLoader
 import com.inkiu.twittersample.ui.common.model.Tweet
 import com.inkiu.twittersample.ui.common.tweets.datasource.DataSourceState
 import kotlinx.android.synthetic.main.item_list_tweet.view.*
+import kotlinx.android.synthetic.main.item_list_tweet.view.profileImage
+import kotlinx.android.synthetic.main.item_list_tweet.view.tweetContent
 import kotlinx.android.synthetic.main.item_list_tweet_counts.view.*
 import kotlinx.android.synthetic.main.item_list_tweet_profile.view.*
+import kotlinx.android.synthetic.main.item_list_tweet_retweet.view.*
 import kotlinx.android.synthetic.main.item_network_state.view.*
 
 class NetworkStateItemViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -40,16 +43,26 @@ class NetworkStateItemViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 open class PlainTweetHolder(
     view: View
 ) : TweetViewHolder<Tweet>(view) {
-    override fun bind(item: Tweet, imageLoader: ImageLoader) {
-        bindProfile(item, imageLoader)
+    override fun bind(
+        item: Tweet,
+        clickListener: TweetClickListener,
+        imageLoader: ImageLoader
+    ) {
+        itemView.setOnClickListener { clickListener.onClickTweet(item.id) }
+        bindProfile(item, clickListener, imageLoader)
         bindContent(item)
         bindCounts(item)
     }
 
     // TODO date
-    private fun bindProfile(item: Tweet, imageLoader: ImageLoader) {
+    private fun bindProfile(
+        item: Tweet,
+        clickListener: TweetClickListener,
+        imageLoader: ImageLoader
+    ) {
         with(itemView) {
             imageLoader.loadCircle(item.user.profileUrl, profileImage)
+            profileImage.setOnClickListener { clickListener.onClickUser(item.user.id) }
         }
         with(itemView.tweetProfileContainer) {
             profileDisplayName.text = item.user.displayName
@@ -86,8 +99,12 @@ open class PlainTweetHolder(
 
 class MediaTweetHolder(view: View) : PlainTweetHolder(view){
 
-    override fun bind(item: Tweet, imageLoader: ImageLoader) {
-        super.bind(item, imageLoader)
+    override fun bind(
+        item: Tweet,
+        clickListener: TweetClickListener,
+        imageLoader: ImageLoader
+    ) {
+        super.bind(item, clickListener, imageLoader)
         val media = item.media ?: return
         MediaBindingDelegate.bind(
             itemView.tweetMediaContainer,
@@ -98,14 +115,18 @@ class MediaTweetHolder(view: View) : PlainTweetHolder(view){
 }
 
 class QuotedTweetHolder(view: View) : PlainTweetHolder(view) {
-    override fun bind(item: Tweet, imageLoader: ImageLoader) {
-        super.bind(item, imageLoader)
+    override fun bind(
+        item: Tweet,
+        clickListener: TweetClickListener,
+        imageLoader: ImageLoader
+    ) {
+        super.bind(item, clickListener, imageLoader)
         val quoted = item.quoted ?: return
         QuotedBindingDelegate.bind(
             itemView.tweetQuotedContainer,
             quoted,
+            clickListener,
             imageLoader
         )
-
     }
 }
