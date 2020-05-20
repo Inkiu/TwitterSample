@@ -14,7 +14,9 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class TextComposeToSpannableMapper @Inject constructor() : Mapper<Pair<String, List<TextComposeEntity>>, Spannable> {
+class TextComposeToSpannableMapper constructor(
+    @ColorInt val color: Int
+) : Mapper<Pair<String, List<TextComposeEntity>>, Spannable> {
 
     override fun map(src: Pair<String, List<TextComposeEntity>>): Spannable {
         val spannableString = SpannableString(src.first)
@@ -22,12 +24,12 @@ class TextComposeToSpannableMapper @Inject constructor() : Mapper<Pair<String, L
             it.textIndices.size >= 2 &&
                     it.textIndices.max() ?: Int.MAX_VALUE < spannableString.length
         }.forEach {
-            val color = when (it) {
-                is SymbolEntity -> Color.BLUE
-                is HashTagEntity -> Color.CYAN
-                is UserMentionEntity -> Color.MAGENTA
-                else -> Color.BLACK
-            }
+//            val color = when (it) {
+//                is SymbolEntity -> Color.BLUE
+//                is HashTagEntity -> Color.CYAN
+//                is UserMentionEntity -> Color.MAGENTA
+//                else -> Color.BLACK
+//            }
             setSpan(spannableString, it.textIndices[0], it.textIndices[1], color)
         }
         return spannableString

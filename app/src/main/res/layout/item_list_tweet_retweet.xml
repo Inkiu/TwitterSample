@@ -35,6 +35,7 @@
             app:layout_constraintTop_toTopOf="@id/profileImage" />
 
         <TextView
+            style="@style/TweetContentTextStyle"
             android:id="@+id/tweetContent"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
