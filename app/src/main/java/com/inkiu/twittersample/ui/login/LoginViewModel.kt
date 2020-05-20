@@ -23,7 +23,7 @@ class LoginViewModel(
 
     fun onTokenArrived(token: String, secret: String) = launch {
         tokenManager.updateToken(token, secret)
-        viewState.updateLoginState(LoginState.LOGIN_SUCCESS).post()
+        viewState.updateLoginState(LoginState.LoginSuccess).post()
     }
 
     private fun LoginViewState.post() {
