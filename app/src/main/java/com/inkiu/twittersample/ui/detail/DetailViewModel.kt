@@ -2,13 +2,14 @@ package com.inkiu.twittersample.ui.detail
 
 import androidx.lifecycle.*
 import androidx.paging.PagedList
-import com.inkiu.domain.usecase.GetReplyTweets
-import com.inkiu.domain.usecase.GetTweet
+import com.inkiu.domain.entities.tweet.SimpleTweetEntity
+import com.inkiu.domain.entities.tweet.TweetEntity
+import com.inkiu.domain.usecase.*
 import com.inkiu.twittersample.di.PerActivity
 import com.inkiu.twittersample.ui.base.BaseViewModel
 import com.inkiu.twittersample.ui.common.model.Tweet
 import com.inkiu.twittersample.ui.common.model.mapper.TweetEntityTweetMapper
-import com.inkiu.twittersample.ui.common.tweets.datasource.HomeTweetDataSource
+import com.inkiu.twittersample.ui.common.tweets.datasource.NewUserTweetDataSource
 import com.inkiu.twittersample.ui.common.tweets.datasource.ReplyTweetDataSource
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.asExecutor
@@ -17,14 +18,15 @@ import javax.inject.Inject
 import javax.inject.Named
 
 class DetailViewModel(
-    private val tweetId: Long,
-    private val getTweet: GetTweet,
-    private val getReplyTweets: GetReplyTweets,
+    private val userId: Long,
+    private val getUserDetail: GetUserDetail,
+    private val getUserTweets: GetUserTweets,
     private val tweetMapper: TweetEntityTweetMapper
 ) : BaseViewModel() {
 
     private val _detailData = MutableLiveData<Tweet>()
-    private val dataSourceData = _detailData.map { createDataSource() }
+//    private val dataSourceData = _detailData.map { createDataSource() }
+    private val dataSourceData = MutableLiveData<NewUserTweetDataSource>()
 
     val detailData = _detailData.map { it }
     val pagingListData = dataSourceData.map { createPagedList(it) }
@@ -36,20 +38,16 @@ class DetailViewModel(
     
     private fun getTweetDetail() {
         launch {
-            getTweet.execute(GetTweet.Param(tweetId)).let {
-                tweetMapper(it)
-            }.let {
-                _detailData.value = it
-            }
+//            _detailData.value = SimpleTweetEntity().let { tweetMapper(it) }
+            dataSourceData.value = createDataSource()
         }
     }
 
-    private fun createDataSource(): ReplyTweetDataSource {
-        val userName = detailData.value?.user?.name ?: ""
-        return ReplyTweetDataSource(tweetId, userName, getReplyTweets, viewModelScope, tweetMapper)
+    private fun createDataSource(): NewUserTweetDataSource {
+        return NewUserTweetDataSource(userId, getUserTweets, viewModelScope, tweetMapper)
     }
 
-    private fun createPagedList(dataSource: ReplyTweetDataSource): PagedList<Tweet> {
+    private fun createPagedList(dataSource: NewUserTweetDataSource): PagedList<Tweet> {
         val config = PagedList.Config.Builder()
             .setEnablePlaceholders(false)
             .setInitialLoadSizeHint(10)
@@ -65,16 +63,16 @@ class DetailViewModel(
 
 @PerActivity
 class DetailVmFactory @Inject constructor(
-    @Named("tweet_id") private val tweetId: Long,
-    private val getTweet: GetTweet,
-    private val getReplyTweets: GetReplyTweets,
+    @Named("user_id") private val userId: Long,
+    private val getUserDetail: GetUserDetail,
+    private val getUserTweets: GetUserTweets,
     private val tweetMapper: TweetEntityTweetMapper
 ) : ViewModelProvider.Factory {
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         return DetailViewModel(
-            tweetId,
-            getTweet,
-            getReplyTweets,
+            userId,
+            getUserDetail,
+            getUserTweets,
             tweetMapper
         ) as T
     }

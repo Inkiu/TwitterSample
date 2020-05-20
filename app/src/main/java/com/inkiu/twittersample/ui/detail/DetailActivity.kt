@@ -19,10 +19,10 @@ import javax.inject.Inject
 class DetailActivity : BaseActivity() {
 
     companion object {
-        const val ARG_TWEET_ID = "ARG_TWEET_ID"
-        fun newIntent(context: Context, tweetId: Long) =
+        const val ARG_USER_ID = "ARG_USER_ID"
+        fun newIntent(context: Context, userId: Long) =
             Intent(context, DetailActivity::class.java).apply {
-                putExtra(ARG_TWEET_ID, tweetId)
+                putExtra(ARG_USER_ID, userId)
             }
     }
 

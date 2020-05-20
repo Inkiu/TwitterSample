@@ -2,8 +2,11 @@ package com.inkiu.twittersample.di.detail
 
 import android.content.Context
 import com.inkiu.domain.repositoty.TweetRepository
+import com.inkiu.domain.repositoty.UserRepository
 import com.inkiu.domain.usecase.GetReplyTweets
 import com.inkiu.domain.usecase.GetTweet
+import com.inkiu.domain.usecase.GetUserDetail
+import com.inkiu.domain.usecase.GetUserTweets
 import com.inkiu.twittersample.common.image.GlideImageLoader
 import com.inkiu.twittersample.common.image.ImageLoader
 import com.inkiu.twittersample.di.PerActivity
@@ -20,24 +23,25 @@ abstract class DetailModule {
     companion object {
         @JvmStatic
         @Provides
-        @Named("tweet_id")
+        @Named("user_id")
         @PerActivity
-        fun provideTweetId(detailActivity: DetailActivity) =
-            detailActivity.intent.getLongExtra(DetailActivity.ARG_TWEET_ID, 0)
+        fun provideUserId(detailActivity: DetailActivity) =
+            detailActivity.intent.getLongExtra(DetailActivity.ARG_USER_ID, 0)
 
         @JvmStatic
         @Provides
         @PerActivity
-        fun providerGetTweet(
-            tweetRepository: TweetRepository
-        ) = GetTweet(tweetRepository)
+        fun provideGetUserDetail(
+            userRepository: UserRepository
+        ) = GetUserDetail(userRepository)
 
         @JvmStatic
         @Provides
         @PerActivity
-        fun provideGetReplyTweets(
-            tweetRepository: TweetRepository
-        ) = GetReplyTweets(tweetRepository)
+        fun provideGetUserTweets(
+            tweetRepository: TweetRepository,
+            userRepository: UserRepository
+        ) = GetUserTweets(userRepository, tweetRepository)
     }
 
     @Binds
