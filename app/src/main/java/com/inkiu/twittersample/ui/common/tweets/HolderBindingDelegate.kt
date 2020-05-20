@@ -51,7 +51,7 @@ object QuotedBindingDelegate {
         with(parent) {
             visibility = View.VISIBLE
             imageLoader.loadCircleProfile(quoted.user.profileUrl, profileImage)
-            reTweetInnerContainer.setOnClickListener { clickListener.onClickTweet(quoted.id) }
+            reTweetInnerContainer.setOnClickListener { clickListener.onClickTweet(quoted.user) }
             profileDisplayName.text = quoted.content
             profileVerified.visibility = if (quoted.user.verified) View.VISIBLE else View.GONE
             profileName.text = quoted.user.name

@@ -49,7 +49,7 @@ open class PlainTweetHolder(
         clickListener: TweetClickListener,
         imageLoader: ImageLoader
     ) {
-        itemView.setOnClickListener { clickListener.onClickTweet(item.id) }
+        itemView.setOnClickListener { clickListener.onClickTweet(item.user) }
         bindProfile(item, clickListener, imageLoader)
         bindContent(item)
         bindCounts(item)
@@ -63,7 +63,6 @@ open class PlainTweetHolder(
     ) {
         with(itemView) {
             imageLoader.loadCircleProfile(item.user.profileUrl, profileImage)
-            profileImage.setOnClickListener { clickListener.onClickUser(item.user.id) }
         }
         with(itemView.tweetProfileContainer) {
             profileDisplayName.text = item.user.displayName

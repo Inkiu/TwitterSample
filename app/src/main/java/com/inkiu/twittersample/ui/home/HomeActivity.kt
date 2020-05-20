@@ -10,6 +10,7 @@ import com.inkiu.twittersample.R
 import com.inkiu.twittersample.common.image.ImageLoader
 import com.inkiu.twittersample.ui.base.BaseActivity
 import com.inkiu.twittersample.ui.base.BaseViewModel
+import com.inkiu.twittersample.ui.common.model.User
 import com.inkiu.twittersample.ui.common.tweets.TweetAdapter
 import com.inkiu.twittersample.ui.common.tweets.TweetClickListener
 import com.inkiu.twittersample.ui.common.tweets.datasource.DataSourceState
@@ -73,10 +74,7 @@ class HomeActivity : BaseActivity(), TweetClickListener {
         })
     }
 
-    override fun onClickTweet(tweetId: Long) {
-        startActivity(DetailActivity.newIntent(this, tweetId))
-    }
-
-    override fun onClickUser(userId: Long) {
+    override fun onClickTweet(user: User) {
+        startActivity(DetailActivity.newIntent(this, user.id))
     }
 }

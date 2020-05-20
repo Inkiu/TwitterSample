@@ -1,6 +1,7 @@
 package com.inkiu.twittersample.ui.common.tweets
 
+import com.inkiu.twittersample.ui.common.model.User
+
 interface TweetClickListener {
-    fun onClickTweet(tweetId: Long)
-    fun onClickUser(userId: Long)
+    fun onClickTweet(user: User)
 }

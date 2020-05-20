@@ -14,6 +14,7 @@ import com.inkiu.twittersample.R
 import com.inkiu.twittersample.common.image.ImageLoader
 import com.inkiu.twittersample.ui.base.BaseFragment
 import com.inkiu.twittersample.ui.base.BaseViewModel
+import com.inkiu.twittersample.ui.common.model.User
 import com.inkiu.twittersample.ui.common.tweets.TweetAdapter
 import com.inkiu.twittersample.ui.common.tweets.TweetClickListener
 import com.inkiu.twittersample.ui.common.tweets.datasource.DataSourceState
@@ -77,11 +78,7 @@ class ProfileFragment :
         })
     }
 
-    override fun onClickTweet(tweetId: Long) {
-        Log.d("tmpLog", "onClickTweet: $tweetId")
-    }
-
-    override fun onClickUser(userId: Long) {
-        Log.d("tmpLog", "onClickUser: $userId")
+    override fun onClickTweet(user: User) {
+        Log.d("tmpLog", "onClickTweet: ")
     }
 }
