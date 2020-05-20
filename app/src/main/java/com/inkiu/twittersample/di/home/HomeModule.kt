@@ -11,7 +11,6 @@ import com.inkiu.twittersample.di.PerActivity
 import com.inkiu.twittersample.di.PerFragment
 import com.inkiu.twittersample.ui.home.HomeActivity
 import com.inkiu.twittersample.ui.home.homeprofile.ProfileFragment
-import com.inkiu.twittersample.ui.home.hometweet.HomeTweetsFragment
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
@@ -20,10 +19,6 @@ import javax.inject.Named
 
 @Module
 abstract class HomeModule {
-
-    @ContributesAndroidInjector(modules = [HomeTweetsModule::class])
-    @PerFragment
-    abstract fun homeTweetsFragment(): HomeTweetsFragment
 
     @ContributesAndroidInjector(modules = [ProfileModule::class])
     @PerFragment
