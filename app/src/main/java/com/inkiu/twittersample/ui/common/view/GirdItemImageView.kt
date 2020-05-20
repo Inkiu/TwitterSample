@@ -7,6 +7,7 @@ import androidx.appcompat.widget.AppCompatImageView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.Priority
 import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.bumptech.glide.request.RequestOptions
 
 class GirdItemImageView : AppCompatImageView {
@@ -40,9 +41,10 @@ class GirdItemImageView : AppCompatImageView {
             .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
             .priority(Priority.NORMAL)
 
-        mContext?.let {
+        mContext?.let { // TODO - ImageLoader 사용
             Glide.with(it)
                 .load(url)
+                .transition(DrawableTransitionOptions.withCrossFade())
                 .apply(glideThumbnailOptions)
                 .into(this)
         }
