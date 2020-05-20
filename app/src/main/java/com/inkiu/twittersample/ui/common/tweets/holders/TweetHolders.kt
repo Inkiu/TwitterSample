@@ -74,6 +74,12 @@ class MediaTweetHolder(view: View) : PlainTweetHolder(view){
 class QuotedTweetHolder(view: View) : PlainTweetHolder(view) {
     override fun bind(item: Tweet, imageLoader: ImageLoader) {
         super.bind(item, imageLoader)
+        val quoted = item.quoted ?: return
+        QuotedBindingDelegate.bind(
+            itemView.tweetQuotedContainer,
+            quoted,
+            imageLoader
+        )
 
     }
 }
