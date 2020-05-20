@@ -2,16 +2,12 @@ package com.inkiu.twittersample.common.image
 
 import android.content.Context
 import android.graphics.drawable.Drawable
-import android.util.Log
-import android.view.View
 import android.widget.ImageView
-import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.GlideException
-import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.CircleCrop
-import com.bumptech.glide.load.resource.bitmap.RoundedCorners
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.withCrossFade
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.Target
@@ -20,24 +16,25 @@ import javax.inject.Inject
 import javax.inject.Named
 
 class GlideImageLoader @Inject constructor(
-    @Named("ActivityContext") context: Context
+    @Named("ApplicationContext") context: Context
 ) : ImageLoader {
 
-    val roundRequestOptions = RequestOptions
+    private val profileRequestOption = RequestOptions
         .bitmapTransform(CircleCrop())
+        .placeholder(R.drawable.ic_face_24dp)
+        .error(R.drawable.ic_help_24dp)
 
     private val glide = Glide.with(context)
 
-    override fun loadCircle(url: String, imageView: ImageView, callback: (Boolean) -> Unit) {
+    override fun loadCircleProfile(url: String, imageView: ImageView, callback: (Boolean) -> Unit) {
         glide.load(url)
-            .apply(roundRequestOptions)
-            .listener(GlideListener(callback))
+            .apply(profileRequestOption)
+            .transition(withCrossFade())
             .into(imageView)
     }
 
     override fun load(url: String, imageView: ImageView, callback: (Boolean) -> Unit) {
         glide.load(url)
-            .listener(GlideListener(callback))
             .into(imageView)
     }
 

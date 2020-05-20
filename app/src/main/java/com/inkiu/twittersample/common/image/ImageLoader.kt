@@ -4,7 +4,7 @@ import android.widget.ImageView
 
 interface ImageLoader {
 
-    fun loadCircle(
+    fun loadCircleProfile(
         url: String,
         imageView: ImageView,
         callback: (Boolean) -> Unit = { }
