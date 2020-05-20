@@ -88,6 +88,6 @@ class TwitterApiImpl(
     }
 
     override suspend fun searchTweets(query: String, sinceId: Long, count: Int): List<TweetData> {
-        return api.searchTweets(query, sinceId, count)
+        return api.searchTweets(query, sinceId, count).tweetDataList
     }
 }

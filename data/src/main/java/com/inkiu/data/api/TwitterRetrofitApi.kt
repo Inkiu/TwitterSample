@@ -1,8 +1,10 @@
 package com.inkiu.data.api
 
+import com.inkiu.data.entities.SearchTweetData
 import com.inkiu.data.entities.TweetData
 import com.inkiu.data.entities.UserData
 import retrofit2.http.GET
+import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface TwitterRetrofitApi {
@@ -30,11 +32,12 @@ interface TwitterRetrofitApi {
         @Query("user_id") userIndex: Long
     ): UserData
 
+    // 프리미엄 구독 시에 가능한 API
     @GET("search/tweets.json")
     suspend fun searchTweets(
-        @Query("query") query: String,
+        @Query("q") query: String,
         @Query("since_id") sinceId: Long,
         @Query("count") count: Int
-    ): List<TweetData>
+    ): SearchTweetData
 
 }

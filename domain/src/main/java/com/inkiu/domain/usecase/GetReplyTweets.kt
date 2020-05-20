@@ -3,6 +3,7 @@ package com.inkiu.domain.usecase
 import com.inkiu.domain.entities.tweet.TweetEntity
 import com.inkiu.domain.repositoty.TweetRepository
 
+@Deprecated("유료 API")
 class GetReplyTweets(
     private val tweetRepository: TweetRepository
 ) : SingleUseCase<GetReplyTweets.Param, List<TweetEntity>> {
