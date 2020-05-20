@@ -28,14 +28,10 @@ class DetailViewModel(
 
     val detailData = _detailData.map { it }
     val pagingListData = dataSourceData.map { createPagedList(it) }
-    val networkStateData = dataSourceData.map { it.state }
+    val networkStateData = dataSourceData.switchMap { it.state }
 
     override fun onAttached() {
         launch { getTweetDetail() }
-    }
-
-    private fun refresh() {
-        getTweetDetail()
     }
     
     private fun getTweetDetail() {
