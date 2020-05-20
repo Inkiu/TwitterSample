@@ -10,7 +10,7 @@ interface TwitterRetrofitApi {
     @GET("statuses/home_timeline.json")
     suspend fun getHomeTweets(
         @Query("count") count: Int,
-        @Query("since_id") fromIndex: Long?,
+        @Query("max_id") fromIndex: Long?,
         @Query("tweet_mode") mode: String = "extended"
     ): List<TweetData>
 
@@ -18,7 +18,7 @@ interface TwitterRetrofitApi {
     suspend fun getUserTweets(
         @Query("user_id") userIndex: Long,
         @Query("count") count: Int,
-        @Query("since_id") fromIndex: Long? = null,
+        @Query("max_id") fromIndex: Long? = null,
         @Query("tweet_mode") mode: String = "extended"
     ): List<TweetData>
 

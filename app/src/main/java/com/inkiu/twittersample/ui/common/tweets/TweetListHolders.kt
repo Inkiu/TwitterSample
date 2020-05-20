@@ -1,9 +1,11 @@
 package com.inkiu.twittersample.ui.common.tweets
 
+import android.text.format.DateUtils
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.inkiu.twittersample.R
 import com.inkiu.twittersample.common.image.ImageLoader
+import com.inkiu.twittersample.common.relatedTimeString
 import com.inkiu.twittersample.ui.common.model.Tweet
 import com.inkiu.twittersample.ui.common.tweets.datasource.DataSourceState
 import kotlinx.android.synthetic.main.item_list_tweet.view.*
@@ -67,7 +69,7 @@ open class PlainTweetHolder(
             profileDisplayName.text = item.user.displayName
             profileVerified.visibility = if (item.user.verified) View.VISIBLE else View.GONE
             profileName.text = item.user.name
-            tweetCreated.text = item.createdDate.toLocaleString()
+            tweetCreated.text = item.createdDate.relatedTimeString()
         }
     }
 

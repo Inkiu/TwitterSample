@@ -3,6 +3,7 @@ package com.inkiu.twittersample.ui.common.tweets
 import android.view.View
 import com.inkiu.twittersample.R
 import com.inkiu.twittersample.common.image.ImageLoader
+import com.inkiu.twittersample.common.relatedTimeString
 import com.inkiu.twittersample.ui.common.model.*
 import kotlinx.android.synthetic.main.item_list_tweet_media.view.*
 import kotlinx.android.synthetic.main.item_list_tweet_profile.view.*
@@ -54,7 +55,7 @@ object QuotedBindingDelegate {
             profileDisplayName.text = quoted.content
             profileVerified.visibility = if (quoted.user.verified) View.VISIBLE else View.GONE
             profileName.text = quoted.user.name
-            tweetCreated.text = quoted.createdDate.toLocaleString()
+            tweetCreated.text = quoted.createdDate.relatedTimeString()
         }
     }
 }
