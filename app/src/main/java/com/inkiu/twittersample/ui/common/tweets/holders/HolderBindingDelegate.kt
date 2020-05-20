@@ -39,7 +39,7 @@ object QuotedBindingDelegate {
     fun bind(parent: View, quoted: Quoted, imageLoader: ImageLoader) {
         with(parent) {
             visibility = View.VISIBLE
-            imageLoader.load(quoted.user.profileUrl, profileImage)
+            imageLoader.loadCircle(quoted.user.profileUrl, profileImage)
             profileDisplayName.text = quoted.content
             profileVerified.visibility = if (quoted.user.verified) View.VISIBLE else View.GONE
             profileName.text = quoted.user.name

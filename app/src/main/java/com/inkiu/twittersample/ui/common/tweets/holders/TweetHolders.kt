@@ -23,7 +23,7 @@ open class PlainTweetHolder(
     // TODO date
     private fun bindProfile(item: Tweet, imageLoader: ImageLoader) {
         with(itemView) {
-            imageLoader.load(item.user.profileUrl, profileImage)
+            imageLoader.loadCircle(item.user.profileUrl, profileImage)
         }
         with(itemView.tweetProfileContainer) {
             profileDisplayName.text = item.user.displayName

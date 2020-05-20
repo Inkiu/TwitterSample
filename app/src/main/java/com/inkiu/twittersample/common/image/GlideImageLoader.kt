@@ -9,7 +9,11 @@ import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.GlideException
+import com.bumptech.glide.load.resource.bitmap.CenterCrop
+import com.bumptech.glide.load.resource.bitmap.CircleCrop
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestListener
+import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.Target
 import com.inkiu.twittersample.R
 import javax.inject.Inject
@@ -19,7 +23,17 @@ class GlideImageLoader @Inject constructor(
     fragment: Fragment
 ) : ImageLoader {
 
+    val roundRequestOptions = RequestOptions
+        .bitmapTransform(CircleCrop())
+
     private val glide = Glide.with(fragment)
+
+    override fun loadCircle(url: String, imageView: ImageView, callback: (Boolean) -> Unit) {
+        glide.load(url)
+            .apply(roundRequestOptions)
+            .listener(GlideListener(callback))
+            .into(imageView)
+    }
 
     override fun load(url: String, imageView: ImageView, callback: (Boolean) -> Unit) {
         glide.load(url)
