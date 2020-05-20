@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/profileNameContainer"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toStartOf="@id/tweetCreated"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            style="@style/UserNameTextStyle"
+            android:id="@+id/profileDisplayName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:singleLine="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="display name" />
+
+        <ImageView
+            android:id="@+id/profileVerified"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:padding="0dp"
+            android:layout_marginStart="3dp"
+            android:src="@drawable/ic_verified_user_24dp"
+            app:layout_constraintBottom_toBottomOf="@id/profileDisplayName"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintStart_toEndOf="@id/profileDisplayName"
+            app:layout_constraintTop_toTopOf="@id/profileDisplayName"/>
+
+        <TextView
+            style="@style/UserInfoTextStyle"
+            android:id="@+id/profileName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:singleLine="true"
+            android:layout_marginStart="3dp"
+            app:layout_constraintBottom_toBottomOf="@id/profileDisplayName"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/profileVerified"
+            app:layout_constraintTop_toTopOf="@id/profileDisplayName"
+            tools:text="real user name" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        style="@style/UserInfoTextStyle"
+        android:id="@+id/tweetCreated"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginEnd="10dp"
+        app:layout_constraintBottom_toBottomOf="@id/profileNameContainer"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/profileNameContainer"
+        tools:text="2017년 3월 2일" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

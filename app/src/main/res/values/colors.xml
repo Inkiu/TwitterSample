@@ -10,4 +10,5 @@
     <color name="light_grey">#EDEDED</color>
     <color name="grey">#c2c2c2</color>
     <color name="dark_grey">#9c9c9c</color>
+    <color name="hyperlink_blue">#4e69ac</color>
 </resources>

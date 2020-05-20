@@ -13,8 +13,8 @@ class UserDataToEntityMapper @Inject constructor (
     override fun map(src: UserData): DetailUserEntity {
         return DetailUserEntity(
             id = src.id,
-            name = src.name,
-            displayName = src.screenName,
+            name = src.screenName,
+            displayName = src.name,
             profileImageUrl = src.profileImageUrl,
             verified = src.verified,
             location = src.location,

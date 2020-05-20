@@ -11,4 +11,6 @@ interface UserRepository {
 
     suspend fun getDetailUser(id: Long): DetailUserEntity
 
+    suspend fun getMyProfile(): DetailUserEntity
+
 }

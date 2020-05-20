@@ -9,7 +9,7 @@ twitterProperties.load(new FileInputStream(rootProject.file("twitter.properties"
 android {
     compileSdkVersion 29
     buildToolsVersion "29.0.3"
-
+    
     defaultConfig {
         applicationId "com.inkiu.twittersample"
         minSdkVersion 23
@@ -21,6 +21,15 @@ android {
         buildConfigField("String", "CONSUMER_SECRET", twitterProperties['CONSUMER_SECRET'])
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_1_8.toString()
     }
 
     buildTypes {
@@ -68,9 +77,12 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycleVersion"
 
     // Glide
-    def glide_version = "4.11.0"
+    def glide_version = "4.6.1"
     implementation "com.github.bumptech.glide:glide:$glide_version"
     annotationProcessor "com.github.bumptech.glide:compiler:$glide_version"
+
+    // Paging
+    implementation "androidx.paging:paging-runtime:2.1.2"
 
     // Twitter
     implementation 'com.twitter.sdk.android:twitter:3.1.1'

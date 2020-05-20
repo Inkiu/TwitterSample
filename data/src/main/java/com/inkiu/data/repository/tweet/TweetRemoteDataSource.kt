@@ -22,4 +22,8 @@ class TweetRemoteDataSource @Inject constructor(
     suspend fun getUserTweets(userIndex: Long, startIndex: Long, count: Int): List<TweetData> {
         return twitterApi.getUserTweets(userIndex, count, startIndex)
     }
+
+    suspend fun searchTweets(query: String, sinceId: Long, count: Int): List<TweetData> {
+        return twitterApi.searchTweets(query, sinceId, count)
+    }
 }

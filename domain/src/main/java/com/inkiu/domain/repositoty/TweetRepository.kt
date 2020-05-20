@@ -10,4 +10,7 @@ interface TweetRepository {
 
     suspend fun getUserTweets(userIndex: Long, startIndex: Long, count: Int): List<TweetEntity>
 
+    @Deprecated("유료 API")
+    suspend fun searchTweets(query: String, sinceId: Long, count: Int): List<TweetEntity>
+
 }

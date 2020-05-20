@@ -1,57 +1,84 @@
 package com.inkiu.twittersample.ui.home.homeprofile
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
 
 import com.inkiu.twittersample.R
+import com.inkiu.twittersample.common.image.ImageLoader
+import com.inkiu.twittersample.ui.base.BaseFragment
+import com.inkiu.twittersample.ui.base.BaseViewModel
+import com.inkiu.twittersample.ui.common.model.User
+import com.inkiu.twittersample.ui.common.tweets.TweetAdapter
+import com.inkiu.twittersample.ui.common.tweets.TweetClickListener
+import com.inkiu.twittersample.ui.common.tweets.datasource.DataSourceState
+import kotlinx.android.synthetic.main.fragment_profile.*
+import javax.inject.Inject
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
+class ProfileFragment :
+    BaseFragment(),
+    TweetClickListener {
 
-/**
- * A simple [Fragment] subclass.
- * Use the [ProfileFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
-class ProfileFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
+    companion object {
+        fun newInstance() = ProfileFragment()
     }
+
+//    @Inject
+    lateinit var vmFactory: ProfileVMFactory
+//    @Inject
+    lateinit var imageLoader: ImageLoader
+
+    private val viewModel: ProfileViewModel by lazy {
+        ViewModelProvider(this, vmFactory)[ProfileViewModel::class.java]
+    }
+
+    private val adapter: TweetAdapter by lazy {
+        TweetAdapter(imageLoader, this)
+    }
+
+    override fun getViewModel(): BaseViewModel = viewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_profile, container, false)
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment ProfileFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance() =
-            ProfileFragment().apply {
-            }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        initTweetRecyclerView()
+        observe()
+    }
+
+    private fun initTweetRecyclerView() {
+        profileRecycler.adapter = adapter
+        profileRecycler.layoutManager = LinearLayoutManager(requireContext())
+        profileRecycler.addItemDecoration(
+            DividerItemDecoration(
+                requireContext(),
+                DividerItemDecoration.VERTICAL
+            )
+        )
+    }
+
+    private fun observe() {
+        viewModel.pagingListData.observe(this.viewLifecycleOwner, Observer {
+            adapter.submitList(it)
+        })
+        viewModel.networkStateData.observe(this.viewLifecycleOwner, Observer {
+            adapter.setNetworkState(it)
+//            homeTweetRefreshLayout.isRefreshing = it is DataSourceState.LoadingInitial
+        })
+    }
+
+    override fun onClickTweet(user: User) {
+        Log.d("tmpLog", "onClickTweet: ")
     }
 }
