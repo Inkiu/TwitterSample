@@ -2,6 +2,7 @@ package com.inkiu.data.api
 
 import com.inkiu.data.api.interceptors.RemainCallLoggingInterceptor
 import com.inkiu.data.entities.TweetData
+import com.inkiu.data.entities.UserData
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
@@ -24,7 +25,7 @@ class TwitterApiImpl(
         .add(KotlinJsonAdapterFactory())
         .build()
 
-    private val api: TweetRetrofitApi
+    private val api: TwitterRetrofitApi
 
     init {
         val signingInterceptor = OkHttpOAuthConsumer(consumerKey, consumerSecret)
@@ -53,7 +54,7 @@ class TwitterApiImpl(
             .addCallAdapterFactory(CoroutineCallAdapterFactory())
             .build()
 
-        api = retrofit.create(TweetRetrofitApi::class.java)
+        api = retrofit.create(TwitterRetrofitApi::class.java)
     }
 
     override suspend fun getHomeTweets(
@@ -64,6 +65,14 @@ class TwitterApiImpl(
             count,
             if (fromTweetIndex == -1L) null else fromTweetIndex
         )
+    }
+
+    override suspend fun getMyProfile(): UserData {
+        return api.getMyProfile()
+    }
+
+    override suspend fun getUser(userIndex: Long): UserData {
+        return api.getUser(userIndex)
     }
 
     override suspend fun getUserTweets(
