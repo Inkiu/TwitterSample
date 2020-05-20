@@ -64,7 +64,11 @@ class TweetDataToEntityMapper @Inject constructor (
 
     private fun getContent(src: TweetData): String {
         return runCatching {
-            src.text.substring(src.displayTextRange[0], src.displayTextRange[1])
+            when {
+                src.displayTextRange.size < 2 -> ""
+                src.displayTextRange[1] == 0 -> ""
+                else -> src.text.substring(src.displayTextRange[0], src.displayTextRange[1])
+            }
         }.let {
             if (it.isSuccess) it.getOrNull()!! else src.text
         }
