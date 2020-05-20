@@ -2,6 +2,7 @@ package com.inkiu.twittersample.di.detail
 
 import android.content.Context
 import com.inkiu.domain.repositoty.TweetRepository
+import com.inkiu.domain.usecase.GetReplyTweets
 import com.inkiu.domain.usecase.GetTweet
 import com.inkiu.twittersample.common.image.GlideImageLoader
 import com.inkiu.twittersample.common.image.ImageLoader
@@ -30,6 +31,13 @@ abstract class DetailModule {
         fun providerGetTweet(
             tweetRepository: TweetRepository
         ) = GetTweet(tweetRepository)
+
+        @JvmStatic
+        @Provides
+        @PerActivity
+        fun provideGetReplyTweets(
+            tweetRepository: TweetRepository
+        ) = GetReplyTweets(tweetRepository)
     }
 
     @Binds
