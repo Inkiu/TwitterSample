@@ -14,6 +14,8 @@ sealed class TweetEntity(
     open val reTweetCount: Int,
     open val likeCount: Int,
 
+    open val replyToId: Long,
+
     open val liked: Boolean,
     open val reTweeted: Boolean,
 
@@ -32,6 +34,8 @@ data class SimpleTweetEntity(
     override val reTweetCount: Int,
     override val likeCount: Int,
 
+    override val replyToId: Long,
+
     override val liked: Boolean,
     override val reTweeted: Boolean,
 
@@ -46,6 +50,7 @@ data class SimpleTweetEntity(
     commentCount,
     reTweetCount,
     likeCount,
+    replyToId,
     liked,
     reTweeted,
     textComposeEntities,
@@ -63,6 +68,8 @@ data class ReTweetEntity(
     override val reTweetCount: Int,
     override val likeCount: Int,
 
+    override val replyToId: Long,
+
     override val liked: Boolean,
     override val reTweeted: Boolean,
 
@@ -79,6 +86,7 @@ data class ReTweetEntity(
     commentCount,
     reTweetCount,
     likeCount,
+    replyToId,
     liked,
     reTweeted,
     textComposeEntities,

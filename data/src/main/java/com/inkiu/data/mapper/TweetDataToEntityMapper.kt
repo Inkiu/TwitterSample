@@ -35,6 +35,7 @@ class TweetDataToEntityMapper @Inject constructor (
             commentCount = 0, // TODO
             reTweetCount = src.reTweetCount,
             likeCount = src.favoriteCount,
+            replyToId = src.replyToTweetId,
             liked = src.favorited,
             reTweeted = src.reTweeted,
             textComposeEntities = getTextComposites(src.entities),
@@ -52,6 +53,7 @@ class TweetDataToEntityMapper @Inject constructor (
             commentCount = 0, // TODO
             reTweetCount = src.reTweetCount,
             likeCount = src.favoriteCount,
+            replyToId = src.replyToTweetId,
             liked = src.favorited,
             reTweeted = src.reTweeted,
             textComposeEntities = getTextComposites(src.entities),
