@@ -3,13 +3,9 @@ package com.inkiu.twittersample.ui.home
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
-import android.view.MenuItem
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
-import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.inkiu.twittersample.R
 import com.inkiu.twittersample.common.image.ImageLoader
 import com.inkiu.twittersample.ui.base.BaseActivity

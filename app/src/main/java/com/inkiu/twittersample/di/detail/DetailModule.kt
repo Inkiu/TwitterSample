@@ -1,6 +1,8 @@
 package com.inkiu.twittersample.di.detail
 
 import android.content.Context
+import com.inkiu.domain.repositoty.TweetRepository
+import com.inkiu.domain.usecase.GetTweet
 import com.inkiu.twittersample.common.image.GlideImageLoader
 import com.inkiu.twittersample.common.image.ImageLoader
 import com.inkiu.twittersample.di.PerActivity
@@ -21,6 +23,13 @@ abstract class DetailModule {
         @PerActivity
         fun provideTweetId(detailActivity: DetailActivity) =
             detailActivity.intent.getLongExtra(DetailActivity.ARG_TWEET_ID, 0)
+
+        @JvmStatic
+        @Provides
+        @PerActivity
+        fun providerGetTweet(
+            tweetRepository: TweetRepository
+        ) = GetTweet(tweetRepository)
     }
 
     @Binds
