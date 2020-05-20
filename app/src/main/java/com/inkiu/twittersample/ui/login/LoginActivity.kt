@@ -79,6 +79,7 @@ class LoginActivity : BaseActivity() {
             }
 
             override fun failure(exception: TwitterException?) {
+                viewModel.onFailure(exception)
             }
         })
     }
