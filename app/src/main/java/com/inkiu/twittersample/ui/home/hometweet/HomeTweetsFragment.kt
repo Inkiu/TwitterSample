@@ -10,6 +10,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 
 import com.inkiu.twittersample.R
+import com.inkiu.twittersample.common.image.ImageLoader
 import com.inkiu.twittersample.ui.base.BaseFragment
 import com.inkiu.twittersample.ui.base.BaseViewModel
 import com.inkiu.twittersample.ui.common.tweets.TweetAdapter
@@ -27,12 +28,15 @@ class HomeTweetsFragment : BaseFragment() {
 
     @Inject
     lateinit var vmFactory: HomeTweetsVMFactory
+    @Inject
+    lateinit var imageLoader: ImageLoader
+
     private val viewModel: HomeTweetsViewModel by lazy {
         ViewModelProvider(this, vmFactory)[HomeTweetsViewModel::class.java]
     }
 
     private val adapter: TweetAdapter by lazy {
-        TweetAdapter(TweetTypeFactory)
+        TweetAdapter(TweetTypeFactory, imageLoader)
     }
 
     override fun getViewModel(): BaseViewModel = viewModel

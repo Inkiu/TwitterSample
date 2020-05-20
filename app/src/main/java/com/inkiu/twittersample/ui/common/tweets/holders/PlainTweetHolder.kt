@@ -1,7 +1,9 @@
 package com.inkiu.twittersample.ui.common.tweets.holders
 
+import android.util.Log
 import android.view.View
 import com.inkiu.twittersample.R
+import com.inkiu.twittersample.common.image.ImageLoader
 import com.inkiu.twittersample.ui.common.tweets.TweetViewHolder
 import com.inkiu.twittersample.ui.common.model.Tweet
 import kotlinx.android.synthetic.main.item_list_tweet.view.*
@@ -11,14 +13,17 @@ import kotlinx.android.synthetic.main.item_list_tweet_profile.view.*
 open class PlainTweetHolder(
     view: View
 ) : TweetViewHolder<Tweet>(view) {
-    override fun bind(item: Tweet) {
-        bindProfile(item)
+    override fun bind(item: Tweet, imageLoader: ImageLoader) {
+        bindProfile(item, imageLoader)
         bindContent(item)
         bindCounts(item)
     }
 
-    // TODO glide, date
-    private fun bindProfile(item: Tweet) {
+    // TODO date
+    private fun bindProfile(item: Tweet, imageLoader: ImageLoader) {
+        with(itemView) {
+            imageLoader.load(item.user.profileUrl, profileImage) { }
+        }
         with(itemView.tweetProfileContainer) {
             profileDisplayName.text = item.user.displayName
             profileVerified.visibility = if (item.user.verified) View.VISIBLE else View.GONE
@@ -53,15 +58,15 @@ open class PlainTweetHolder(
 }
 
 class MediaTweetHolder(view: View) : PlainTweetHolder(view) {
-    override fun bind(item: Tweet) {
-        super.bind(item)
+    override fun bind(item: Tweet, imageLoader: ImageLoader) {
+        super.bind(item, imageLoader)
 
     }
 }
 
 class QuotedTweetHolder(view: View) : PlainTweetHolder(view) {
-    override fun bind(item: Tweet) {
-        super.bind(item)
+    override fun bind(item: Tweet, imageLoader: ImageLoader) {
+        super.bind(item, imageLoader)
 
     }
 }
