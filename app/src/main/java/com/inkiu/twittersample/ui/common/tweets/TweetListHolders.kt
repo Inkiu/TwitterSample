@@ -11,7 +11,6 @@ import kotlinx.android.synthetic.main.item_list_tweet.view.profileImage
 import kotlinx.android.synthetic.main.item_list_tweet.view.tweetContent
 import kotlinx.android.synthetic.main.item_list_tweet_counts.view.*
 import kotlinx.android.synthetic.main.item_list_tweet_profile.view.*
-import kotlinx.android.synthetic.main.item_list_tweet_retweet.view.*
 import kotlinx.android.synthetic.main.item_network_state.view.*
 
 class NetworkStateItemViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -61,7 +60,7 @@ open class PlainTweetHolder(
         imageLoader: ImageLoader
     ) {
         with(itemView) {
-            imageLoader.loadCircle(item.user.profileUrl, profileImage)
+            imageLoader.loadCircleProfile(item.user.profileUrl, profileImage)
             profileImage.setOnClickListener { clickListener.onClickUser(item.user.id) }
         }
         with(itemView.tweetProfileContainer) {
@@ -80,18 +79,17 @@ open class PlainTweetHolder(
 
     private fun bindCounts(item: Tweet) {
         with(itemView.tweetCountContainer) {
-            tweetCommentCount.text = "${item.commentCount}"
             tweetRetweetCount.text = "${item.reTweetCount}"
             tweetLikedCount.text = "${item.likeCount}"
 
             tweetRetweetImage.setImageResource(
-                if (item.retweeted) R.mipmap.ic_launcher
-                else R.mipmap.ic_launcher
+                if (item.retweeted) R.drawable.ic_retweet_on_24dp
+                else R.drawable.ic_retweet_off_24dp
             )
 
             tweetLikedImage.setImageResource(
-                if (item.liked) R.mipmap.ic_launcher
-                else R.mipmap.ic_launcher
+                if (item.liked) R.drawable.ic_favorite_on_24dp
+                else R.drawable.ic_favorite_off_24dp
             )
         }
     }
