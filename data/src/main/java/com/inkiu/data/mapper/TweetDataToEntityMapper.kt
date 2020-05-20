@@ -13,6 +13,7 @@ import javax.inject.Singleton
 @Singleton
 class TweetDataToEntityMapper @Inject constructor (
     private val dateMapper: UTCStringToDateMapper,
+    private val userMapper: UserDataToEntityMapper,
     private val mediaMapper: MediaDataToEntityMapper,
     private val hashTagMapper: HashTagDataToEntityMapper,
     private val userMentionMapper: UserMentionDataToEntityMapper,
@@ -20,14 +21,14 @@ class TweetDataToEntityMapper @Inject constructor (
 ) : Mapper<TweetData, TweetEntity> {
 
     override fun map(src: TweetData): TweetEntity {
-        val isReTweetContained = src.reTweet.id == 0L
+        val isReTweetContained = src.reTweet.id > 0L
         return if (isReTweetContained) createReTweet(src) else createSimpleTweet(src)
     }
 
     private fun createSimpleTweet(src: TweetData): SimpleTweetEntity {
         return SimpleTweetEntity(
             id = src.id,
-            userIndex = src.user.id,
+            userEntity = userMapper.map(src.user),
             content = src.text,
             createdDate = dateMapper.map(src.created),
             place = src.place.fullName, // TODO - 언어
@@ -44,7 +45,7 @@ class TweetDataToEntityMapper @Inject constructor (
     private fun createReTweet(src: TweetData): ReTweetEntity {
         return ReTweetEntity(
             id = src.id,
-            userIndex = src.user.id,
+            userEntity = userMapper.map(src.user),
             content = src.text,
             createdDate = dateMapper.map(src.created),
             place = src.place.fullName, // TODO - 언어
