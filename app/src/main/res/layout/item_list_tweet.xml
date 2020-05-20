@@ -42,13 +42,17 @@
             layout="@layout/item_list_tweet_media"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"/>
+            android:layout_marginTop="10dp"
+            android:visibility="gone"
+            tools:visibility="visible"/>
 
         <include
             layout="@layout/item_list_tweet_retweet"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp" />
+            android:layout_marginTop="10dp"
+            android:visibility="gone"
+            tools:visibility="visible"/>
 
         <include
             android:id="@+id/tweetCountContainer"
