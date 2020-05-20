@@ -15,9 +15,6 @@ import com.inkiu.twittersample.common.image.ImageLoader
 import com.inkiu.twittersample.ui.base.BaseFragment
 import com.inkiu.twittersample.ui.base.BaseViewModel
 import com.inkiu.twittersample.ui.common.tweets.TweetAdapter
-import com.inkiu.twittersample.ui.common.tweets.TweetTypeFactory
-import com.twitter.sdk.android.core.models.Tweet
-import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.fragment_home_tweets.*
 import javax.inject.Inject
 
@@ -37,7 +34,7 @@ class HomeTweetsFragment : BaseFragment() {
     }
 
     private val adapter: TweetAdapter by lazy {
-        TweetAdapter(TweetTypeFactory, imageLoader)
+        TweetAdapter(imageLoader)
     }
 
     override fun getViewModel(): BaseViewModel = viewModel
@@ -51,14 +48,18 @@ class HomeTweetsFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initTweetRecyclerView()
+        viewModel.pagingListData.observe(this.viewLifecycleOwner, Observer {
+            it.let { adapter.submitList(it) }
+        })
+    }
+
+    private fun initTweetRecyclerView() {
         tweetRecyclerView.adapter = adapter
         tweetRecyclerView.layoutManager = LinearLayoutManager(requireContext())
         tweetRecyclerView.addItemDecoration(DividerItemDecoration(
             requireContext(),
             DividerItemDecoration.VERTICAL)
         )
-        viewModel.pagingListData.observe(this.viewLifecycleOwner, Observer {
-            it.let { adapter.submitList(it) }
-        })
     }
 }
