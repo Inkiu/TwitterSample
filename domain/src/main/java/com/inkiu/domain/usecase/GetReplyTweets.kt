@@ -15,8 +15,16 @@ class GetReplyTweets(
 
     override suspend fun execute(param: Param): List<TweetEntity> {
         val query = "to:${param.userName}"
+        val results = mutableListOf<TweetEntity>()
         var since = param.sinceId
-        return tweetRepository.searchTweets(query, since, 100)
+        do {
+            val searched = tweetRepository.searchTweets(query, since, 100)
+                .filter { it.replyToId == since }
+            if (searched.isEmpty()) break
+            results.addAll(searched)
+            since = results.last().id
+        } while (results.size >= param.count)
+        return results
     }
 
     data class Param(
