@@ -35,6 +35,7 @@ class GlideImageLoader @Inject constructor(
 
     override fun load(url: String, imageView: ImageView, callback: (Boolean) -> Unit) {
         glide.load(url)
+            .transition(withCrossFade())
             .into(imageView)
     }
 
