@@ -21,7 +21,13 @@ interface TwitterApi {
     suspend fun getMyProfile(): UserData
 
     suspend fun getUser(
-        @Query("user_id") userIndex: Long
+        userIndex: Long
     ): UserData
+
+    suspend fun searchTweets(
+        query: String,
+        sinceId: Long,
+        count: Int
+    ): List<TweetData>
 
 }

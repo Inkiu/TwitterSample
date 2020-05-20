@@ -53,4 +53,8 @@ class TestTwitterApi(
     override suspend fun getUser(userIndex: Long): UserData {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
+
+    override suspend fun searchTweets(query: String, sinceId: Long, count: Int): List<TweetData> {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
 }

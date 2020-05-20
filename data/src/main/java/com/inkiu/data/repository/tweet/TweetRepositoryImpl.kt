@@ -39,4 +39,11 @@ class TweetRepositoryImpl @Inject constructor(
         return tweets.map { tweetDataToEntityMapper(it) }
     }
 
+    override suspend fun searchTweets(query: String, sinceId: Long, count: Int): List<TweetEntity> {
+        return tweetRemoteDataSource.searchTweets(query, sinceId, count).also {
+            tweetLocalDataSource.updateTweets(it)
+        }.let { results ->
+            results.map { tweetDataToEntityMapper(it) }
+        }
+    }
 }

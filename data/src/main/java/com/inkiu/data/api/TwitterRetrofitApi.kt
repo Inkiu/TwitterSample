@@ -30,4 +30,11 @@ interface TwitterRetrofitApi {
         @Query("user_id") userIndex: Long
     ): UserData
 
+    @GET("search/tweets.json")
+    suspend fun searchTweets(
+        @Query("query") query: String,
+        @Query("since_id") sinceId: Long,
+        @Query("count") count: Int
+    ): List<TweetData>
+
 }
