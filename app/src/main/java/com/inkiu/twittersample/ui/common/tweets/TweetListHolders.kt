@@ -10,15 +10,34 @@ import kotlinx.android.synthetic.main.item_list_tweet.view.*
 import kotlinx.android.synthetic.main.item_list_tweet_counts.view.*
 import kotlinx.android.synthetic.main.item_list_tweet_profile.view.*
 import kotlinx.android.synthetic.main.item_network_state.view.*
+import java.lang.Exception
 
 class NetworkStateItemViewHolder(view: View) : RecyclerView.ViewHolder(view) {
     fun bind(state: DataSourceState?) {
         with(itemView) {
-            progress_bar.visibility = (state == DataSourceState.Loading).toVisibility()
+            when (state) {
+                is DataSourceState.Loading -> setLoading()
+                is DataSourceState.Failure -> setError(state.throwable)
+                else -> setComplete()
+            }
         }
     }
 
-    private fun Boolean.toVisibility() = if (this) View.VISIBLE else View.GONE
+    private fun setError(e: Throwable?) = with(itemView) {
+        progress_bar.visibility = View.GONE
+        error_msg.visibility = View.VISIBLE
+        error_msg.text = e?.message ?: "UnknownError"
+    }
+
+    private fun setLoading() = with(itemView) {
+        progress_bar.visibility = View.VISIBLE
+        error_msg.visibility = View.GONE
+    }
+
+    private fun setComplete() = with(itemView) {
+        progress_bar.visibility = View.GONE
+        error_msg.visibility = View.GONE
+    }
 }
 
 open class PlainTweetHolder(

@@ -46,7 +46,6 @@ class HomeTweetDataSource(
     private fun load(startId: Long, size: Int, callback: LoadCallback<Tweet>) {
         scope.launch {
             launch {
-                delay(1000L)
                 val result = runCatching {
                     getHomeTweets.execute(
                         GetHomeTweets.Param(startId, size)
