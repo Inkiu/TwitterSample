@@ -1,23 +1,27 @@
-package com.inkiu.twittersample.ui.home.hometweet
+package com.inkiu.twittersample.ui.home.homeprofile
 
 import androidx.lifecycle.*
 import androidx.paging.PagedList
 import com.inkiu.domain.usecase.GetHomeTweets
+import com.inkiu.domain.usecase.GetUserTweets
 import com.inkiu.twittersample.di.PerFragment
 import com.inkiu.twittersample.ui.base.BaseViewModel
 import com.inkiu.twittersample.ui.common.model.Tweet
 import com.inkiu.twittersample.ui.common.model.mapper.TweetEntityTweetMapper
 import com.inkiu.twittersample.ui.common.tweets.datasource.HomeTweetDataSource
+import com.inkiu.twittersample.ui.common.tweets.datasource.UserTweetDataSource
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.asExecutor
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class HomeTweetsViewModel(
+class ProfileViewModel(
     private val tweetMapper: TweetEntityTweetMapper,
-    private val getHomeTweets: GetHomeTweets
+    private val getUserTweets: GetUserTweets
 ) : BaseViewModel() {
 
-    private val dataSourceData = MutableLiveData<HomeTweetDataSource>()
+    private val dataSourceData = MutableLiveData<UserTweetDataSource>()
 
     // exposed live data
     val pagingListData = dataSourceData.map { createPagedList(it) }
@@ -28,17 +32,17 @@ class HomeTweetsViewModel(
     }
 
     fun refresh() {
-        dataSourceData.value = createDataSource()
+            dataSourceData.value = createDataSource()
     }
 
-    private fun createDataSource(): HomeTweetDataSource {
-        return HomeTweetDataSource(getHomeTweets, viewModelScope, tweetMapper)
+    private fun createDataSource(): UserTweetDataSource {
+        return UserTweetDataSource(getUserTweets, viewModelScope, tweetMapper)
     }
 
-    private fun createPagedList(dataSource: HomeTweetDataSource): PagedList<Tweet> {
+    private fun createPagedList(dataSource: UserTweetDataSource): PagedList<Tweet> {
         val config = PagedList.Config.Builder()
             .setEnablePlaceholders(false)
-            .setInitialLoadSizeHint(25)
+            .setInitialLoadSizeHint(10)
             .setPageSize(100)
             .setPrefetchDistance(10)
             .build()
@@ -47,18 +51,17 @@ class HomeTweetsViewModel(
             .setNotifyExecutor(Dispatchers.Main.asExecutor())
             .build()
     }
-
 }
 
 @PerFragment
-class HomeTweetsVMFactory @Inject constructor(
+class ProfileVMFactory @Inject constructor(
     private val tweetMapper: TweetEntityTweetMapper,
-    private val getHomeTweets: GetHomeTweets
+    private val getUserTweets: GetUserTweets
 ) : ViewModelProvider.Factory {
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        return HomeTweetsViewModel(
+        return ProfileViewModel(
             tweetMapper,
-            getHomeTweets
+            getUserTweets
         ) as T
     }
 }

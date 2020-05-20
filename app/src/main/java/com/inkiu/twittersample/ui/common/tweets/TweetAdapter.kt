@@ -14,10 +14,9 @@ import kotlinx.android.synthetic.main.item_network_state.view.*
 
 // TODO - click listener
 class TweetAdapter(
-    private val imageLoader: ImageLoader
-) : PagedListAdapter<Tweet, RecyclerView.ViewHolder>(
-    TweetDiffCallback
-) {
+    private val imageLoader: ImageLoader,
+    private val clickListener: TweetClickListener
+) : PagedListAdapter<Tweet, RecyclerView.ViewHolder>(TweetDiffCallback) {
 
     private var networkState: DataSourceState = DataSourceState.Init
 
@@ -28,7 +27,7 @@ class TweetAdapter(
     @Suppress("UNCHECKED_CAST")
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         (holder as? TweetViewHolder<Tweet>)?.let { tweetHolder ->
-            getItem(position)?.let { tweetHolder.bind(it, imageLoader) }
+            getItem(position)?.let { tweetHolder.bind(it, clickListener, imageLoader) }
         } ?: (holder as? NetworkStateItemViewHolder)?.bind(networkState)
     }
 
@@ -68,5 +67,9 @@ object TweetDiffCallback : DiffUtil.ItemCallback<Tweet>() {
 
 
 abstract class TweetViewHolder<in T>(view: View) : RecyclerView.ViewHolder(view) {
-    abstract fun bind(item: T, imageLoader: ImageLoader)
+    abstract fun bind(
+        item: T,
+        clickListener: TweetClickListener,
+        imageLoader: ImageLoader
+    )
 }

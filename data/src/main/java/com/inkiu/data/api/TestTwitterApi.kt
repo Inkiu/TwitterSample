@@ -2,6 +2,7 @@ package com.inkiu.data.api
 
 import android.content.Context
 import com.inkiu.data.entities.TweetData
+import com.inkiu.data.entities.UserData
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.Types
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
@@ -45,4 +46,11 @@ class TestTwitterApi(
         return dataList.subList(start, start + count)
     }
 
+    override suspend fun getMyProfile(): UserData {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override suspend fun getUser(userIndex: Long): UserData {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
 }

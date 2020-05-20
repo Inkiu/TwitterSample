@@ -12,8 +12,8 @@ class UserLocalDataSource @Inject constructor() {
         users.forEach { cache[it.id] = it }
     }
 
-    fun getUser(index: Long): UserData {
-        return cache[index] ?: UserData()
+    fun getUser(index: Long): UserData? {
+        return cache[index]
     }
 
     fun getUsers(indices: List<Long>): List<UserData> {

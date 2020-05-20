@@ -23,14 +23,15 @@ class HomeActivity :
 
         fragmentPager.adapter = HomePagerAdapter(this)
         fragmentPager.isUserInputEnabled = false
+        fragmentPager.setPageTransformer(null)
 
         bottomNavigation.setOnNavigationItemSelectedListener(this)
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.home_bottom_tweet_list -> fragmentPager.currentItem = 0
-            R.id.home_bottom_profile -> fragmentPager.currentItem = 1
+            R.id.home_bottom_tweet_list -> fragmentPager.setCurrentItem(0, false)
+            R.id.home_bottom_profile -> fragmentPager.setCurrentItem(1, false)
         }
         return true
     }

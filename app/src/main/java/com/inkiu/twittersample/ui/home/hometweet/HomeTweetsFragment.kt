@@ -1,6 +1,7 @@
 package com.inkiu.twittersample.ui.home.hometweet
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,11 +14,14 @@ import com.inkiu.twittersample.common.image.ImageLoader
 import com.inkiu.twittersample.ui.base.BaseFragment
 import com.inkiu.twittersample.ui.base.BaseViewModel
 import com.inkiu.twittersample.ui.common.tweets.TweetAdapter
+import com.inkiu.twittersample.ui.common.tweets.TweetClickListener
 import com.inkiu.twittersample.ui.common.tweets.datasource.DataSourceState
 import kotlinx.android.synthetic.main.fragment_home_tweets.*
 import javax.inject.Inject
 
-class HomeTweetsFragment : BaseFragment() {
+class HomeTweetsFragment :
+    BaseFragment(),
+    TweetClickListener {
 
     companion object {
         fun newInstance() = HomeTweetsFragment()
@@ -33,7 +37,7 @@ class HomeTweetsFragment : BaseFragment() {
     }
 
     private val adapter: TweetAdapter by lazy {
-        TweetAdapter(imageLoader)
+        TweetAdapter(imageLoader, this)
     }
 
     override fun getViewModel(): BaseViewModel = viewModel
@@ -75,5 +79,13 @@ class HomeTweetsFragment : BaseFragment() {
             adapter.setNetworkState(it)
             homeTweetRefreshLayout.isRefreshing = it is DataSourceState.LoadingInitial
         })
+    }
+
+    override fun onClickTweet(tweetId: Long) {
+        Log.d("tmpLog", "onClickTweet: $tweetId")
+    }
+
+    override fun onClickUser(userId: Long) {
+        Log.d("tmpLog", "onClickUser: $userId")
     }
 }

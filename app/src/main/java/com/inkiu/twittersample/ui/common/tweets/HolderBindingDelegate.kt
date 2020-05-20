@@ -41,10 +41,16 @@ object MediaBindingDelegate {
 }
 
 object QuotedBindingDelegate {
-    fun bind(parent: View, quoted: Quoted, imageLoader: ImageLoader) {
+    fun bind(
+        parent: View,
+        quoted: Quoted,
+        clickListener: TweetClickListener,
+        imageLoader: ImageLoader
+    ) {
         with(parent) {
             visibility = View.VISIBLE
             imageLoader.loadCircle(quoted.user.profileUrl, profileImage)
+            reTweetInnerContainer.setOnClickListener { clickListener.onClickTweet(quoted.id) }
             profileDisplayName.text = quoted.content
             profileVerified.visibility = if (quoted.user.verified) View.VISIBLE else View.GONE
             profileName.text = quoted.user.name
