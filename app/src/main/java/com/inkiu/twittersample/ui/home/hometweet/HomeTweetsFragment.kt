@@ -49,9 +49,7 @@ class HomeTweetsFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initTweetRecyclerView()
-        viewModel.pagingListData.observe(this.viewLifecycleOwner, Observer {
-            it.let { adapter.submitList(it) }
-        })
+        observe()
     }
 
     private fun initTweetRecyclerView() {
@@ -61,5 +59,14 @@ class HomeTweetsFragment : BaseFragment() {
             requireContext(),
             DividerItemDecoration.VERTICAL)
         )
+    }
+
+    private fun observe() {
+        viewModel.pagingListData.observe(this.viewLifecycleOwner, Observer {
+            adapter.submitList(it)
+        })
+        viewModel.networkStateData.observe(this.viewLifecycleOwner, Observer {
+            adapter.setNetworkState(it)
+        })
     }
 }
