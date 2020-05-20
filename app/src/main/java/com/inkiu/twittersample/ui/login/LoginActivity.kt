@@ -39,6 +39,7 @@ class LoginActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
         observe()
+        loginTwitter()
         twitterSignButton.setOnClickListener {
             loginTwitter()
         }
@@ -51,9 +52,9 @@ class LoginActivity : BaseActivity() {
 
     private fun observe() {
         viewModel.viewStateData.observe(this, Observer {
-            when (it.loginState) {
-                LoginState.LOGIN_SUCCESS -> navigateHomeActivity()
-                LoginState.LOGIN_FAILED -> toast("failed")
+            when (val loginState = it.loginState) {
+                LoginState.LoginSuccess -> navigateHomeActivity()
+                is LoginState.LoginFailed -> loginState.e?.message?.let { toast(it) }
             }
         })
     }

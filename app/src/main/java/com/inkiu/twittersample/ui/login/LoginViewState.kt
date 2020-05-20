@@ -1,7 +1,7 @@
 package com.inkiu.twittersample.ui.login
 
 data class LoginViewState(
-    private var _loginState: LoginState = LoginState.LOGIN_FAILED
+    private var _loginState: LoginState = LoginState.LoginFailed(null)
 ) {
 
     val loginState: LoginState get() = _loginState
@@ -12,6 +12,7 @@ data class LoginViewState(
 
 }
 
-enum class LoginState {
-    LOGIN_FAILED, LOGIN_SUCCESS
+sealed class LoginState {
+    object LoginSuccess : LoginState()
+    data class LoginFailed(val e: Throwable?) : LoginState()
 }

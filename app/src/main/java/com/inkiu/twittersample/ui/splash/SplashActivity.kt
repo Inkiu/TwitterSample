@@ -29,7 +29,6 @@ class SplashActivity : BaseActivity() {
     private fun observe() {
          viewModel.viewStateData.observe(this, Observer {
              when (it.loginState) {
-                 LoginState.CHECKING -> toast("wait")
                  LoginState.LOGGED_OUT -> navigateLoginActivity()
                  LoginState.LOGGED_IN -> navigateHomeActivity()
              }
