@@ -10,6 +10,7 @@ abstract class BaseFragment : DaggerFragment() {
         getViewModel().onAttached()
     }
 
+    // TODO get
     abstract fun getViewModel(): BaseViewModel
 
 }
