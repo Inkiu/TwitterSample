@@ -17,24 +17,22 @@ class HomeTweetsViewModel(
     private val getHomeTweets: GetHomeTweets
 ) : BaseViewModel() {
 
-    private val viewState = HomeTweetViewState()
     private val dataSourceData = MutableLiveData<HomeTweetDataSource>()
 
     // exposed live data
-    val viewStateData: MutableLiveData<HomeTweetViewState> = MutableLiveData(viewState)
     val pagingListData = dataSourceData.map { createPagedList(it) }
     val networkStateData = dataSourceData.switchMap { it.state }
 
     override fun onAttached() {
+        refresh()
+    }
+
+    fun refresh() {
         dataSourceData.value = createDataSource()
     }
 
     private fun createDataSource(): HomeTweetDataSource {
         return HomeTweetDataSource(getHomeTweets, viewModelScope, tweetMapper)
-    }
-
-    private fun HomeTweetViewState.post() {
-        viewStateData.value = this
     }
 
     private fun createPagedList(dataSource: HomeTweetDataSource): PagedList<Tweet> {

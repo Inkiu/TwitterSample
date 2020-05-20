@@ -10,16 +10,13 @@ import kotlinx.android.synthetic.main.item_list_tweet.view.*
 import kotlinx.android.synthetic.main.item_list_tweet_counts.view.*
 import kotlinx.android.synthetic.main.item_list_tweet_profile.view.*
 import kotlinx.android.synthetic.main.item_network_state.view.*
-import java.lang.Exception
 
 class NetworkStateItemViewHolder(view: View) : RecyclerView.ViewHolder(view) {
     fun bind(state: DataSourceState?) {
-        with(itemView) {
-            when (state) {
-                is DataSourceState.Loading -> setLoading()
-                is DataSourceState.Failure -> setError(state.throwable)
-                else -> setComplete()
-            }
+        when (state) {
+            is DataSourceState.Loading -> setLoading()
+            is DataSourceState.Failure -> setError(state.throwable)
+            else -> setComplete()
         }
     }
 

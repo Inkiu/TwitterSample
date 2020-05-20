@@ -8,7 +8,6 @@ import com.inkiu.domain.usecase.GetHomeTweets
 import com.inkiu.twittersample.ui.common.model.Tweet
 import com.inkiu.twittersample.ui.common.model.mapper.TweetEntityTweetMapper
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 class HomeTweetDataSource(
@@ -26,7 +25,7 @@ class HomeTweetDataSource(
     ) {
         val initialKey= params.requestedInitialKey ?: 0L
         scope.launch {
-            state.value = DataSourceState.Loading
+            state.value = DataSourceState.LoadingInitial
         }
         load(initialKey, params.requestedLoadSize, callback)
     }
