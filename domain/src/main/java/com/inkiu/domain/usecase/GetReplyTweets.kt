@@ -19,7 +19,7 @@ class GetReplyTweets(
         var since = param.sinceId
         do {
             val searched = tweetRepository.searchTweets(query, since, 100)
-                .filter { it.replyToId == since }
+                .filter { it.replyToId == param.tweetId }
             if (searched.isEmpty()) break
             results.addAll(searched)
             since = results.last().id

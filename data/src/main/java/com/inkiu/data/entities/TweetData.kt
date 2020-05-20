@@ -3,6 +3,7 @@ package com.inkiu.data.entities
 import com.inkiu.data.entities.entities.TweetEntities
 import com.inkiu.data.entities.entities.TweetExtendedEntities
 import com.inkiu.data.entities.entities.common.PlaceData
+import com.inkiu.domain.Constant
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 
@@ -19,7 +20,7 @@ data class TweetData(
 
     @Json(name = "user") val user: UserData = UserData(),
 
-    @Json(name = "in_reply_to_status_id") val replyToTweetId: Long = -1L,
+    @Json(name = "in_reply_to_status_id") val _replyToTweetId: Long? = null,
 
     @Json(name = "quoted_status") val _reTweet: TweetData? = null,
 
@@ -35,4 +36,7 @@ data class TweetData(
 
     val reTweet: TweetData
         get() = _reTweet ?: TweetData()
+
+    val replyToTweetId: Long
+        get() = _replyToTweetId ?: Constant.INVALID_ID
 }
