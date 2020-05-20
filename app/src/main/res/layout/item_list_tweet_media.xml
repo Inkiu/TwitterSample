@@ -24,13 +24,35 @@
                 android:layout_width="match_parent"
                 android:layout_height="150dp"/>
 
-            <ImageView
-                android:id="@+id/mediaImageView"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/singleMediaContainer"
                 android:layout_width="match_parent"
-                android:layout_height="150dp"
-                android:scaleType="centerCrop"
-                android:contentDescription="TODO"
-                tools:src="@mipmap/ic_launcher"/>
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/mediaImageView"
+                    android:layout_width="0dp"
+                    android:layout_height="150dp"
+                    android:scaleType="centerCrop"
+                    android:contentDescription="TODO"
+                    tools:src="@mipmap/ic_launcher"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"/>
+
+                <ImageView
+                    android:id="@+id/mediaTipImageView"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:background="@drawable/bg_circle_white"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    tools:src="@mipmap/ic_launcher"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
         </LinearLayout>
 

@@ -1,11 +1,9 @@
 package com.inkiu.twittersample.ui.common.tweets
 
 import android.view.View
+import com.inkiu.twittersample.R
 import com.inkiu.twittersample.common.image.ImageLoader
-import com.inkiu.twittersample.ui.common.model.Media
-import com.inkiu.twittersample.ui.common.model.PhotosMedia
-import com.inkiu.twittersample.ui.common.model.Quoted
-import com.inkiu.twittersample.ui.common.model.SingleMedia
+import com.inkiu.twittersample.ui.common.model.*
 import kotlinx.android.synthetic.main.item_list_tweet_media.view.*
 import kotlinx.android.synthetic.main.item_list_tweet_profile.view.*
 import kotlinx.android.synthetic.main.item_list_tweet_retweet.view.*
@@ -17,15 +15,22 @@ object MediaBindingDelegate {
             when (media) {
                 is PhotosMedia -> {
                     mediaMultiImageView.visibility = View.VISIBLE
-                    mediaImageView.visibility = View.GONE
+                    singleMediaContainer.visibility = View.GONE
                     val urls = media.photos.map { it.sourceUrl }
                         .toTypedArray()
                     mediaMultiImageView.putImages(*urls)
                 }
-                is SingleMedia -> {
+                is AnimatedMedia -> {
                     mediaMultiImageView.visibility =View.GONE
-                    mediaImageView.visibility = android.view.View.VISIBLE
+                    singleMediaContainer.visibility = View.VISIBLE
                     imageLoader.load(media.sourceUrl, mediaImageView)
+                    mediaTipImageView.setImageResource(R.drawable.ic_gif)
+                }
+                is VideoMedia -> {
+                    mediaMultiImageView.visibility =View.GONE
+                    singleMediaContainer.visibility = View.VISIBLE
+                    imageLoader.load(media.sourceUrl, mediaImageView)
+                    mediaTipImageView.setImageResource(R.drawable.ic_play_circle)
                 }
                 else -> {
                     visibility = View.GONE
