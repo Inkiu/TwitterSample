@@ -29,7 +29,7 @@ class TweetDataToEntityMapper @Inject constructor (
         return SimpleTweetEntity(
             id = src.id,
             userEntity = userMapper.map(src.user),
-            content = src.text,
+            content = getContent(src),
             createdDate = dateMapper.map(src.created),
             place = src.place.fullName, // TODO - 언어
             commentCount = 0, // TODO
@@ -47,7 +47,7 @@ class TweetDataToEntityMapper @Inject constructor (
         return ReTweetEntity(
             id = src.id,
             userEntity = userMapper.map(src.user),
-            content = src.text,
+            content = getContent(src),
             createdDate = dateMapper.map(src.created),
             place = src.place.fullName, // TODO - 언어
             commentCount = 0, // TODO
@@ -60,6 +60,14 @@ class TweetDataToEntityMapper @Inject constructor (
             media = src.extendedEntities.medias.map { mediaMapper.map(it) },
             sourceTweet = createSimpleTweet(src.reTweet) // NOTE 리트윗은 simple
         )
+    }
+
+    private fun getContent(src: TweetData): String {
+        return runCatching {
+            src.text.substring(src.displayTextRange[0], src.displayTextRange[1])
+        }.let {
+            if (it.isSuccess) it.getOrNull()!! else src.text
+        }
     }
     
     private fun getTextComposites(src: TweetEntities): List<TextComposeEntity> {
