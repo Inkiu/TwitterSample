@@ -5,6 +5,8 @@ import com.inkiu.domain.repositoty.TweetRepository
 import com.inkiu.domain.repositoty.UserRepository
 import com.inkiu.domain.usecase.GetHomeTweets
 import com.inkiu.domain.usecase.GetUserDetail
+import com.inkiu.twittersample.common.image.GlideImageLoader
+import com.inkiu.twittersample.common.image.ImageLoader
 import com.inkiu.twittersample.di.PerActivity
 import com.inkiu.twittersample.di.PerFragment
 import com.inkiu.twittersample.ui.home.HomeActivity
@@ -27,10 +29,24 @@ abstract class HomeModule {
     @PerFragment
     abstract fun profileFragment(): ProfileFragment
 
+    @Module
+    companion object {
+        @JvmStatic
+        @Provides
+        @PerActivity
+        fun provideGetHomeTweets(
+            userRepository: UserRepository,
+            tweetRepository: TweetRepository
+        ) = GetHomeTweets(userRepository, tweetRepository)
+    }
+
     @Binds
     @PerActivity
     @Named("ActivityContext")
     abstract fun bindsActivityContext(activity: HomeActivity): Context
 
+    @Binds
+    @PerActivity
+    abstract fun bindsImageLoader(glideImageLoader: GlideImageLoader): ImageLoader
 
 }

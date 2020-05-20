@@ -20,13 +20,13 @@ import javax.inject.Inject
 import javax.inject.Named
 
 class GlideImageLoader @Inject constructor(
-    fragment: Fragment
+    @Named("ActivityContext") context: Context
 ) : ImageLoader {
 
     val roundRequestOptions = RequestOptions
         .bitmapTransform(CircleCrop())
 
-    private val glide = Glide.with(fragment)
+    private val glide = Glide.with(context)
 
     override fun loadCircle(url: String, imageView: ImageView, callback: (Boolean) -> Unit) {
         glide.load(url)

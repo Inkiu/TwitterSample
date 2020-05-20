@@ -28,9 +28,9 @@ class ProfileFragment :
         fun newInstance() = ProfileFragment()
     }
 
-    @Inject
+//    @Inject
     lateinit var vmFactory: ProfileVMFactory
-    @Inject
+//    @Inject
     lateinit var imageLoader: ImageLoader
 
     private val viewModel: ProfileViewModel by lazy {

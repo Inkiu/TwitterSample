@@ -27,9 +27,9 @@ class HomeTweetsFragment :
         fun newInstance() = HomeTweetsFragment()
     }
 
-    @Inject
+//    @Inject
     lateinit var vmFactory: HomeTweetsVMFactory
-    @Inject
+//    @Inject
     lateinit var imageLoader: ImageLoader
 
     private val viewModel: HomeTweetsViewModel by lazy {

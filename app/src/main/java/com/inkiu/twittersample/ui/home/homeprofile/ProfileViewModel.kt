@@ -53,8 +53,8 @@ class ProfileViewModel(
     }
 }
 
-@PerFragment
-class ProfileVMFactory @Inject constructor(
+//@PerFragment
+class ProfileVMFactory constructor(
     private val tweetMapper: TweetEntityTweetMapper,
     private val getUserTweets: GetUserTweets
 ) : ViewModelProvider.Factory {

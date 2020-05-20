@@ -1,8 +1,9 @@
-package com.inkiu.twittersample.ui.home.hometweet
+package com.inkiu.twittersample.ui.home
 
 import androidx.lifecycle.*
 import androidx.paging.PagedList
 import com.inkiu.domain.usecase.GetHomeTweets
+import com.inkiu.twittersample.di.PerActivity
 import com.inkiu.twittersample.di.PerFragment
 import com.inkiu.twittersample.ui.base.BaseViewModel
 import com.inkiu.twittersample.ui.common.model.Tweet
@@ -12,7 +13,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.asExecutor
 import javax.inject.Inject
 
-class HomeTweetsViewModel(
+class HomeViewModel(
     private val tweetMapper: TweetEntityTweetMapper,
     private val getHomeTweets: GetHomeTweets
 ) : BaseViewModel() {
@@ -50,13 +51,13 @@ class HomeTweetsViewModel(
 
 }
 
-//@PerFragment
-class HomeTweetsVMFactory constructor(
+@PerActivity
+class HomeVMFactory @Inject constructor(
     private val tweetMapper: TweetEntityTweetMapper,
     private val getHomeTweets: GetHomeTweets
 ) : ViewModelProvider.Factory {
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        return HomeTweetsViewModel(
+        return HomeViewModel(
             tweetMapper,
             getHomeTweets
         ) as T

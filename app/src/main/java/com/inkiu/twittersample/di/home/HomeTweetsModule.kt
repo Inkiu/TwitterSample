@@ -13,17 +13,17 @@ import dagger.Provides
 @Module
 class HomeTweetsModule {
 
-    @Provides
-    @PerFragment
-    fun provideGetHomeTweets(
-        userRepository: UserRepository,
-        tweetRepository: TweetRepository
-    ) = GetHomeTweets(userRepository, tweetRepository)
-
-    @Provides
-    @PerFragment
-    fun provideImageLoader(
-        fragment: HomeTweetsFragment
-    ): ImageLoader = GlideImageLoader(fragment)
+//    @Provides
+//    @PerFragment
+//    fun provideGetHomeTweets(
+//        userRepository: UserRepository,
+//        tweetRepository: TweetRepository
+//    ) = GetHomeTweets(userRepository, tweetRepository)
+//
+//    @Provides
+//    @PerFragment
+//    fun provideImageLoader(
+//        fragment: HomeTweetsFragment
+//    ): ImageLoader = GlideImageLoader(fragment)
 
 }

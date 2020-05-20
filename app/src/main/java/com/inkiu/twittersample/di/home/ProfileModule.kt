@@ -14,22 +14,22 @@ import dagger.Provides
 @Module
 class ProfileModule {
 
-    @Provides
-    @PerFragment
-    fun provideGetUserTweets(
-        userRepository: UserRepository,
-        tweetRepository: TweetRepository
-    ) = GetUserTweets(userRepository, tweetRepository)
-
-    @Provides
-    @PerFragment
-    fun provideGetUser(
-        userRepository: UserRepository
-    ) = GetUser(userRepository)
-
-    @Provides
-    @PerFragment
-    fun provideImageLoader(
-        fragment: ProfileFragment
-    ): ImageLoader = GlideImageLoader(fragment)
+//    @Provides
+//    @PerFragment
+//    fun provideGetUserTweets(
+//        userRepository: UserRepository,
+//        tweetRepository: TweetRepository
+//    ) = GetUserTweets(userRepository, tweetRepository)
+//
+//    @Provides
+//    @PerFragment
+//    fun provideGetUser(
+//        userRepository: UserRepository
+//    ) = GetUser(userRepository)
+//
+//    @Provides
+//    @PerFragment
+//    fun provideImageLoader(
+//        fragment: ProfileFragment
+//    ): ImageLoader = GlideImageLoader(fragment)
 }
