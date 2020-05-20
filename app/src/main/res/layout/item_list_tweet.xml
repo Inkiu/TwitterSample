@@ -39,6 +39,7 @@
             tools:text="content\ncontent\ncontent\ncontent\ncontent\ncontent\ncontent" />
 
         <include
+            android:id="@+id/tweetMediaContainer"
             layout="@layout/item_list_tweet_media"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

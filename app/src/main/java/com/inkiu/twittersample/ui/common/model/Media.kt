@@ -2,6 +2,11 @@ package com.inkiu.twittersample.ui.common.model
 
 interface Media
 
+interface SingleMedia : Media {
+    val id: Long
+    val sourceUrl: String
+}
+
 data class PhotoMedia(
     val id: Long,
     val sourceUrl: String
@@ -12,13 +17,13 @@ data class PhotosMedia(
 ) : Media
 
 data class AnimatedMedia(
-    val id: Long,
-    val sourceUrl: String
-) : Media
+    override val id: Long,
+    override val sourceUrl: String
+) : SingleMedia
 
 data class VideoMedia(
-    val id: Long,
-    val sourceUrl: String
-) : Media
+    override val id: Long,
+    override val sourceUrl: String
+) : SingleMedia
 
 object UnknownMedia : Media

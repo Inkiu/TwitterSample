@@ -4,10 +4,11 @@ import android.util.Log
 import android.view.View
 import com.inkiu.twittersample.R
 import com.inkiu.twittersample.common.image.ImageLoader
+import com.inkiu.twittersample.ui.common.model.*
 import com.inkiu.twittersample.ui.common.tweets.TweetViewHolder
-import com.inkiu.twittersample.ui.common.model.Tweet
 import kotlinx.android.synthetic.main.item_list_tweet.view.*
 import kotlinx.android.synthetic.main.item_list_tweet_counts.view.*
+import kotlinx.android.synthetic.main.item_list_tweet_media.view.*
 import kotlinx.android.synthetic.main.item_list_tweet_profile.view.*
 
 open class PlainTweetHolder(
@@ -22,7 +23,7 @@ open class PlainTweetHolder(
     // TODO date
     private fun bindProfile(item: Tweet, imageLoader: ImageLoader) {
         with(itemView) {
-            imageLoader.load(item.user.profileUrl, profileImage) { }
+            imageLoader.load(item.user.profileUrl, profileImage)
         }
         with(itemView.tweetProfileContainer) {
             profileDisplayName.text = item.user.displayName
@@ -57,10 +58,16 @@ open class PlainTweetHolder(
     }
 }
 
-class MediaTweetHolder(view: View) : PlainTweetHolder(view) {
+class MediaTweetHolder(view: View) : PlainTweetHolder(view){
+
     override fun bind(item: Tweet, imageLoader: ImageLoader) {
         super.bind(item, imageLoader)
-
+        val media = item.media ?: return
+        MediaBindingDelegate.bind(
+            itemView.tweetMediaContainer,
+            media,
+            imageLoader
+        )
     }
 }
 
