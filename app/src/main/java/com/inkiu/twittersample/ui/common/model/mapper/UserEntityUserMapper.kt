@@ -12,7 +12,7 @@ class UserEntityUserMapper @Inject constructor() : Mapper<UserEntity, User> {
         return User(
             src.id,
             src.displayName,
-            src.name,
+            "@${src.name}",
             src.profileImageUrl,
             src.verified
         )

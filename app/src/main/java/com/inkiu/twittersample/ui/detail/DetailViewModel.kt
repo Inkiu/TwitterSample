@@ -9,6 +9,8 @@ import com.inkiu.twittersample.di.PerActivity
 import com.inkiu.twittersample.ui.base.BaseViewModel
 import com.inkiu.twittersample.ui.common.model.Tweet
 import com.inkiu.twittersample.ui.common.model.mapper.TweetEntityTweetMapper
+import com.inkiu.twittersample.ui.common.model.mapper.UserDetailEntityToUserDetailMapper
+import com.inkiu.twittersample.ui.common.model.mapper.UserEntityUserMapper
 import com.inkiu.twittersample.ui.common.tweets.datasource.NewUserTweetDataSource
 import com.inkiu.twittersample.ui.common.tweets.datasource.ReplyTweetDataSource
 import kotlinx.coroutines.Dispatchers
@@ -21,7 +23,8 @@ class DetailViewModel(
     private val userId: Long,
     private val getUserDetail: GetUserDetail,
     private val getUserTweets: GetUserTweets,
-    private val tweetMapper: TweetEntityTweetMapper
+    private val tweetMapper: TweetEntityTweetMapper,
+    private val userMapper: UserDetailEntityToUserDetailMapper
 ) : BaseViewModel() {
 
     private val _detailData = MutableLiveData<Tweet>()
@@ -66,14 +69,16 @@ class DetailVmFactory @Inject constructor(
     @Named("user_id") private val userId: Long,
     private val getUserDetail: GetUserDetail,
     private val getUserTweets: GetUserTweets,
-    private val tweetMapper: TweetEntityTweetMapper
+    private val tweetMapper: TweetEntityTweetMapper,
+    private val userMapper: UserDetailEntityToUserDetailMapper
 ) : ViewModelProvider.Factory {
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         return DetailViewModel(
             userId,
             getUserDetail,
             getUserTweets,
-            tweetMapper
+            tweetMapper,
+            userMapper
         ) as T
     }
 }
