@@ -13,6 +13,7 @@ class GetHomeTweets(
 
     override suspend fun execute(param: Param): List<TweetEntity> {
         return tweetRepository.getHomeTweets(param.startIndex, param.count)
+            .filter { it.id != param.startIndex }
     }
 
     data class Param(

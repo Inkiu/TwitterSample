@@ -12,6 +12,7 @@ class GetUserTweets(
 
     override suspend fun execute(param: Param): List<TweetEntity> {
         return tweetRepository.getUserTweets(param.userIndex, param.startIndex, param.count)
+            .filter { it.id != param.startIndex }
     }
 
     data class Param(
