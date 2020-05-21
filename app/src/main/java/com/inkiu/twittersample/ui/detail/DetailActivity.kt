@@ -12,18 +12,19 @@ import com.inkiu.twittersample.common.getDecimalSize
 import com.inkiu.twittersample.common.image.ImageLoader
 import com.inkiu.twittersample.common.relatedTimeString
 import com.inkiu.twittersample.common.toVisibility
-import com.inkiu.twittersample.ui.base.BaseActivity
-import com.inkiu.twittersample.ui.base.BaseViewModel
 import com.inkiu.twittersample.model.User
 import com.inkiu.twittersample.model.UserDetail
+import com.inkiu.twittersample.ui.base.BaseActivity
+import com.inkiu.twittersample.ui.base.BaseViewModel
+import com.inkiu.twittersample.ui.common.LoadingState
 import com.inkiu.twittersample.ui.common.tweets.TweetAdapter
 import com.inkiu.twittersample.ui.common.tweets.TweetClickListener
-import com.inkiu.twittersample.ui.common.LoadingState
+import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_detail.*
 import kotlinx.android.synthetic.main.layout_profile.*
 import javax.inject.Inject
 
-class DetailActivity : BaseActivity() {
+class DetailActivity : BaseActivity(), TweetClickListener {
 
     companion object {
         const val ARG_USER_ID = "ARG_USER_ID"
@@ -41,11 +42,7 @@ class DetailActivity : BaseActivity() {
     }
 
     private val adapter: TweetAdapter by lazy {
-        TweetAdapter(imageLoader, object : TweetClickListener {
-            override fun onClickTweet(user: User) {
-                /* no-op */
-            }
-        })
+        TweetAdapter(imageLoader, this)
     }
 
     override fun getViewModel(): BaseViewModel = viewModel
@@ -123,4 +120,8 @@ class DetailActivity : BaseActivity() {
         })
     }
 
+    override fun onClickTweet(user: User) {
+        if (viewModel.detailData.value?.id != user.id)
+            startActivity(newIntent(this, user.id))
+    }
 }
