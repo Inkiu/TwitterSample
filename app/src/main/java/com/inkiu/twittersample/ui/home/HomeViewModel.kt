@@ -3,19 +3,25 @@ package com.inkiu.twittersample.ui.home
 import androidx.lifecycle.*
 import androidx.paging.PagedList
 import com.inkiu.domain.usecase.GetHomeTweets
+import com.inkiu.domain.usecase.GetUser
 import com.inkiu.twittersample.di.PerActivity
 import com.inkiu.twittersample.di.PerFragment
 import com.inkiu.twittersample.ui.base.BaseViewModel
 import com.inkiu.twittersample.ui.common.model.Tweet
+import com.inkiu.twittersample.ui.common.model.User
 import com.inkiu.twittersample.ui.common.model.mapper.TweetEntityTweetMapper
+import com.inkiu.twittersample.ui.common.model.mapper.UserEntityUserMapper
 import com.inkiu.twittersample.ui.common.tweets.datasource.HomeTweetDataSource
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.asExecutor
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class HomeViewModel(
     private val tweetMapper: TweetEntityTweetMapper,
-    private val getHomeTweets: GetHomeTweets
+    private val userMapper: UserEntityUserMapper,
+    private val getHomeTweets: GetHomeTweets,
+    private val getUser: GetUser
 ) : BaseViewModel() {
 
     private val dataSourceData = MutableLiveData<HomeTweetDataSource>()
@@ -23,12 +29,28 @@ class HomeViewModel(
     // exposed live data
     val pagingListData = dataSourceData.map { createPagedList(it) }
     val networkStateData = dataSourceData.switchMap { it.state }
+    val userData = MutableLiveData<User>()
 
     override fun onAttached() {
-        refresh()
+        launch { refreshUser() }
+        refreshTweets()
     }
 
     fun refresh() {
+        refreshTweets()
+    }
+
+    private suspend fun refreshUser() {
+        getUser(GetUser.Param.MyProfile)
+            .onSuccess {
+                userData.value = userMapper.map(it)
+            }
+            .onFailure {
+
+            }
+    }
+
+    private fun refreshTweets() {
         dataSourceData.value = createDataSource()
     }
 
@@ -54,12 +76,16 @@ class HomeViewModel(
 @PerActivity
 class HomeVMFactory @Inject constructor(
     private val tweetMapper: TweetEntityTweetMapper,
-    private val getHomeTweets: GetHomeTweets
+    private val userMapper: UserEntityUserMapper,
+    private val getHomeTweets: GetHomeTweets,
+    private val getUser: GetUser
 ) : ViewModelProvider.Factory {
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         return HomeViewModel(
             tweetMapper,
-            getHomeTweets
+            userMapper,
+            getHomeTweets,
+            getUser
         ) as T
     }
 }

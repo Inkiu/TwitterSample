@@ -10,6 +10,7 @@ import com.inkiu.data.repository.tweet.TweetRemoteDataSource
 import com.inkiu.data.repository.tweet.TweetRepositoryImpl
 import com.inkiu.data.repository.user.UserLocalDataSource
 import com.inkiu.data.repository.user.UserRepositoryImpl
+import com.inkiu.domain.Constant
 import com.inkiu.domain.repositoty.TweetRepository
 import com.inkiu.domain.repositoty.UserRepository
 import com.inkiu.domain.usecase.GetHomeTweets
@@ -85,7 +86,7 @@ class MapperTest {
 
     @Test // TweetEntity에서 Tweet이 매핑된다
     fun test01() = runBlocking {
-        val entities = getHomeTweets.execute(GetHomeTweets.Param(-1L, 100))
+        val entities = getHomeTweets.execute(GetHomeTweets.Param(Constant.INVALID_ID, 100))
         val models = entities.map { tweetMapper.map(it) }
         assertTrue(entities.size == models.size)
         assertTrue(models.all { it.id > 0 })

@@ -43,7 +43,6 @@ class HomeActivity : BaseActivity(), TweetClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
-
         initTweetRecyclerView()
         initRefreshLayout()
         observe()
@@ -71,6 +70,11 @@ class HomeActivity : BaseActivity(), TweetClickListener {
         viewModel.networkStateData.observe(this, Observer {
             adapter.setNetworkState(it)
             homeTweetRefreshLayout.isRefreshing = it is DataSourceState.LoadingInitial
+        })
+        viewModel.userData.observe(this, Observer {
+            toolbar.title = it.displayName
+            toolbar.subtitle = it.name
+            imageLoader.loadCircleProfile(it.profileUrl, toolbarImage)
         })
     }
 

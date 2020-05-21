@@ -3,6 +3,7 @@ package com.inkiu.twittersample.common.image
 import android.content.Context
 import android.graphics.drawable.Drawable
 import android.widget.ImageView
+import androidx.annotation.DrawableRes
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.GlideException
@@ -26,10 +27,18 @@ class GlideImageLoader @Inject constructor(
 
     private val glide = Glide.with(context)
 
-    override fun loadCircleProfile(url: String, imageView: ImageView, callback: (Boolean) -> Unit) {
+    override fun loadCircleProfile(
+        url: String,
+        imageView: ImageView,
+        @DrawableRes placeHolder: Int,
+        callback: (Boolean) -> Unit) {
         val thumbnail = glide.load(url).apply(profileRequestOption).thumbnail(0.25f)
+
+        val option = if (placeHolder == -1) profileRequestOption
+        else profileRequestOption.clone().placeholder(placeHolder)
+
         glide.load(url)
-            .apply(profileRequestOption)
+            .apply(option)
             .transition(withCrossFade())
             .thumbnail(thumbnail)
             .into(imageView)

@@ -47,7 +47,7 @@ class TestTwitterApi(
     }
 
     override suspend fun getMyProfile(): UserData {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        return getTestTweets(100).random().user
     }
 
     override suspend fun getUser(userIndex: Long): UserData {

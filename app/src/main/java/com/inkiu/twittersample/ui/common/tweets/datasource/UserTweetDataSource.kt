@@ -3,6 +3,7 @@ package com.inkiu.twittersample.ui.common.tweets.datasource
 import androidx.lifecycle.MutableLiveData
 import androidx.paging.ItemKeyedDataSource
 import com.inkiu.data.mapper.Mapper
+import com.inkiu.domain.Constant
 import com.inkiu.domain.entities.tweet.TweetEntity
 import com.inkiu.domain.usecase.GetUserTweets
 import com.inkiu.twittersample.ui.common.model.Tweet
@@ -47,7 +48,7 @@ class UserTweetDataSource(
             launch {
                 val result = runCatching {
                     getUserTweets.execute(
-                        GetUserTweets.Param(-1L, startId, size)
+                        GetUserTweets.Param(Constant.INVALID_ID, startId, size)
                     )
                 }
                 if (result.isSuccess) {

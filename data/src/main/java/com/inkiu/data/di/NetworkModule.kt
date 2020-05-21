@@ -10,20 +10,28 @@ import javax.inject.Singleton
 @Module
 class NetworkModule {
 
+//    @Provides
+//    @Singleton
+//    fun provideTwitterApi(
+//        @Named("consumerKey") consumerKey: String,
+//        @Named("consumerSecret") consumerSecret: String,
+//        @Named("baseUrl") baseUrl: String,
+//        tokenProvider: TokenProvider,
+//        logger: ApiLogger
+//    ) : TwitterApi = TwitterApiImpl(
+//        consumerKey,
+//        consumerSecret,
+//        tokenProvider,
+//        baseUrl,
+//        logger
+//    )
+
     @Provides
     @Singleton
     fun provideTwitterApi(
-        @Named("consumerKey") consumerKey: String,
-        @Named("consumerSecret") consumerSecret: String,
-        @Named("baseUrl") baseUrl: String,
-        tokenProvider: TokenProvider,
-        logger: ApiLogger
-    ) : TwitterApi = TwitterApiImpl(
-        consumerKey,
-        consumerSecret,
-        tokenProvider,
-        baseUrl,
-        logger
+        @Named("ApplicationContext") context: Context
+    ) : TwitterApi = TestTwitterApi(
+        context
     )
 
 }

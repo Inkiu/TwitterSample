@@ -3,9 +3,11 @@ package com.inkiu.twittersample.ui.detail
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
+import com.google.android.material.appbar.AppBarLayout
 import com.inkiu.twittersample.R
 import com.inkiu.twittersample.common.getDecimalSize
 import com.inkiu.twittersample.common.image.ImageLoader
@@ -63,6 +65,23 @@ class DetailActivity : BaseActivity() {
                 this,
                 DividerItemDecoration.VERTICAL)
         )
+
+        detailAppbarLayout.addOnOffsetChangedListener(object : AppBarLayout.OnOffsetChangedListener {
+            var visible = true
+            var scrollRange = -1
+            override fun onOffsetChanged(appBarLayout: AppBarLayout, verticalOffset: Int) {
+                if (scrollRange == -1) {
+                    scrollRange = appBarLayout.totalScrollRange
+                }
+                if (scrollRange + verticalOffset == 0) {
+                    detailCollapsingToolbarLayout.isTitleEnabled = true
+                    visible = true
+                } else if (visible) {
+                    detailCollapsingToolbarLayout.isTitleEnabled = false
+                    visible = false
+                }
+            }
+        })
     }
 
     private fun initRefreshLayout() {
@@ -72,7 +91,7 @@ class DetailActivity : BaseActivity() {
     }
 
     private fun bindUserProfile(user: UserDetail) {
-        imageLoader.loadCircleProfile(user.profileUrl, profileImageView)
+        imageLoader.loadCircleProfile(user.profileUrl, profileImageView, R.drawable.ic_face_w_24dp)
         profileDisplayName.text = user.displayName
         profileName.text = user.name
         profileDescription.text = user.description
@@ -93,9 +112,9 @@ class DetailActivity : BaseActivity() {
         viewModel.networkStateData.observe(this, Observer {
             adapter.setNetworkState(it)
             userRefreshLayout.isRefreshing = it is DataSourceState.LoadingInitial
-//            homeTweetRefreshLayout.isRefreshing = it is DataSourceState.LoadingInitial
         })
         viewModel.detailData.observe(this, Observer {
+            detailCollapsingToolbarLayout.title = it.displayName
             bindUserProfile(it)
         })
     }

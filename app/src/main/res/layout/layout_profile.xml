@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
+    android:background="?attr/colorPrimary"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
@@ -19,13 +20,13 @@
             android:id="@+id/profileImageView"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:src="@drawable/ic_face_24dp"
+            android:src="@drawable/ic_face_w_24dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             android:contentDescription="TODO" />
 
         <TextView
-            style="@style/UserNameTextStyle"
+            style="@style/UserNameTextStyleLight"
             android:id="@+id/profileDisplayName"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -36,7 +37,7 @@
             tools:text="Display Name" />
 
         <TextView
-            style="@style/UserInfoTextStyle"
+            style="@style/UserInfoTextStyleLight"
             android:id="@+id/profileName"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -47,6 +48,7 @@
             tools:text="Real Name" />
 
         <TextView
+            style="@style/UserInfoTextStyleLight"
             android:id="@+id/profileDescription"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -78,7 +80,7 @@
             app:layout_constraintEnd_toStartOf="@id/profilePlace"/>
 
         <TextView
-            style="@style/UserInfoTextStyle"
+            style="@style/UserInfoTextStyleLight"
             android:id="@+id/profilePlace"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -101,7 +103,7 @@
             app:layout_constraintStart_toEndOf="@id/profilePlace"/>
 
         <TextView
-            style="@style/UserInfoTextStyle"
+            style="@style/UserInfoTextStyleLight"
             android:id="@+id/profileCreateDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -123,14 +125,14 @@
 
         <TextView
             android:id="@+id/profileFollowingCount"
-            style="@style/UserNameTextStyle"
+            style="@style/UserNameTextStyleLight"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:singleLine="true"
             tools:text="123"/>
 
         <TextView
-            style="@style/UserInfoTextStyle"
+            style="@style/UserInfoTextStyleLight"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="3dp"
@@ -138,7 +140,7 @@
 
         <TextView
             android:id="@+id/profileFollowerCount"
-            style="@style/UserNameTextStyle"
+            style="@style/UserNameTextStyleLight"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
@@ -146,7 +148,7 @@
             tools:text="456" />
 
         <TextView
-            style="@style/UserInfoTextStyle"
+            style="@style/UserInfoTextStyleLight"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="3dp"
