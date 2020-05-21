@@ -8,6 +8,7 @@ import com.inkiu.domain.usecase.*
 import com.inkiu.twittersample.di.PerActivity
 import com.inkiu.twittersample.ui.base.BaseViewModel
 import com.inkiu.twittersample.ui.common.model.Tweet
+import com.inkiu.twittersample.ui.common.model.UserDetail
 import com.inkiu.twittersample.ui.common.model.mapper.TweetEntityTweetMapper
 import com.inkiu.twittersample.ui.common.model.mapper.UserDetailEntityToUserDetailMapper
 import com.inkiu.twittersample.ui.common.model.mapper.UserEntityUserMapper
@@ -27,9 +28,8 @@ class DetailViewModel(
     private val userMapper: UserDetailEntityToUserDetailMapper
 ) : BaseViewModel() {
 
-    private val _detailData = MutableLiveData<Tweet>()
-//    private val dataSourceData = _detailData.map { createDataSource() }
-    private val dataSourceData = MutableLiveData<NewUserTweetDataSource>()
+    private val _detailData = MutableLiveData<UserDetail>()
+    private val dataSourceData = _detailData.map { createDataSource() }
 
     val detailData = _detailData.map { it }
     val pagingListData = dataSourceData.map { createPagedList(it) }
@@ -41,8 +41,9 @@ class DetailViewModel(
     
     private fun getTweetDetail() {
         launch {
-//            _detailData.value = SimpleTweetEntity().let { tweetMapper(it) }
-            dataSourceData.value = createDataSource()
+            _detailData.value = userMapper(
+                getUserDetail.execute(GetUserDetail.Param(userId))
+            )
         }
     }
 

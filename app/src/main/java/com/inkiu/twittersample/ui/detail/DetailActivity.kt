@@ -3,11 +3,14 @@ package com.inkiu.twittersample.ui.detail
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.text.format.DateUtils
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import com.inkiu.twittersample.R
+import com.inkiu.twittersample.common.getDecimalSize
 import com.inkiu.twittersample.common.image.ImageLoader
+import com.inkiu.twittersample.common.relatedTimeString
 import com.inkiu.twittersample.ui.base.BaseActivity
 import com.inkiu.twittersample.ui.base.BaseViewModel
 import com.inkiu.twittersample.ui.common.model.User
@@ -16,6 +19,7 @@ import com.inkiu.twittersample.ui.common.tweets.TweetAdapter
 import com.inkiu.twittersample.ui.common.tweets.TweetClickListener
 import com.inkiu.twittersample.ui.common.tweets.datasource.DataSourceState
 import kotlinx.android.synthetic.main.activity_detail.*
+import kotlinx.android.synthetic.main.layout_profile.*
 import javax.inject.Inject
 
 class DetailActivity : BaseActivity() {
@@ -62,6 +66,17 @@ class DetailActivity : BaseActivity() {
     }
 
     private fun bindUserProfile(user: UserDetail) {
+        imageLoader.load(user.profileUrl, profileImageView)
+        profileDisplayName.text = user.displayName
+        profileName.text = user.name
+        profileDescription.text = user.description
+
+        profilePlace.text = user.location
+
+        profileCreateDate.text = user.joinedDate.relatedTimeString()
+
+        profileFollowingCount.text = user.followingCount.getDecimalSize()
+        profileFollowerCount.text = user.followerCount.getDecimalSize()
 
     }
 
@@ -74,7 +89,7 @@ class DetailActivity : BaseActivity() {
 //            homeTweetRefreshLayout.isRefreshing = it is DataSourceState.LoadingInitial
         })
         viewModel.detailData.observe(this, Observer {
-            detailText.text = it.user.name
+            bindUserProfile(it)
         })
     }
 
