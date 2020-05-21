@@ -1,6 +1,7 @@
 package com.inkiu.twittersample
 
 import android.content.Context
+import android.graphics.Color
 import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner
 import androidx.test.platform.app.InstrumentationRegistry
 import com.inkiu.data.api.TwitterApiTestImpl
@@ -9,6 +10,7 @@ import com.inkiu.data.repository.tweet.TweetLocalDataSource
 import com.inkiu.data.repository.tweet.TweetRemoteDataSource
 import com.inkiu.data.repository.tweet.TweetRepositoryImpl
 import com.inkiu.data.repository.user.UserLocalDataSource
+import com.inkiu.data.repository.user.UserRemoteDataSource
 import com.inkiu.data.repository.user.UserRepositoryImpl
 import com.inkiu.domain.Constant
 import com.inkiu.domain.repositoty.TweetRepository
@@ -47,15 +49,17 @@ class MapperTest {
         tweetMapper = TweetEntityTweetMapper(
             userEntityMapper,
             TweetEntityQuotedMapper(userEntityMapper),
-            TextComposeToSpannableMapper(),
+            TextComposeToSpannableMapper(Color.BLUE),
             MediaEntityMediaMapper()
         )
     }
 
     private fun initRepositorys(context: Context) {
-        val tweetRemoteDataSource = TweetRemoteDataSource(TwitterApiTestImpl(context))
+        val api = TwitterApiTestImpl(context)
+        val tweetRemoteDataSource = TweetRemoteDataSource(api)
         val tweetLocalDataSource = TweetLocalDataSource()
         val userLocalDataSource = UserLocalDataSource()
+        val userRemoteDataSource = UserRemoteDataSource(api)
 
         val dateMapper = UTCStringToDateMapper()
         val userMapper = UserDataToEntityMapper(dateMapper)
@@ -75,7 +79,8 @@ class MapperTest {
         )
         userRepository = UserRepositoryImpl(
             userMapper,
-            userLocalDataSource
+            userLocalDataSource,
+            userRemoteDataSource
         )
     }
 
