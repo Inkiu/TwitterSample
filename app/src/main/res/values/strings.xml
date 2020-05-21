@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">TwitterSample</string>
     <string name="login_twitter">Login Twitter</string>
+    <string name="following">following</string>
+    <string name="follower">follower</string>
+    <string name="tweet_empty">Tweet is Empty</string>
 </resources>

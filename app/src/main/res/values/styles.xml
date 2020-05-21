@@ -10,6 +10,10 @@
         <item name="buttonStyle">@style/Widget.AppCompat.Button.Colored</item>
     </style>
 
+    <style name="DetailAppBarStyle" parent="Widget.Design.AppBarLayout">
+        <item name="android:background">@android:color/transparent</item>
+    </style>
+
     <style name="UserInfoTextStyle" parent="@android:style/TextAppearance">
         <item name="android:textColor">@color/black</item>
     </style>
@@ -21,6 +25,12 @@
 
     <style name="TweetContentTextStyle" parent="@android:style/TextAppearance">
         <item name="android:textColor">@color/kinda_black</item>
+    </style>
+
+    <style name="Divider">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">0.5dp</item>
+        <item name="android:background">?android:attr/listDivider</item>
     </style>
 
 </resources>

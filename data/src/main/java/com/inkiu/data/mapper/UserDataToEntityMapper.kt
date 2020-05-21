@@ -15,14 +15,17 @@ class UserDataToEntityMapper @Inject constructor (
             id = src.id,
             name = src.screenName,
             displayName = src.name,
-            profileImageUrl = src.profileImageUrl,
+            profileImageUrl = src.profileImageUrl.getFullSizeProfileUrl(),
             verified = src.verified,
             location = src.location,
             joinedDate = dateMapper.map(src.createTime),
             followingCount = src.friendCount,
             followerCount = src.followerCount,
-            profileUrl = src.url
+            profileUrl = src.url,
+            description = src.description
         )
     }
 
+    private fun String.getFullSizeProfileUrl(): String =
+        this.replace("_normal", "")
 }

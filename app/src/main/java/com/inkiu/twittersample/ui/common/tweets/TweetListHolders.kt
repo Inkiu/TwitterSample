@@ -19,9 +19,16 @@ class NetworkStateItemViewHolder(view: View) : RecyclerView.ViewHolder(view) {
     fun bind(state: DataSourceState?) {
         when (state) {
             is DataSourceState.Loading -> setLoading()
+            is DataSourceState.Empty -> setEmpty()
             is DataSourceState.Failure -> setError(state.throwable)
             else -> setComplete()
         }
+    }
+
+    private fun setEmpty() = with(itemView) {
+        progress_bar.visibility = View.GONE
+        error_msg.visibility = View.VISIBLE
+        error_msg.text = context.getString(R.string.tweet_empty)
     }
 
     private fun setError(e: Throwable?) = with(itemView) {
