@@ -21,7 +21,8 @@ class UserDataToEntityMapper @Inject constructor (
             joinedDate = dateMapper.map(src.createTime),
             followingCount = src.friendCount,
             followerCount = src.followerCount,
-            profileUrl = src.url
+            profileUrl = src.url,
+            description = src.description
         )
     }
 

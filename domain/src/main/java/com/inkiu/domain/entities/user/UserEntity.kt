@@ -29,5 +29,6 @@ data class DetailUserEntity(
     val profileUrl: String,
     val joinedDate: Date,
     val followingCount: Int,
-    val followerCount: Int
+    val followerCount: Int,
+    val description: String
 ) : UserEntity(id, name, displayName, profileImageUrl, verified)

@@ -19,7 +19,9 @@ class UserDetailEntityToUserDetailMapper @Inject constructor() : Mapper<DetailUs
             location = src.location,
             joinedDate = src.joinedDate,
             followingCount = src.followingCount,
-            followerCount = src.followerCount
+            followerCount = src.followerCount,
+            description = src.description,
+            descUrl = src.profileUrl
         )
     }
 }

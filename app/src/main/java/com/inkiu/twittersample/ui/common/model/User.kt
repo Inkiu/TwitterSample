@@ -16,10 +16,12 @@ data class UserDetail(
     val displayName: String,
     val name: String,
     val verified: Boolean,
+    val profileUrl: String,
 
     val location: String,
-    val profileUrl: String,
     val joinedDate: Date,
     val followingCount: Int,
-    val followerCount: Int
+    val followerCount: Int,
+    val description: String,
+    val descUrl: String
 )
