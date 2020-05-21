@@ -85,7 +85,7 @@ class MapperTest {
 
     @Test // TweetEntity에서 Tweet이 매핑된다
     fun test01() = runBlocking {
-        val entities = getHomeTweets.execute(GetHomeTweets.Param(-1L, 100))
+        val entities = getHomeTweets.execute(GetHomeTweets.Param(-1L, 100)) // TODO - Constant
         val models = entities.map { tweetMapper.map(it) }
         assertTrue(entities.size == models.size)
         assertTrue(models.all { it.id > 0 })

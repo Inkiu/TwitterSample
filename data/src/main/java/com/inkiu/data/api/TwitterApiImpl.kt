@@ -63,7 +63,7 @@ class TwitterApiImpl(
     ): List<TweetData> {
         return api.getHomeTweets(
             count,
-            if (fromTweetIndex == -1L) null else fromTweetIndex
+            if (fromTweetIndex == -1L) null else fromTweetIndex // TODO - Constant
         )
     }
 
@@ -83,7 +83,7 @@ class TwitterApiImpl(
         return api.getUserTweets(
             userIndex,
             count,
-            if (fromTweetIndex == -1L) null else fromTweetIndex
+            if (fromTweetIndex == -1L) null else fromTweetIndex // TODO - Constant
         )
     }
 

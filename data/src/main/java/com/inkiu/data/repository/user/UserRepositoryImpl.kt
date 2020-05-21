@@ -15,7 +15,7 @@ class UserRepositoryImpl @Inject constructor(
     private val remoteDataSource: UserRemoteDataSource
 ) : UserRepository {
 
-    private var myProfileId: Long = -1L
+    private var myProfileId: Long = -1L // TODO - Constant
 
     override suspend fun getUser(id: Long): UserEntity {
         return getDetailUser(id)
@@ -30,7 +30,7 @@ class UserRepositoryImpl @Inject constructor(
     }
 
     override suspend fun getMyProfile(): DetailUserEntity {
-        return if (myProfileId != -1L) {
+        return if (myProfileId != -1L) { // TODO - Constant
             getDetailUser(myProfileId)
         } else {
             remoteDataSource.getMyProfile().also {

@@ -75,29 +75,29 @@ class RepositoryTests {
 
     @Test // TweetRepository가_homeTweets을_요청했을_시_count에_맞게_리턴한다
     fun test01() = runBlocking {
-        val homeTweets50 = tweetRepositoryImpl.getHomeTweets(-1L, 50)
+        val homeTweets50 = tweetRepositoryImpl.getHomeTweets(-1L, 50) // TODO - Constant
         assertEquals(homeTweets50.size, 50)
         homeTweets50.forEach { assertTrue(it.id > 0L) }
 
-        val homeTweets100 = tweetRepositoryImpl.getHomeTweets(-1L, 100)
+        val homeTweets100 = tweetRepositoryImpl.getHomeTweets(-1L, 100) // TODO - Constant
         assertEquals(homeTweets100.size, 100)
         homeTweets100.forEach { assertTrue(it.id > 0L) }
     }
 
     @Test // TweetRepository가_userTweets을_요청했을_시_count에_맞게_리턴한다
     fun test02() = runBlocking {
-        val userTweets50 = tweetRepositoryImpl.getUserTweets(0L, -1L, 50)
+        val userTweets50 = tweetRepositoryImpl.getUserTweets(0L, -1L, 50) // TODO - Constant
         assertEquals(userTweets50.size, 50)
         userTweets50.forEach { assertTrue(it.id > 0L) }
 
-        val userTweets100 = tweetRepositoryImpl.getUserTweets(0L, -1L, 100)
+        val userTweets100 = tweetRepositoryImpl.getUserTweets(0L, -1L, 100) // TODO - Constant
         assertEquals(userTweets100.size, 100)
         userTweets100.forEach { assertTrue(it.id > 0L) }
     }
 
     @Test // TweetRepository에서_Tweet을_로딩한_후_user를_찾았을_시_리턴한다
     fun test03() = runBlocking {
-        val tweets = tweetRepositoryImpl.getHomeTweets(-1L, 100)
+        val tweets = tweetRepositoryImpl.getHomeTweets(-1L, 100) // TODO - Constant
         val userIndices = tweets.map { it.userEntity.id }.distinct()
         val users = userRepositoryImpl.getUsers(userIndices)
 

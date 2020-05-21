@@ -9,13 +9,13 @@ interface TwitterApi {
 
     suspend fun getHomeTweets(
         count: Int,
-        fromTweetIndex: Long = -1L
+        fromTweetIndex: Long = -1L // TODO - Constant
     ): List<TweetData>
 
     suspend fun getUserTweets(
         userIndex: Long,
         count: Int,
-        fromTweetIndex: Long = -1L
+        fromTweetIndex: Long = -1L // TODO - Constant
     ): List<TweetData>
 
     suspend fun getMyProfile(): UserData
