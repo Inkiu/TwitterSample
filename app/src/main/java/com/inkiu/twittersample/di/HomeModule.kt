@@ -1,4 +1,4 @@
-package com.inkiu.twittersample.di.home
+package com.inkiu.twittersample.di
 
 import android.content.Context
 import com.inkiu.domain.repositoty.TweetRepository
