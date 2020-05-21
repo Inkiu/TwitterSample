@@ -8,6 +8,7 @@ import com.inkiu.data.repository.tweet.TweetLocalDataSource
 import com.inkiu.data.repository.tweet.TweetRemoteDataSource
 import com.inkiu.data.repository.tweet.TweetRepositoryImpl
 import com.inkiu.data.repository.user.UserLocalDataSource
+import com.inkiu.data.repository.user.UserRemoteDataSource
 import com.inkiu.data.repository.user.UserRepositoryImpl
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.*
@@ -25,6 +26,7 @@ class RepositoryTests {
     private lateinit var tweetRemoteDataSource: TweetRemoteDataSource
     private lateinit var tweetLocalDataSource: TweetLocalDataSource
     private lateinit var userLocalDataSource: UserLocalDataSource
+    private lateinit var userRemoteDataSource: UserRemoteDataSource
     private lateinit var tweetMapper: TweetDataToEntityMapper
     private lateinit var userMapper: UserDataToEntityMapper
 
@@ -35,9 +37,11 @@ class RepositoryTests {
     fun before() {
         val appContext = InstrumentationRegistry.getInstrumentation().targetContext
         // Note - TestTwitterApi의 최대 카운트는 100
-        tweetRemoteDataSource = TweetRemoteDataSource(TestTwitterApi(appContext))
+        val api = TestTwitterApi(appContext)
+        tweetRemoteDataSource = TweetRemoteDataSource(api)
         tweetLocalDataSource = TweetLocalDataSource()
         userLocalDataSource = UserLocalDataSource()
+        userRemoteDataSource = UserRemoteDataSource(api)
 
         val dateMapper = UTCStringToDateMapper()
 
@@ -64,7 +68,8 @@ class RepositoryTests {
 
         userRepositoryImpl = UserRepositoryImpl(
             userMapper,
-            userLocalDataSource
+            userLocalDataSource,
+            userRemoteDataSource
         )
     }
 
