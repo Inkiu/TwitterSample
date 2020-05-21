@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
+    android:background="@color/light_grey"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
@@ -47,6 +48,7 @@
             tools:text="Real Name" />
 
         <TextView
+            style="@style/UserInfoTextStyle"
             android:id="@+id/profileDescription"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
