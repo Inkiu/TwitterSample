@@ -114,7 +114,7 @@ class DetailActivity : BaseActivity() {
             userRefreshLayout.isRefreshing = it is DataSourceState.LoadingInitial
         })
         viewModel.detailData.observe(this, Observer {
-            detailCollapsingToolbarLayout.title = "false"
+            detailCollapsingToolbarLayout.title = it.displayName
             bindUserProfile(it)
         })
     }
