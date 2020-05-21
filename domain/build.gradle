@@ -16,5 +16,10 @@ dependencies {
     testImplementation rootProject.ext.coroutine_test
 }
 
+compileKotlin {
+    kotlinOptions.jvmTarget = JavaVersion.VERSION_1_8.toString()
+    kotlinOptions.freeCompilerArgs = ["-Xallow-result-return-type"]
+}
+
 sourceCompatibility = "7"
 targetCompatibility = "7"
