@@ -66,7 +66,7 @@ class DetailActivity : BaseActivity() {
     }
 
     private fun bindUserProfile(user: UserDetail) {
-        imageLoader.load(user.profileUrl, profileImageView)
+        imageLoader.loadCircleProfile(user.profileUrl, profileImageView)
         profileDisplayName.text = user.displayName
         profileName.text = user.name
         profileDescription.text = user.description

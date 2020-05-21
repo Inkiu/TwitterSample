@@ -27,15 +27,18 @@ class GlideImageLoader @Inject constructor(
     private val glide = Glide.with(context)
 
     override fun loadCircleProfile(url: String, imageView: ImageView, callback: (Boolean) -> Unit) {
+        val thumbnail = glide.load(url).apply(profileRequestOption).thumbnail(0.25f)
         glide.load(url)
             .apply(profileRequestOption)
             .transition(withCrossFade())
+            .thumbnail(thumbnail)
             .into(imageView)
     }
 
     override fun load(url: String, imageView: ImageView, callback: (Boolean) -> Unit) {
         glide.load(url)
             .transition(withCrossFade())
+            .thumbnail(glide.load(url).thumbnail(0.25f))
             .into(imageView)
     }
 
