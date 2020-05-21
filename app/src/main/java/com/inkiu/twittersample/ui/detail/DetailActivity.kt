@@ -3,7 +3,6 @@ package com.inkiu.twittersample.ui.detail
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.text.format.DateUtils
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -53,6 +52,7 @@ class DetailActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail)
         initTweetRecyclerView()
+        initRefreshLayout()
         observe()
     }
 
@@ -63,6 +63,12 @@ class DetailActivity : BaseActivity() {
                 this,
                 DividerItemDecoration.VERTICAL)
         )
+    }
+
+    private fun initRefreshLayout() {
+        userRefreshLayout.setOnRefreshListener {
+            viewModel.refresh()
+        }
     }
 
     private fun bindUserProfile(user: UserDetail) {
@@ -86,6 +92,7 @@ class DetailActivity : BaseActivity() {
         })
         viewModel.networkStateData.observe(this, Observer {
             adapter.setNetworkState(it)
+            userRefreshLayout.isRefreshing = it is DataSourceState.LoadingInitial
 //            homeTweetRefreshLayout.isRefreshing = it is DataSourceState.LoadingInitial
         })
         viewModel.detailData.observe(this, Observer {

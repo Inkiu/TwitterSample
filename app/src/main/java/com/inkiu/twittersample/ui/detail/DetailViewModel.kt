@@ -2,8 +2,6 @@ package com.inkiu.twittersample.ui.detail
 
 import androidx.lifecycle.*
 import androidx.paging.PagedList
-import com.inkiu.domain.entities.tweet.SimpleTweetEntity
-import com.inkiu.domain.entities.tweet.TweetEntity
 import com.inkiu.domain.usecase.*
 import com.inkiu.twittersample.di.PerActivity
 import com.inkiu.twittersample.ui.base.BaseViewModel
@@ -11,9 +9,7 @@ import com.inkiu.twittersample.ui.common.model.Tweet
 import com.inkiu.twittersample.ui.common.model.UserDetail
 import com.inkiu.twittersample.ui.common.model.mapper.TweetEntityTweetMapper
 import com.inkiu.twittersample.ui.common.model.mapper.UserDetailEntityToUserDetailMapper
-import com.inkiu.twittersample.ui.common.model.mapper.UserEntityUserMapper
 import com.inkiu.twittersample.ui.common.tweets.datasource.NewUserTweetDataSource
-import com.inkiu.twittersample.ui.common.tweets.datasource.ReplyTweetDataSource
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.asExecutor
 import kotlinx.coroutines.launch
@@ -36,10 +32,14 @@ class DetailViewModel(
     val networkStateData = dataSourceData.switchMap { it.state }
 
     override fun onAttached() {
-        launch { getTweetDetail() }
+        refresh()
+    }
+
+    fun refresh() {
+        launch { getUserDetail() }
     }
     
-    private fun getTweetDetail() {
+    private fun getUserDetail() {
         launch {
             _detailData.value = userMapper(
                 getUserDetail.execute(GetUserDetail.Param(userId))
