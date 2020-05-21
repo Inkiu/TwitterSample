@@ -68,16 +68,16 @@ class DetailActivity : BaseActivity() {
 
         detailAppbarLayout.addOnOffsetChangedListener(object : AppBarLayout.OnOffsetChangedListener {
             var visible = true
-            var scrollRange = -1;
+            var scrollRange = -1
             override fun onOffsetChanged(appBarLayout: AppBarLayout, verticalOffset: Int) {
                 if (scrollRange == -1) {
                     scrollRange = appBarLayout.totalScrollRange
                 }
                 if (scrollRange + verticalOffset == 0) {
-                    detailCollapsingToolbarLayout.isTitleEnabled = true// = View.VISIBLE
+                    detailCollapsingToolbarLayout.isTitleEnabled = true
                     visible = true
                 } else if (visible) {
-                    detailCollapsingToolbarLayout.isTitleEnabled = false // = View.INVISIBLE
+                    detailCollapsingToolbarLayout.isTitleEnabled = false
                     visible = false
                 }
             }
@@ -91,7 +91,7 @@ class DetailActivity : BaseActivity() {
     }
 
     private fun bindUserProfile(user: UserDetail) {
-        imageLoader.loadCircleProfile(user.profileUrl, profileImageView)
+        imageLoader.loadCircleProfile(user.profileUrl, profileImageView, R.drawable.ic_face_w_24dp)
         profileDisplayName.text = user.displayName
         profileName.text = user.name
         profileDescription.text = user.description
