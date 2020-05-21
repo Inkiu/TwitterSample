@@ -41,9 +41,13 @@ class HomeViewModel(
     }
 
     private suspend fun refreshUser() {
-        userData.value = getUser.execute(GetUser.Param.MyProfile).let {
-            userMapper.map(it)
-        }
+        getUser(GetUser.Param.MyProfile)
+            .onSuccess {
+                userData.value = userMapper.map(it)
+            }
+            .onFailure {
+
+            }
     }
 
     private fun refreshTweets() {

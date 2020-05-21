@@ -48,21 +48,15 @@ abstract class TweetListDataSource <P> (
     }
 
     private suspend fun load(start: Long, size: Int, callback: LoadCallback<Tweet>) {
-        coroutineScope {
-            launch {
-                val result = runCatching {
-                    getTweets.execute(getParam(start, size))
-                }
-                if (result.isSuccess) {
-                    state.value = DataSourceState.Success
-                    val tweets = (result.getOrNull() ?: emptyList()).map { map(it) }
-                    callback.onResult(tweets)
-                } else {
-                    state.value = DataSourceState.Failure(result.exceptionOrNull())
-                    callback.onResult(emptyList())
-                }
+        getTweets(getParam(start, size))
+            .onSuccess { ret ->
+                state.value = DataSourceState.Success
+                callback.onResult(ret.map { map(it) })
             }
-        }
+            .onFailure {
+                state.value = DataSourceState.Failure(it)
+                callback.onResult(emptyList())
+            }
     }
 
     override fun getKey(item: Tweet): Long = item.id
@@ -70,7 +64,7 @@ abstract class TweetListDataSource <P> (
     abstract fun getParam(startId: Long, size: Int): P
     abstract fun getInitialKey(): Long
 
-    fun LoadCallback<Tweet>.wrap(func: (result: List<Tweet>) -> Unit)
+    private fun LoadCallback<Tweet>.wrap(func: (result: List<Tweet>) -> Unit)
         = CallbackWrapper(this, func)
 
     class CallbackWrapper(
