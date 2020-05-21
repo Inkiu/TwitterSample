@@ -4,7 +4,6 @@ import android.content.Context
 import com.inkiu.domain.repositoty.TweetRepository
 import com.inkiu.domain.repositoty.UserRepository
 import com.inkiu.domain.usecase.GetReplyTweets
-import com.inkiu.domain.usecase.GetTweet
 import com.inkiu.domain.usecase.GetUserDetail
 import com.inkiu.domain.usecase.GetUserTweets
 import com.inkiu.twittersample.common.image.GlideImageLoader

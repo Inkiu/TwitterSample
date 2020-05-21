@@ -38,13 +38,15 @@ class DetailViewModel(
     fun refresh() {
         launch { getUserDetail() }
     }
-    
-    private fun getUserDetail() {
-        launch {
-            _detailData.value = userMapper(
-                getUserDetail.execute(GetUserDetail.Param(userId))
-            )
-        }
+
+    private suspend fun getUserDetail() {
+        getUserDetail(GetUserDetail.Param(userId))
+            .onSuccess {
+                _detailData.value = userMapper(it)
+            }
+            .onFailure {
+
+            }
     }
 
     private fun createDataSource(): UserTweetDataSource {
