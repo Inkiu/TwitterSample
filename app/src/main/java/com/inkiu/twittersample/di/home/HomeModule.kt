@@ -4,6 +4,7 @@ import android.content.Context
 import com.inkiu.domain.repositoty.TweetRepository
 import com.inkiu.domain.repositoty.UserRepository
 import com.inkiu.domain.usecase.GetHomeTweets
+import com.inkiu.domain.usecase.GetUser
 import com.inkiu.domain.usecase.GetUserDetail
 import com.inkiu.twittersample.common.image.GlideImageLoader
 import com.inkiu.twittersample.common.image.ImageLoader
@@ -33,6 +34,14 @@ abstract class HomeModule {
             userRepository: UserRepository,
             tweetRepository: TweetRepository
         ) = GetHomeTweets(userRepository, tweetRepository)
+
+        @JvmStatic
+        @Provides
+        @PerActivity
+        fun provideGetUser(
+            userRepository: UserRepository,
+            tweetRepository: TweetRepository
+        ) = GetUser(userRepository)
     }
 
     @Binds
