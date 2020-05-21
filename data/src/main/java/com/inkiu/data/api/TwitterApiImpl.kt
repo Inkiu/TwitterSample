@@ -3,6 +3,7 @@ package com.inkiu.data.api
 import com.inkiu.data.api.interceptors.RemainCallLoggingInterceptor
 import com.inkiu.data.entities.TweetData
 import com.inkiu.data.entities.UserData
+import com.inkiu.domain.Constant
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
@@ -63,7 +64,7 @@ class TwitterApiImpl(
     ): List<TweetData> {
         return api.getHomeTweets(
             count,
-            if (fromTweetIndex == -1L) null else fromTweetIndex // TODO - Constant
+            if (fromTweetIndex == Constant.INVALID_ID) null else fromTweetIndex
         )
     }
 
@@ -83,7 +84,7 @@ class TwitterApiImpl(
         return api.getUserTweets(
             userIndex,
             count,
-            if (fromTweetIndex == -1L) null else fromTweetIndex // TODO - Constant
+            if (fromTweetIndex == Constant.INVALID_ID) null else fromTweetIndex
         )
     }
 

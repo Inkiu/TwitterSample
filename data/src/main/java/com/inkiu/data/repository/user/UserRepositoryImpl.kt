@@ -2,6 +2,7 @@ package com.inkiu.data.repository.user
 
 import com.inkiu.data.entities.UserData
 import com.inkiu.data.mapper.UserDataToEntityMapper
+import com.inkiu.domain.Constant
 import com.inkiu.domain.entities.user.DetailUserEntity
 import com.inkiu.domain.entities.user.UserEntity
 import com.inkiu.domain.repositoty.UserRepository
@@ -15,7 +16,7 @@ class UserRepositoryImpl @Inject constructor(
     private val remoteDataSource: UserRemoteDataSource
 ) : UserRepository {
 
-    private var myProfileId: Long = -1L // TODO - Constant
+    private var myProfileId: Long = Constant.INVALID_ID
 
     override suspend fun getUser(id: Long): UserEntity {
         return getDetailUser(id)
@@ -30,7 +31,7 @@ class UserRepositoryImpl @Inject constructor(
     }
 
     override suspend fun getMyProfile(): DetailUserEntity {
-        return if (myProfileId != -1L) { // TODO - Constant
+        return if (myProfileId != Constant.INVALID_ID) {
             getDetailUser(myProfileId)
         } else {
             remoteDataSource.getMyProfile().also {
