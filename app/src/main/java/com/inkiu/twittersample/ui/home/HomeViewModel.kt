@@ -10,7 +10,7 @@ import com.inkiu.twittersample.model.Tweet
 import com.inkiu.twittersample.model.User
 import com.inkiu.twittersample.model.mapper.TweetEntityTweetMapper
 import com.inkiu.twittersample.model.mapper.UserEntityUserMapper
-import com.inkiu.twittersample.ui.common.tweets.datasource.HomeTweetDataSource
+import com.inkiu.twittersample.ui.common.datasource.HomeTweetDataSource
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.asExecutor
 import kotlinx.coroutines.launch

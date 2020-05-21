@@ -1,4 +1,4 @@
-package com.inkiu.twittersample.ui.common.tweets.datasource
+package com.inkiu.twittersample.ui.common.datasource
 
 sealed class DataSourceState {
     object Init : DataSourceState()

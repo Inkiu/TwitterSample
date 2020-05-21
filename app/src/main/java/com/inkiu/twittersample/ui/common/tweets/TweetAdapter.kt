@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.inkiu.twittersample.common.image.ImageLoader
 import com.inkiu.twittersample.model.Tweet
-import com.inkiu.twittersample.ui.common.tweets.datasource.DataSourceState
+import com.inkiu.twittersample.ui.common.datasource.DataSourceState
 
 
 // TODO - click listener

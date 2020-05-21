@@ -13,7 +13,7 @@ import com.inkiu.twittersample.ui.base.BaseViewModel
 import com.inkiu.twittersample.model.User
 import com.inkiu.twittersample.ui.common.tweets.TweetAdapter
 import com.inkiu.twittersample.ui.common.tweets.TweetClickListener
-import com.inkiu.twittersample.ui.common.tweets.datasource.DataSourceState
+import com.inkiu.twittersample.ui.common.datasource.DataSourceState
 import com.inkiu.twittersample.ui.detail.DetailActivity
 import kotlinx.android.synthetic.main.activity_home.*
 import javax.inject.Inject

@@ -1,4 +1,4 @@
-package com.inkiu.twittersample.ui.common.tweets.datasource
+package com.inkiu.twittersample.ui.common.datasource
 
 import androidx.lifecycle.MutableLiveData
 import androidx.paging.ItemKeyedDataSource

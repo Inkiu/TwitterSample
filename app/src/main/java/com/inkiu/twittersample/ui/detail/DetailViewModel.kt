@@ -9,7 +9,7 @@ import com.inkiu.twittersample.model.Tweet
 import com.inkiu.twittersample.model.UserDetail
 import com.inkiu.twittersample.model.mapper.TweetEntityTweetMapper
 import com.inkiu.twittersample.model.mapper.UserDetailEntityToUserDetailMapper
-import com.inkiu.twittersample.ui.common.tweets.datasource.NewUserTweetDataSource
+import com.inkiu.twittersample.ui.common.datasource.UserTweetDataSource
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.asExecutor
 import kotlinx.coroutines.launch
@@ -47,11 +47,11 @@ class DetailViewModel(
         }
     }
 
-    private fun createDataSource(): NewUserTweetDataSource {
-        return NewUserTweetDataSource(userId, getUserTweets, viewModelScope, tweetMapper)
+    private fun createDataSource(): UserTweetDataSource {
+        return UserTweetDataSource(userId, getUserTweets, viewModelScope, tweetMapper)
     }
 
-    private fun createPagedList(dataSource: NewUserTweetDataSource): PagedList<Tweet> {
+    private fun createPagedList(dataSource: UserTweetDataSource): PagedList<Tweet> {
         val config = PagedList.Config.Builder()
             .setEnablePlaceholders(false)
             .setInitialLoadSizeHint(10)

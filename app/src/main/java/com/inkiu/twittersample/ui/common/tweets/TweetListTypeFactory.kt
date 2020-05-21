@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.inkiu.twittersample.R
 import com.inkiu.twittersample.model.Tweet
-import com.inkiu.twittersample.ui.common.tweets.datasource.DataSourceState
+import com.inkiu.twittersample.ui.common.datasource.DataSourceState
 
 object TweetListTypeFactory {
 

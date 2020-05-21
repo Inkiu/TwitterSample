@@ -1,4 +1,4 @@
-package com.inkiu.twittersample.ui.common.tweets.datasource
+package com.inkiu.twittersample.ui.common.datasource
 
 import com.inkiu.domain.usecase.GetReplyTweets
 import com.inkiu.twittersample.model.mapper.TweetEntityTweetMapper

@@ -1,11 +1,11 @@
-package com.inkiu.twittersample.ui.common.tweets.datasource
+package com.inkiu.twittersample.ui.common.datasource
 
 import com.inkiu.domain.Constant
 import com.inkiu.domain.usecase.GetUserTweets
 import com.inkiu.twittersample.model.mapper.TweetEntityTweetMapper
 import kotlinx.coroutines.CoroutineScope
 
-class NewUserTweetDataSource(
+class UserTweetDataSource(
     private val userId: Long,
     getUserTweets: GetUserTweets,
     scope: CoroutineScope,
