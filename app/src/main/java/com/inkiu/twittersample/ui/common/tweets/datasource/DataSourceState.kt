@@ -5,5 +5,6 @@ sealed class DataSourceState {
     object LoadingInitial : DataSourceState()
     object Loading : DataSourceState()
     object Success : DataSourceState()
+    object Empty : DataSourceState()
     data class Failure(val throwable: Throwable?) : DataSourceState()
 }

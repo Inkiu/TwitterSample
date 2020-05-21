@@ -8,6 +8,7 @@ import com.inkiu.domain.usecase.SingleUseCase
 import com.inkiu.twittersample.ui.common.model.Tweet
 import com.inkiu.twittersample.ui.common.model.mapper.TweetEntityTweetMapper
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
 
 abstract class TweetListDataSource <P> (
@@ -26,24 +27,28 @@ abstract class TweetListDataSource <P> (
         val initialKey= getInitialKey()
         scope.launch {
             state.value = DataSourceState.LoadingInitial
+            load(
+                initialKey,
+                params.requestedLoadSize,
+                callback.wrap { if (it.isEmpty()) state.value = DataSourceState.Empty }
+            )
         }
-        load(initialKey, params.requestedLoadSize, callback)
     }
 
     override fun loadAfter(params: LoadParams<Long>, callback: LoadCallback<Tweet>) {
         val key = params.key
         scope.launch {
             state.value = DataSourceState.Loading
+            load(key, params.requestedLoadSize, callback)
         }
-        load(key, params.requestedLoadSize, callback)
     }
 
     override fun loadBefore(params: LoadParams<Long>, callback: LoadCallback<Tweet>) {
         // no implementation
     }
 
-    private fun load(start: Long, size: Int, callback: LoadCallback<Tweet>) {
-        scope.launch {
+    private suspend fun load(start: Long, size: Int, callback: LoadCallback<Tweet>) {
+        coroutineScope {
             launch {
                 val result = runCatching {
                     getTweets.execute(getParam(start, size))
@@ -64,4 +69,17 @@ abstract class TweetListDataSource <P> (
 
     abstract fun getParam(startId: Long, size: Int): P
     abstract fun getInitialKey(): Long
+
+    fun LoadCallback<Tweet>.wrap(func: (result: List<Tweet>) -> Unit)
+        = CallbackWrapper(this, func)
+
+    class CallbackWrapper(
+        private val callback: LoadCallback<Tweet>,
+        private val func: (result: List<Tweet>) -> Unit
+    ) : LoadCallback<Tweet>() {
+        override fun onResult(data: MutableList<Tweet>) {
+            callback.onResult(data)
+            func(data)
+        }
+    }
 }
