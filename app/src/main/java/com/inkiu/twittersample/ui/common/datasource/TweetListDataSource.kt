@@ -56,7 +56,6 @@ abstract class TweetListDataSource <P> (
             }
             .onFailure {
                 state.value = LoadingState.Failure(it)
-                callback.onResult(emptyList())
             }
     }
 

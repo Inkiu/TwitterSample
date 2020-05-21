@@ -10,6 +10,7 @@ import com.inkiu.twittersample.model.Tweet
 import com.inkiu.twittersample.model.User
 import com.inkiu.twittersample.model.mapper.TweetEntityTweetMapper
 import com.inkiu.twittersample.model.mapper.UserEntityUserMapper
+import com.inkiu.twittersample.ui.common.LoadingState
 import com.inkiu.twittersample.ui.common.datasource.HomeTweetDataSource
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.asExecutor
@@ -24,11 +25,17 @@ class HomeViewModel(
 ) : BaseViewModel() {
 
     private val dataSourceData = MutableLiveData<HomeTweetDataSource>()
+    private val dataSourceStateData = dataSourceData.switchMap { it.state }
+    private val getUserStateData = MutableLiveData<LoadingState>()
 
     // exposed live data
     val pagingListData = dataSourceData.map { createPagedList(it) }
-    val networkStateData = dataSourceData.switchMap { it.state }
     val userData = MutableLiveData<User>()
+
+    val networkState = MediatorLiveData<LoadingState>().apply {
+        addSource(dataSourceStateData) { value = it }
+        addSource(getUserStateData) { value = it }
+    }
 
     override fun onAttached() {
         launch { refreshUser() }
@@ -45,7 +52,7 @@ class HomeViewModel(
                 userData.value = userMapper.map(it)
             }
             .onFailure {
-
+                getUserStateData.value = LoadingState.Failure(it)
             }
     }
 

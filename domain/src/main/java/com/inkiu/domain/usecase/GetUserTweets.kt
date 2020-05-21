@@ -3,6 +3,7 @@ package com.inkiu.domain.usecase
 import com.inkiu.domain.entities.tweet.TweetEntity
 import com.inkiu.domain.repositoty.TweetRepository
 import com.inkiu.domain.repositoty.UserRepository
+import java.lang.RuntimeException
 
 class GetUserTweets(
     private val userRepository: UserRepository,

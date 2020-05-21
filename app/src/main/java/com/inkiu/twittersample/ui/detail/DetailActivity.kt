@@ -11,6 +11,7 @@ import com.inkiu.twittersample.R
 import com.inkiu.twittersample.common.getDecimalSize
 import com.inkiu.twittersample.common.image.ImageLoader
 import com.inkiu.twittersample.common.relatedTimeString
+import com.inkiu.twittersample.common.toVisibility
 import com.inkiu.twittersample.ui.base.BaseActivity
 import com.inkiu.twittersample.ui.base.BaseViewModel
 import com.inkiu.twittersample.model.User
@@ -87,6 +88,9 @@ class DetailActivity : BaseActivity() {
         userRefreshLayout.setOnRefreshListener {
             viewModel.refresh()
         }
+        detailFloatingButton.setOnClickListener {
+            viewModel.refresh()
+        }
     }
 
     private fun bindUserProfile(user: UserDetail) {
@@ -111,6 +115,7 @@ class DetailActivity : BaseActivity() {
         viewModel.networkStateData.observe(this, Observer {
             adapter.setNetworkState(it)
             userRefreshLayout.isRefreshing = it is LoadingState.LoadingInitial
+            detailFloatingButton.visibility = (it is LoadingState.Failure).toVisibility()
         })
         viewModel.detailData.observe(this, Observer {
             detailCollapsingToolbarLayout.title = it.displayName

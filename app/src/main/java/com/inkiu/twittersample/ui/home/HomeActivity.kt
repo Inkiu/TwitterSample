@@ -3,11 +3,13 @@ package com.inkiu.twittersample.ui.home
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import com.inkiu.twittersample.R
 import com.inkiu.twittersample.common.image.ImageLoader
+import com.inkiu.twittersample.common.toVisibility
 import com.inkiu.twittersample.ui.base.BaseActivity
 import com.inkiu.twittersample.ui.base.BaseViewModel
 import com.inkiu.twittersample.model.User
@@ -61,15 +63,19 @@ class HomeActivity : BaseActivity(), TweetClickListener {
         homeTweetRefreshLayout.setOnRefreshListener {
             viewModel.refresh()
         }
+        homeFloatingButton.setOnClickListener {
+            viewModel.refresh()
+        }
     }
 
     private fun observe() {
         viewModel.pagingListData.observe(this, Observer {
             adapter.submitList(it)
         })
-        viewModel.networkStateData.observe(this, Observer {
+        viewModel.networkState.observe(this, Observer {
             adapter.setNetworkState(it)
             homeTweetRefreshLayout.isRefreshing = it is LoadingState.LoadingInitial
+            homeFloatingButton.visibility = (it is LoadingState.Failure).toVisibility()
         })
         viewModel.userData.observe(this, Observer {
             toolbar.title = it.displayName

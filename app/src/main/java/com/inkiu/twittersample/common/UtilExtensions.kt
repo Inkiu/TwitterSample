@@ -1,6 +1,7 @@
 package com.inkiu.twittersample.common
 
 import android.text.format.DateUtils
+import android.view.View
 import java.util.*
 import kotlin.math.ln
 import kotlin.math.pow
@@ -18,3 +19,6 @@ fun Int.getDecimalSize(): String {
     val exp = (ln(this.toDouble()) / ln(1000.0)).toInt()
     return String.format("%.1f %c", this / 1000.0.pow(exp.toDouble()), "KMGTPE"[exp - 1])
 }
+
+fun Boolean.toVisibility(invisible: Boolean = false)
+    = if (this) View.VISIBLE else if (invisible) View.VISIBLE else View.GONE

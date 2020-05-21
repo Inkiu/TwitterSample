@@ -50,4 +50,15 @@
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/detailFloatingButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="@dimen/fab_margin"
+        android:src="@drawable/ic_refresh_24dp"
+        android:visibility="gone"
+        app:backgroundTint="@color/light_grey"
+        tools:visibility="visible"/>
+
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
