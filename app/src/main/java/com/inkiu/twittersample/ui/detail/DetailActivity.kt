@@ -17,7 +17,7 @@ import com.inkiu.twittersample.model.User
 import com.inkiu.twittersample.model.UserDetail
 import com.inkiu.twittersample.ui.common.tweets.TweetAdapter
 import com.inkiu.twittersample.ui.common.tweets.TweetClickListener
-import com.inkiu.twittersample.ui.common.datasource.DataSourceState
+import com.inkiu.twittersample.ui.common.LoadingState
 import kotlinx.android.synthetic.main.activity_detail.*
 import kotlinx.android.synthetic.main.layout_profile.*
 import javax.inject.Inject
@@ -110,7 +110,7 @@ class DetailActivity : BaseActivity() {
         })
         viewModel.networkStateData.observe(this, Observer {
             adapter.setNetworkState(it)
-            userRefreshLayout.isRefreshing = it is DataSourceState.LoadingInitial
+            userRefreshLayout.isRefreshing = it is LoadingState.LoadingInitial
         })
         viewModel.detailData.observe(this, Observer {
             detailCollapsingToolbarLayout.title = it.displayName

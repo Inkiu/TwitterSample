@@ -6,7 +6,7 @@ import com.inkiu.twittersample.R
 import com.inkiu.twittersample.common.image.ImageLoader
 import com.inkiu.twittersample.common.relatedTimeString
 import com.inkiu.twittersample.model.Tweet
-import com.inkiu.twittersample.ui.common.datasource.DataSourceState
+import com.inkiu.twittersample.ui.common.LoadingState
 import kotlinx.android.synthetic.main.item_list_tweet.view.*
 import kotlinx.android.synthetic.main.item_list_tweet.view.profileImage
 import kotlinx.android.synthetic.main.item_list_tweet.view.tweetContent
@@ -15,11 +15,11 @@ import kotlinx.android.synthetic.main.item_list_tweet_profile.view.*
 import kotlinx.android.synthetic.main.item_network_state.view.*
 
 class NetworkStateItemViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-    fun bind(state: DataSourceState?) {
+    fun bind(state: LoadingState?) {
         when (state) {
-            is DataSourceState.Loading -> setLoading()
-            is DataSourceState.Empty -> setEmpty()
-            is DataSourceState.Failure -> setError(state.throwable)
+            is LoadingState.Loading -> setLoading()
+            is LoadingState.Empty -> setEmpty()
+            is LoadingState.Failure -> setError(state.throwable)
             else -> setComplete()
         }
     }

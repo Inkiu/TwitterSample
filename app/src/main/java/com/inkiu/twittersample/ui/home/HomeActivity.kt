@@ -13,7 +13,7 @@ import com.inkiu.twittersample.ui.base.BaseViewModel
 import com.inkiu.twittersample.model.User
 import com.inkiu.twittersample.ui.common.tweets.TweetAdapter
 import com.inkiu.twittersample.ui.common.tweets.TweetClickListener
-import com.inkiu.twittersample.ui.common.datasource.DataSourceState
+import com.inkiu.twittersample.ui.common.LoadingState
 import com.inkiu.twittersample.ui.detail.DetailActivity
 import kotlinx.android.synthetic.main.activity_home.*
 import javax.inject.Inject
@@ -69,7 +69,7 @@ class HomeActivity : BaseActivity(), TweetClickListener {
         })
         viewModel.networkStateData.observe(this, Observer {
             adapter.setNetworkState(it)
-            homeTweetRefreshLayout.isRefreshing = it is DataSourceState.LoadingInitial
+            homeTweetRefreshLayout.isRefreshing = it is LoadingState.LoadingInitial
         })
         viewModel.userData.observe(this, Observer {
             toolbar.title = it.displayName

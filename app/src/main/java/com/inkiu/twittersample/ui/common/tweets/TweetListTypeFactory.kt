@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.inkiu.twittersample.R
 import com.inkiu.twittersample.model.Tweet
-import com.inkiu.twittersample.ui.common.datasource.DataSourceState
+import com.inkiu.twittersample.ui.common.LoadingState
 
 object TweetListTypeFactory {
 
@@ -25,7 +25,7 @@ object TweetListTypeFactory {
         return if (any is Tweet) tweetType(any)
         else {
             when (any) {
-                is DataSourceState -> Type.Loading.layoutId
+                is LoadingState -> Type.Loading.layoutId
                 else -> Type.Error.layoutId
             }
         }

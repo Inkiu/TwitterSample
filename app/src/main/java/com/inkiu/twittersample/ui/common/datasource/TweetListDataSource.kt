@@ -7,6 +7,7 @@ import com.inkiu.domain.entities.tweet.TweetEntity
 import com.inkiu.domain.usecase.SingleUseCase
 import com.inkiu.twittersample.model.Tweet
 import com.inkiu.twittersample.model.mapper.TweetEntityTweetMapper
+import com.inkiu.twittersample.ui.common.LoadingState
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
@@ -17,7 +18,8 @@ abstract class TweetListDataSource <P> (
 ) : ItemKeyedDataSource<Long, Tweet>(),
     Mapper<TweetEntity, Tweet> by mapper {
 
-    val state: MutableLiveData<DataSourceState> = MutableLiveData(DataSourceState.Init)
+    val state: MutableLiveData<LoadingState> = MutableLiveData(
+        LoadingState.Init)
 
     override fun loadInitial(
         params: LoadInitialParams<Long>,
@@ -25,11 +27,11 @@ abstract class TweetListDataSource <P> (
     ) {
         val initialKey= getInitialKey()
         scope.launch {
-            state.value = DataSourceState.LoadingInitial
+            state.value = LoadingState.LoadingInitial
             load(
                 initialKey,
                 params.requestedLoadSize,
-                callback.wrap { if (it.isEmpty()) state.value = DataSourceState.Empty }
+                callback.wrap { if (it.isEmpty()) state.value = LoadingState.Empty }
             )
         }
     }
@@ -37,7 +39,7 @@ abstract class TweetListDataSource <P> (
     override fun loadAfter(params: LoadParams<Long>, callback: LoadCallback<Tweet>) {
         val key = params.key
         scope.launch {
-            state.value = DataSourceState.Loading
+            state.value = LoadingState.Loading
             load(key, params.requestedLoadSize, callback)
         }
     }
@@ -49,11 +51,11 @@ abstract class TweetListDataSource <P> (
     private suspend fun load(start: Long, size: Int, callback: LoadCallback<Tweet>) {
         getTweets(getParam(start, size))
             .onSuccess { ret ->
-                state.value = DataSourceState.Success
+                state.value = LoadingState.Success
                 callback.onResult(ret.map { map(it) })
             }
             .onFailure {
-                state.value = DataSourceState.Failure(it)
+                state.value = LoadingState.Failure(it)
                 callback.onResult(emptyList())
             }
     }

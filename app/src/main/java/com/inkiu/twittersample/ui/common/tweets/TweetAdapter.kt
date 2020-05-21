@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.inkiu.twittersample.common.image.ImageLoader
 import com.inkiu.twittersample.model.Tweet
-import com.inkiu.twittersample.ui.common.datasource.DataSourceState
+import com.inkiu.twittersample.ui.common.LoadingState
 
 
 // TODO - click listener
@@ -16,7 +16,7 @@ class TweetAdapter(
     private val clickListener: TweetClickListener
 ) : PagedListAdapter<Tweet, RecyclerView.ViewHolder>(TweetDiffCallback) {
 
-    private var networkState: DataSourceState = DataSourceState.Init
+    private var networkState: LoadingState = LoadingState.Init
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return TweetListTypeFactory.holder(viewType, parent)
@@ -39,7 +39,7 @@ class TweetAdapter(
         return super.getItemCount() + if (hasExtraRow()) 1 else 0
     }
 
-    fun setNetworkState(newNetworkState: DataSourceState) {
+    fun setNetworkState(newNetworkState: LoadingState) {
         val previousState = this.networkState
         val hadExtraRow = hasExtraRow()
         this.networkState = newNetworkState
@@ -55,7 +55,7 @@ class TweetAdapter(
         }
     }
 
-    private fun hasExtraRow() = networkState != DataSourceState.Success
+    private fun hasExtraRow() = networkState != LoadingState.Success
 }
 
 object TweetDiffCallback : DiffUtil.ItemCallback<Tweet>() {
