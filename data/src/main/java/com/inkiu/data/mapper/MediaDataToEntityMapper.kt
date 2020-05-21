@@ -1,6 +1,6 @@
 package com.inkiu.data.mapper
 
-import com.inkiu.data.entities.entities.common.MediaData
+import com.inkiu.data.model.MediaData
 import com.inkiu.domain.entities.tweet.MediaEntity
 import javax.inject.Inject
 import javax.inject.Singleton

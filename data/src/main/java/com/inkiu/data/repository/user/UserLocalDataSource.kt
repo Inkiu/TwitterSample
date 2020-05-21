@@ -1,6 +1,6 @@
 package com.inkiu.data.repository.user
 
-import com.inkiu.data.entities.UserData
+import com.inkiu.data.model.UserData
 import javax.inject.Inject
 import javax.inject.Singleton
 

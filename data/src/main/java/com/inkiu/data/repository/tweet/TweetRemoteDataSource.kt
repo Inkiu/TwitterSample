@@ -1,7 +1,7 @@
 package com.inkiu.data.repository.tweet
 
 import com.inkiu.data.api.TwitterApi
-import com.inkiu.data.entities.TweetData
+import com.inkiu.data.model.TweetData
 import javax.inject.Inject
 import javax.inject.Singleton
 

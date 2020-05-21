@@ -1,8 +1,7 @@
 package com.inkiu.data.mapper
 
-import com.inkiu.data.entities.TweetData
-import com.inkiu.data.entities.entities.TweetEntities
-import com.inkiu.data.entities.entities.UserMention
+import com.inkiu.data.model.TweetData
+import com.inkiu.data.model.TweetEntities
 import com.inkiu.domain.entities.tweet.ReTweetEntity
 import com.inkiu.domain.entities.tweet.SimpleTweetEntity
 import com.inkiu.domain.entities.tweet.TextComposeEntity

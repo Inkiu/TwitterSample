@@ -1,8 +1,5 @@
-package com.inkiu.data.entities
+package com.inkiu.data.model
 
-import com.inkiu.data.entities.entities.TweetEntities
-import com.inkiu.data.entities.entities.TweetExtendedEntities
-import com.inkiu.data.entities.entities.common.PlaceData
 import com.inkiu.domain.Constant
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass

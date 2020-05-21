@@ -2,7 +2,7 @@ package com.inkiu.data
 
 import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner
 import androidx.test.platform.app.InstrumentationRegistry
-import com.inkiu.data.api.TestTwitterApi
+import com.inkiu.data.api.TwitterApiTestImpl
 import com.inkiu.data.mapper.*
 import com.inkiu.data.repository.tweet.TweetLocalDataSource
 import com.inkiu.data.repository.tweet.TweetRemoteDataSource
@@ -38,7 +38,7 @@ class RepositoryTests {
     fun before() {
         val appContext = InstrumentationRegistry.getInstrumentation().targetContext
         // Note - TestTwitterApi의 최대 카운트는 100
-        val api = TestTwitterApi(appContext)
+        val api = TwitterApiTestImpl(appContext)
         tweetRemoteDataSource = TweetRemoteDataSource(api)
         tweetLocalDataSource = TweetLocalDataSource()
         userLocalDataSource = UserLocalDataSource()

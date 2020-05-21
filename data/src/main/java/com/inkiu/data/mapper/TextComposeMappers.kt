@@ -1,8 +1,8 @@
 package com.inkiu.data.mapper
 
-import com.inkiu.data.entities.entities.HashTag
-import com.inkiu.data.entities.entities.Symbol
-import com.inkiu.data.entities.entities.UserMention
+import com.inkiu.data.model.HashTag
+import com.inkiu.data.model.Symbol
+import com.inkiu.data.model.UserMention
 import com.inkiu.domain.entities.tweet.HashTagEntity
 import com.inkiu.domain.entities.tweet.SymbolEntity
 import com.inkiu.domain.entities.tweet.UserMentionEntity

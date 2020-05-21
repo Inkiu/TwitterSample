@@ -1,10 +1,9 @@
 package com.inkiu.data.api
 
-import com.inkiu.data.entities.SearchTweetData
-import com.inkiu.data.entities.TweetData
-import com.inkiu.data.entities.UserData
+import com.inkiu.data.model.SearchTweetData
+import com.inkiu.data.model.TweetData
+import com.inkiu.data.model.UserData
 import retrofit2.http.GET
-import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface TwitterRetrofitApi {

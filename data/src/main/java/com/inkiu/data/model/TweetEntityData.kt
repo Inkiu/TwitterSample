@@ -1,6 +1,5 @@
-package com.inkiu.data.entities.entities
+package com.inkiu.data.model
 
-import com.inkiu.data.entities.entities.common.MediaData
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 

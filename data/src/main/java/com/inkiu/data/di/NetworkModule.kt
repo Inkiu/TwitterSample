@@ -30,7 +30,7 @@ class NetworkModule {
     @Singleton
     fun provideTwitterApi(
         @Named("ApplicationContext") context: Context
-    ) : TwitterApi = TestTwitterApi(
+    ) : TwitterApi = TwitterApiTestImpl(
         context
     )
 

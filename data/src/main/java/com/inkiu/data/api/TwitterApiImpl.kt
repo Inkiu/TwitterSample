@@ -1,8 +1,8 @@
 package com.inkiu.data.api
 
 import com.inkiu.data.api.interceptors.RemainCallLoggingInterceptor
-import com.inkiu.data.entities.TweetData
-import com.inkiu.data.entities.UserData
+import com.inkiu.data.model.TweetData
+import com.inkiu.data.model.UserData
 import com.inkiu.domain.Constant
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import com.squareup.moshi.Moshi

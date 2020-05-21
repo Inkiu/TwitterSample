@@ -1,6 +1,5 @@
 package com.inkiu.data.repository.user
 
-import com.inkiu.data.entities.UserData
 import com.inkiu.data.mapper.UserDataToEntityMapper
 import com.inkiu.domain.Constant
 import com.inkiu.domain.entities.user.DetailUserEntity

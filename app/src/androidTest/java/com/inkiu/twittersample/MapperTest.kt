@@ -3,7 +3,7 @@ package com.inkiu.twittersample
 import android.content.Context
 import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner
 import androidx.test.platform.app.InstrumentationRegistry
-import com.inkiu.data.api.TestTwitterApi
+import com.inkiu.data.api.TwitterApiTestImpl
 import com.inkiu.data.mapper.*
 import com.inkiu.data.repository.tweet.TweetLocalDataSource
 import com.inkiu.data.repository.tweet.TweetRemoteDataSource
@@ -53,7 +53,7 @@ class MapperTest {
     }
 
     private fun initRepositorys(context: Context) {
-        val tweetRemoteDataSource = TweetRemoteDataSource(TestTwitterApi(context))
+        val tweetRemoteDataSource = TweetRemoteDataSource(TwitterApiTestImpl(context))
         val tweetLocalDataSource = TweetLocalDataSource()
         val userLocalDataSource = UserLocalDataSource()
 

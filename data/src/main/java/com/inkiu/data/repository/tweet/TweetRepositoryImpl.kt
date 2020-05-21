@@ -1,6 +1,5 @@
 package com.inkiu.data.repository.tweet
 
-import com.inkiu.data.entities.TweetData
 import com.inkiu.data.mapper.TweetDataToEntityMapper
 import com.inkiu.data.repository.user.UserLocalDataSource
 import com.inkiu.domain.entities.tweet.TweetEntity

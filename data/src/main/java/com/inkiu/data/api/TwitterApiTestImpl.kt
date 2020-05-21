@@ -1,14 +1,14 @@
 package com.inkiu.data.api
 
 import android.content.Context
-import com.inkiu.data.entities.TweetData
-import com.inkiu.data.entities.UserData
+import com.inkiu.data.model.TweetData
+import com.inkiu.data.model.UserData
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.Types
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import kotlin.random.Random
 
-class TestTwitterApi(
+class TwitterApiTestImpl(
     private val context: Context
 ) : TwitterApi {
 
