@@ -1,8 +1,7 @@
 package com.inkiu.twittersample.ui.common.tweets.datasource
 
 import com.inkiu.domain.usecase.GetReplyTweets
-import com.inkiu.twittersample.ui.common.model.Tweet
-import com.inkiu.twittersample.ui.common.model.mapper.TweetEntityTweetMapper
+import com.inkiu.twittersample.model.mapper.TweetEntityTweetMapper
 import kotlinx.coroutines.CoroutineScope
 
 class ReplyTweetDataSource(

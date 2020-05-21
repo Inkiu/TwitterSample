@@ -7,12 +7,11 @@ import com.inkiu.data.api.TokenProvider
 import com.inkiu.twittersample.R
 import com.inkiu.twittersample.common.UserTokenManager
 import com.inkiu.twittersample.common.ApiLoggerImpl
-import com.inkiu.twittersample.ui.common.model.mapper.TextComposeToSpannableMapper
+import com.inkiu.twittersample.model.mapper.TextComposeToSpannableMapper
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import javax.inject.Named
-import javax.inject.Singleton
 
 @Module
 abstract class AppModule {

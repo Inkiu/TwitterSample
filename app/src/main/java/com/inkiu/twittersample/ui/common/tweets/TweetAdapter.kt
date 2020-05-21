@@ -1,15 +1,13 @@
 package com.inkiu.twittersample.ui.common.tweets
 
-import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.inkiu.twittersample.common.image.ImageLoader
-import com.inkiu.twittersample.ui.common.model.Tweet
+import com.inkiu.twittersample.model.Tweet
 import com.inkiu.twittersample.ui.common.tweets.datasource.DataSourceState
-import kotlinx.android.synthetic.main.item_network_state.view.*
 
 
 // TODO - click listener

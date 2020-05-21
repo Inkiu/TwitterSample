@@ -1,4 +1,4 @@
-package com.inkiu.twittersample.ui.common.model
+package com.inkiu.twittersample.model
 
 import android.text.Spannable
 import java.util.*

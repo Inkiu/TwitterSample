@@ -1,16 +1,11 @@
-package com.inkiu.twittersample.ui.common.model.mapper
+package com.inkiu.twittersample.model.mapper
 
-import android.graphics.Color
 import android.text.Spannable
 import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
 import androidx.annotation.ColorInt
 import com.inkiu.data.mapper.Mapper
-import com.inkiu.domain.entities.tweet.HashTagEntity
-import com.inkiu.domain.entities.tweet.SymbolEntity
 import com.inkiu.domain.entities.tweet.TextComposeEntity
-import com.inkiu.domain.entities.tweet.UserMentionEntity
-import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton

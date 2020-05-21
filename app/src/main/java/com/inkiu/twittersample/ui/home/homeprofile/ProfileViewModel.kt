@@ -2,19 +2,13 @@ package com.inkiu.twittersample.ui.home.homeprofile
 
 import androidx.lifecycle.*
 import androidx.paging.PagedList
-import com.inkiu.domain.usecase.GetHomeTweets
 import com.inkiu.domain.usecase.GetUserTweets
-import com.inkiu.twittersample.di.PerFragment
 import com.inkiu.twittersample.ui.base.BaseViewModel
-import com.inkiu.twittersample.ui.common.model.Tweet
-import com.inkiu.twittersample.ui.common.model.mapper.TweetEntityTweetMapper
-import com.inkiu.twittersample.ui.common.tweets.datasource.HomeTweetDataSource
+import com.inkiu.twittersample.model.Tweet
+import com.inkiu.twittersample.model.mapper.TweetEntityTweetMapper
 import com.inkiu.twittersample.ui.common.tweets.datasource.UserTweetDataSource
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.asExecutor
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 class ProfileViewModel(
     private val tweetMapper: TweetEntityTweetMapper,

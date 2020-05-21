@@ -1,9 +1,9 @@
-package com.inkiu.twittersample.ui.common.model.mapper
+package com.inkiu.twittersample.model.mapper
 
 import com.inkiu.data.mapper.Mapper
 import com.inkiu.domain.entities.tweet.ReTweetEntity
 import com.inkiu.domain.entities.tweet.TweetEntity
-import com.inkiu.twittersample.ui.common.model.Tweet
+import com.inkiu.twittersample.model.Tweet
 import javax.inject.Inject
 import javax.inject.Singleton
 

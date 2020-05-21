@@ -15,7 +15,7 @@ import com.inkiu.domain.repositoty.TweetRepository
 import com.inkiu.domain.repositoty.UserRepository
 import com.inkiu.domain.usecase.GetHomeTweets
 import com.inkiu.domain.usecase.GetUserTweets
-import com.inkiu.twittersample.ui.common.model.mapper.*
+import com.inkiu.twittersample.model.mapper.*
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.*
 import org.junit.Before

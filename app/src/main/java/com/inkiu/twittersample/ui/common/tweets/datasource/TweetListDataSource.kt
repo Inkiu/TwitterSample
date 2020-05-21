@@ -5,10 +5,9 @@ import androidx.paging.ItemKeyedDataSource
 import com.inkiu.data.mapper.Mapper
 import com.inkiu.domain.entities.tweet.TweetEntity
 import com.inkiu.domain.usecase.SingleUseCase
-import com.inkiu.twittersample.ui.common.model.Tweet
-import com.inkiu.twittersample.ui.common.model.mapper.TweetEntityTweetMapper
+import com.inkiu.twittersample.model.Tweet
+import com.inkiu.twittersample.model.mapper.TweetEntityTweetMapper
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
 
 abstract class TweetListDataSource <P> (

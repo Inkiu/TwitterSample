@@ -1,8 +1,8 @@
-package com.inkiu.twittersample.ui.common.model.mapper
+package com.inkiu.twittersample.model.mapper
 
 import com.inkiu.data.mapper.Mapper
 import com.inkiu.domain.entities.user.UserEntity
-import com.inkiu.twittersample.ui.common.model.User
+import com.inkiu.twittersample.model.User
 import javax.inject.Inject
 import javax.inject.Singleton
 

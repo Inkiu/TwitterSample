@@ -4,7 +4,7 @@ import android.view.View
 import com.inkiu.twittersample.R
 import com.inkiu.twittersample.common.image.ImageLoader
 import com.inkiu.twittersample.common.relatedTimeString
-import com.inkiu.twittersample.ui.common.model.*
+import com.inkiu.twittersample.model.*
 import kotlinx.android.synthetic.main.item_list_tweet_media.view.*
 import kotlinx.android.synthetic.main.item_list_tweet_profile.view.*
 import kotlinx.android.synthetic.main.item_list_tweet_retweet.view.*

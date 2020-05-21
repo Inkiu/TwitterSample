@@ -1,8 +1,8 @@
-package com.inkiu.twittersample.ui.common.model.mapper
+package com.inkiu.twittersample.model.mapper
 
 import com.inkiu.data.mapper.Mapper
 import com.inkiu.domain.entities.tweet.MediaEntity
-import com.inkiu.twittersample.ui.common.model.*
+import com.inkiu.twittersample.model.*
 import java.lang.IllegalArgumentException
 import javax.inject.Inject
 import javax.inject.Singleton

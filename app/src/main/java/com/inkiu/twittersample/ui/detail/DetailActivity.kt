@@ -3,7 +3,6 @@ package com.inkiu.twittersample.ui.detail
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.view.View
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -14,8 +13,8 @@ import com.inkiu.twittersample.common.image.ImageLoader
 import com.inkiu.twittersample.common.relatedTimeString
 import com.inkiu.twittersample.ui.base.BaseActivity
 import com.inkiu.twittersample.ui.base.BaseViewModel
-import com.inkiu.twittersample.ui.common.model.User
-import com.inkiu.twittersample.ui.common.model.UserDetail
+import com.inkiu.twittersample.model.User
+import com.inkiu.twittersample.model.UserDetail
 import com.inkiu.twittersample.ui.common.tweets.TweetAdapter
 import com.inkiu.twittersample.ui.common.tweets.TweetClickListener
 import com.inkiu.twittersample.ui.common.tweets.datasource.DataSourceState

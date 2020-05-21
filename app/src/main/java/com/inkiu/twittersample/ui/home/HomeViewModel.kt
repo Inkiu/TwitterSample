@@ -5,12 +5,11 @@ import androidx.paging.PagedList
 import com.inkiu.domain.usecase.GetHomeTweets
 import com.inkiu.domain.usecase.GetUser
 import com.inkiu.twittersample.di.PerActivity
-import com.inkiu.twittersample.di.PerFragment
 import com.inkiu.twittersample.ui.base.BaseViewModel
-import com.inkiu.twittersample.ui.common.model.Tweet
-import com.inkiu.twittersample.ui.common.model.User
-import com.inkiu.twittersample.ui.common.model.mapper.TweetEntityTweetMapper
-import com.inkiu.twittersample.ui.common.model.mapper.UserEntityUserMapper
+import com.inkiu.twittersample.model.Tweet
+import com.inkiu.twittersample.model.User
+import com.inkiu.twittersample.model.mapper.TweetEntityTweetMapper
+import com.inkiu.twittersample.model.mapper.UserEntityUserMapper
 import com.inkiu.twittersample.ui.common.tweets.datasource.HomeTweetDataSource
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.asExecutor

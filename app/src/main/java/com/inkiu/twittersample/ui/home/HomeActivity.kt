@@ -10,7 +10,7 @@ import com.inkiu.twittersample.R
 import com.inkiu.twittersample.common.image.ImageLoader
 import com.inkiu.twittersample.ui.base.BaseActivity
 import com.inkiu.twittersample.ui.base.BaseViewModel
-import com.inkiu.twittersample.ui.common.model.User
+import com.inkiu.twittersample.model.User
 import com.inkiu.twittersample.ui.common.tweets.TweetAdapter
 import com.inkiu.twittersample.ui.common.tweets.TweetClickListener
 import com.inkiu.twittersample.ui.common.tweets.datasource.DataSourceState
