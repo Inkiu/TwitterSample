@@ -12,7 +12,7 @@ class MediaDataToEntityMapper @Inject constructor()
     override fun map(src: MediaData): MediaEntity {
         return MediaEntity(
             id = src.id,
-            mediaUrl = src.url,
+            mediaUrl = "${src.url}:small",
             type = getType(src.type)
         )
     }
