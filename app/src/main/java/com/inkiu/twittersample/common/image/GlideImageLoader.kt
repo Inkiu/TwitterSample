@@ -5,7 +5,9 @@ import android.graphics.drawable.Drawable
 import android.widget.ImageView
 import androidx.annotation.DrawableRes
 import com.bumptech.glide.Glide
+import com.bumptech.glide.Priority
 import com.bumptech.glide.load.DataSource
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.withCrossFade
@@ -25,6 +27,10 @@ class GlideImageLoader @Inject constructor(
         .placeholder(R.drawable.ic_face_24dp)
         .error(R.drawable.ic_help_24dp)
 
+    private val normalRequestOptions = RequestOptions()
+        .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+        .priority(Priority.NORMAL)
+
     private val glide = Glide.with(context)
 
     override fun loadCircleProfile(
@@ -41,13 +47,15 @@ class GlideImageLoader @Inject constructor(
             .apply(option)
             .transition(withCrossFade())
             .thumbnail(thumbnail)
+            .listener(GlideListener(callback))
             .into(imageView)
     }
 
     override fun load(url: String, imageView: ImageView, callback: (Boolean) -> Unit) {
         glide.load(url)
+            .apply(normalRequestOptions)
             .transition(withCrossFade())
-            .thumbnail(glide.load(url).thumbnail(0.25f))
+            .listener(GlideListener(callback))
             .into(imageView)
     }
 
