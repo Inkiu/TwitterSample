@@ -74,6 +74,7 @@ class HomeActivity : BaseActivity(), TweetClickListener {
         viewModel.userData.observe(this, Observer {
             toolbar.title = it.displayName
             toolbar.subtitle = it.name
+            imageLoader.loadCircleProfile(it.profileUrl, toolbarImage)
         })
     }
 
