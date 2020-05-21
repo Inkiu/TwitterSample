@@ -1,6 +1,7 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
 
 android {
     compileSdkVersion 29
@@ -23,14 +24,57 @@ android {
         }
     }
 
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_1_8.toString()
+        freeCompilerArgs = ["-Xallow-result-return-type"]
+    }
 }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation 'androidx.appcompat:appcompat:1.1.0'
     implementation 'androidx.core:core-ktx:1.2.0'
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+
+    // Kotlin
+    implementation rootProject.ext.kotlin_base
+    implementation rootProject.ext.kotlin_android_ktx
+    implementation rootProject.ext.kotlin_coroutine
+    implementation rootProject.ext.kotlin_coroutine_android
+
+    // Retrofit
+    def retrofit_version = "2.6.0"
+    implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
+    implementation "se.akerfeldt:okhttp-signpost:1.1.0"
+    implementation "oauth.signpost:signpost-core:1.2.1.2"
+    implementation "com.squareup.okhttp3:logging-interceptor:4.1.0"
+    implementation 'com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:0.9.2'
+
+    // Moshi
+    def moshiVersion = "1.8.0"
+    implementation "com.squareup.moshi:moshi:$moshiVersion"
+    implementation "com.squareup.moshi:moshi-kotlin:$moshiVersion"
+    kapt "com.squareup.moshi:moshi-kotlin-codegen:$moshiVersion"
+    implementation 'com.squareup.retrofit2:converter-moshi:2.4.0'
+
+    // Dagger
+    implementation rootProject.ext.dagger
+    kapt rootProject.ext.dagger_compiler
+    implementation rootProject.ext.dagger_android
+    kapt rootProject.ext.dagger_android_processor
+    implementation rootProject.ext.dagger_android_support
+    kapt rootProject.ext.dagger_android_support
+
+    // Tests
+    testImplementation rootProject.ext.junit
+    testImplementation rootProject.ext.mockito
+    testImplementation rootProject.ext.hamcrest
+    testImplementation rootProject.ext.coroutine_test
+    androidTestImplementation rootProject.ext.androidx_test
+    androidTestImplementation rootProject.ext.coroutine_test
+    androidTestImplementation rootProject.ext.mockito
+    androidTestImplementation rootProject.ext.android_test_runner
+    androidTestImplementation rootProject.ext.android_test_espresso
+
+    // Modules
+    implementation project(':domain')
 }

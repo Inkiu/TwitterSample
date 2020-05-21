@@ -3,7 +3,22 @@ apply plugin: 'kotlin'
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+
+    // Kotlin
+    implementation rootProject.ext.kotlin_base
+    implementation rootProject.ext.kotlin_coroutine
+    implementation rootProject.ext.kotlin_coroutine_android
+
+    // Tests
+    testImplementation rootProject.ext.junit
+    testImplementation rootProject.ext.mockito
+    testImplementation rootProject.ext.hamcrest
+    testImplementation rootProject.ext.coroutine_test
+}
+
+compileKotlin {
+    kotlinOptions.jvmTarget = JavaVersion.VERSION_1_8.toString()
+    kotlinOptions.freeCompilerArgs = ["-Xallow-result-return-type"]
 }
 
 sourceCompatibility = "7"
